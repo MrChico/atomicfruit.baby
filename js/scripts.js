@@ -4,7 +4,7 @@
 	var $fullscreen_gallery = jQuery('.fullscreen-gallery.gallery');
 	if ( $fullscreen_gallery.length > 0 ) {
 
-		if ( $fullscreen_gallery.find('.gallery-item').length > 0 ) { // if there are more than 1 image
+		if ( $fullscreen_gallery.find('.gallery-item').length > 1 ) { // if there are more than 1 image
 			
 			if ( !$fullscreen_gallery.hasClass('kenburns-gallery') ) {	// do not initialize if kenburns
 				jQuery('#footer').prepend('<nav id="gallerynav"><a href="#" class="thumbs">	<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">	<rect width="5" height="5" x="0"   y="0" /><rect width="5" height="5" x="8" y="0" /><rect width="5" height="5" x="0" y="8" /><rect width="5" height="5" x="8" y="8" /></svg></a><a href="#" class="prev">&lt;</a> <a href="#" class="pause">&#9614;&#9614;</a> <a href="#" class="next">&gt;</a></nav>');
@@ -12,7 +12,7 @@
 				$fullscreen_gallery.before('<ul id="gallerythumbs">').cycle({
 					slideExpr: '.gallery-item',
 					fx:        'fade', 
-		   			speed:     0, 
+		   			speed:     1000, 
 					timeout:   5000,
 					pager:   	 '#gallerythumbs', 
 					slideResize: true,
