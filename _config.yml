@@ -1,7 +1,7 @@
 # Site settings
-title: PHOTORAMA
+title: ATOMIC FRUIT
 email: ""
-description: "Photo Journal"
+description: "Electronic rock band"
 url: "https://mrchico.github.io"
 baseurl: "/asdasd"
 soundcloud_username: "atomic_fruit"
@@ -10,10 +10,10 @@ share: true
 
 # Owner/author information
 owner:
-  name:   photorama
+  name:   atomic fruit
   avatar: avatar.png
   favicon: favicon.ico
-  info: photography website template
+  info: electronic rock band
 
 # Settings for comments helper
 # Set 'provider' to the comment provider you want to use. (i.e.  Disqus, Intense Debate, livefyre, or Facebook Comments)
@@ -28,8 +28,6 @@ comments :
 
 # Internal nav
 nav:
-  - GALLERY: "https://mrchico.github.io/asdasd/gallery/"  
-  - JOURNAL: "https://mrchico.github.io/asdasd/journal/"
   - ABOUT: "https://mrchico.github.io/asdasd/about/"
 
 # All translation keys
