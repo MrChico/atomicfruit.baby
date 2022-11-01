@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet" /><link href="./css/main.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="v1_172"></div>
+    <span class="divider">ABOUT</span>
+    <div class="about">
+      <span class="v1_174">
+	Atomic Fruit is an art rock ensemble from Berlin, combining hypnotic electronic textures with the flesh-and-blood sounds of organic instruments. Innovative yet catchy, their music draws inspiration from experimental rock, trip hop, electronic folk and traditional north African music. The band's lyrics provide commentary on urgent questions facing our species while avoiding the pitfalls of topical songwriting, exploring deeper metaphysical themes instead: our attempts to define, measure and control a world that defies our comprehension; the grandiose ambitions that quickly become our undoing; and the life-affirming power of shared transcendental experiences.
+      </span>
+      <div class="aboutpic"></div>
+    </div>
+    <!--   <span class="v1_176">Meet the band</span> -->
+    <!--   <span class="v1_177">Meet the band</span> -->
+    <!--   <span class="v1_178">Meet the band</span> -->
+    <!--   <div class="v1_179"></div> -->
+    <!--   <div class="v1_180"></div> -->
+    <!--   <div class="v1_181"></div> -->
+    <!--   <div class="v1_182"></div> -->
+    <!--   <div class="v1_183"> -->
+    <!-- 	<div class="v1_184"></div> -->
+    <!-- 	<div class="v1_185"></div> -->
+    <!-- 	<div class="v1_186"></div> -->
+    <!-- 	<div class="v1_187"></div> -->
+    <!-- 	<div class="v1_188"></div> -->
+    <!-- 	<div class="v1_189"></div> -->
+    <!--   </div> -->
+    <!--   <div class="v1_190"></div> -->
+  </body>
+</html>
