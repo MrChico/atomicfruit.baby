@@ -27,10 +27,12 @@ html,body {
 .divider {
   color: rgba(255,255,255,1);
   position: relative;
-  height: 140px;
   margin-left: auto;
-  top: 40px;
   margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 50px;
+  top: 0px;
   display: block;
   font-family: Rokkitt;
   font-weight: Medium;
@@ -39,52 +41,55 @@ html,body {
   text-align: center;
 }
 
+/* .bg-img { */
+/*     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url("../images/v1_172.png"); */
+/*     background-size: cover; */
+/*     background-repeat: repeat-y;     */
+/* } */
+
 .about {
-    height: 50%;
+    height: 80%;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
     position: relative;
+    display: block;
+    float: top;
+    clear: both;
 }
 
 .aboutpic {
   width: 70%;
-  height: 70%;
+  height: 100%;
   background: url("../images/v1_173.jpeg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  float: left;
   opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 5%;
+  position: absolute;
   overflow: visible;
 }
 
 .abouttext {
   width: 56%;
-  max-heigth: 70%;
+  max-height: 100%;
   color: rgba(255,255,255,1);
   overflow-wrap: break-word;
   line-height: 1.5;
-  float: left;
   z-index: 9999;
-  display: block;
   left: 40%;
-  top: 30%;
+  display: block;
+  bottom: 20px;
+  margin-top: auto;
   font-family: Roboto;
-  position: relative;
+  position: absolute;
   font-weight: Regular;
   font-size: 20px;
   opacity: 1;
   text-align: left;
-  overflow: visible;
+  overflow: scroll;
 }
-.fa-stack-2x {
- color: black;
-}
-
-
 .pics {
   width: 65%;
   margin-left: auto;
@@ -100,8 +105,8 @@ html,body {
   overflow: hidden;
 }
 .v1_184 {
-  width: 51%;
-  height: 30%;
+  width: 55%;
+  height: 40%;
   background: url("../images/v1_184.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -113,8 +118,8 @@ html,body {
   overflow: hidden;
 }
 .v1_185 {
-  width: 46%;
-  height: 40%;
+  width: 45%;
+  height: 50%;
   background: url("../images/v1_185.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -122,33 +127,33 @@ html,body {
   opacity: 1;
   position: absolute;
   top: 0px;
-  left: 52%;
+  left: 56%;
   overflow: hidden;
 }
 .v1_186 {
-  height: 50%;
-  width: 51%;
+  height: 60%;
+  width: 55%;
   background: url("../images/v1_186.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 31%;
+  top: 41%;
   left: 0px;
   overflow: hidden;
 }
 .v1_187 {
-  height: 40%;
-  width: 46%;  
+  height: 50%;
+  width: 45%;  
   background: url("../images/v1_187.jpeg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 41%;
-  left: 52%;
+  top: 51%;
+  left: 56%;
   overflow: hidden;
 }
 .v1_188 {
@@ -187,6 +192,17 @@ html,body {
     allow: autoplay;
 }
 
-.soundcloudtext {
+.list {
+    width: 100%;
+    text-align: center;
+}
+
+.item {
+    display: inline;
+}
+
+.fa-stack-1x,fa-stack-2x {
+    width: 100px
+    float: left;
     
 }
