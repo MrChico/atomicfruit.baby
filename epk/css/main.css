@@ -25,6 +25,9 @@
 	width: 75%;
 	line-height: 1.25em;
     }
+    .modal-content {
+	width: 95%;
+    }
 
      /* 
       * This code will apply 
@@ -54,7 +57,9 @@
 	width: 60%;
 	line-height: 1.5em;
     }
-
+    .modal-content {
+	height: 95%;
+    }
 	
      /* 
       * This code will not apply
@@ -302,10 +307,11 @@ html,body {
 
 /* Modal Content (Image) */
 .modal-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: auto;
-  display: block;
   color: white;
-  height: 95%;
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
