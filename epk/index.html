@@ -1,17 +1,17 @@
 <!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet" /><link href="css/main.css" rel="stylesheet" />
-    <title>Document</title>
+    <title>ATOMIC FRUIT</title>
   </head>
   <body>
     <div class="hero"></div>
     <span class="divider">ABOUT</span>
     <div class="about">
+      <div class="aboutpic"></div>
       <div class="abouttext">
 	Blending psychedelic rock, trip hop and desert blues, Atomic Fruit defies the divide between rock and electronic music.<br><br>
 	With effects-laden guitars, dreamy vocals and mesmerizing grooves, the Berlin based art rock group takes the listener on a journey through different soundscapes as their songs develop and evolve. Marked by ominous harmonies and suggestive lyrics, their music is a response to the modern world – our attempts to control and understand it, the ambitions that quickly become our undoing, and the life-affirming power of transcendental experiences.<br><br>
-	Atomic Fruit is currently recording their debut album to be released in 2023.  </div>
-      <div class="aboutpic"></div>
+	Atomic Fruit is currently recording their debut album to be released in 2023.</div>
     </div>
     <div class="bg-img">
       <div class="divider">MUSIC
@@ -22,38 +22,103 @@
       <div class="divider">IMAGES
       </div>
       <div class="pics">
-	<div class="v1_184"></div>
-	<div class="v1_185"></div>
-	<div class="v1_186"></div>
-	<div class="v1_187"></div>
+	<img id="v1_184" class="v1_184" src="./images/v1_184.png"></img>
+	<img id="v1_185" class="v1_185" src="./images/v1_185.png"></img>
+	<img id="v1_186" class="v1_186" src="./images/v1_186 copy.png"></img>
+	<img id="v1_187" class="v1_187" src="./images/v1_187.jpeg"></img>
+	<img id="v1_188" class="v1_188" src="./images/v1_188.png"></img>
       </div>
       <div class="divider">CONTACT</div>
       <ul class="list">
-      <li class="item">
-	<a href="https://soundcloud.com/atomic_fruit" data-toggle="tooltip" title="Soundcloud">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-soundcloud fa-stack-1x fa-inverse"></i>
-          </span>
-	</a>
-      </li>
-      <li class="item">
-	<a href="https://instagram.com/atomic_fruit" data-toggle="tooltip" title="Instagram">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-          </span>
-	</a>
-      </li>
-      <li class="item">
-	<a href="mailto:{{ contact@atomicfruit.baby }}" data-toggle="tooltip" target="_blank" title="Email">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
-	  </span>
-	</a>
-      </li>
+	<li class="item">
+	  <a href="https://soundcloud.com/atomic_fruit" data-toggle="tooltip" title="Soundcloud">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-soundcloud fa-stack-1x fa-inverse"></i>
+            </span>
+	  </a>
+	</li>
+	<li class="item">
+	  <a href="https://instagram.com/atomic_fruit" data-toggle="tooltip" title="Instagram">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+            </span>
+	  </a>
+	</li>
+	<li class="item">
+	  <a href="mailto:{{ contact@atomicfruit.baby }}" data-toggle="tooltip" target="_blank" title="Email">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+	    </span>
+	  </a>
+	</li>
       </ul>
     </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- The Close Button -->
+      <span class="close">
+	<i class='fa fa-close'></i>
+      </span>
+      <!-- The download Button -->
+      <span class="download">
+	<i class="fa fa-download" aria-hidden="true"></i>
+      </span>
+
+      <!-- Modal Content (The Image) -->
+      <img class="modal-content" id="img01">
+
+      <!-- Modal Caption (Image Text) -->
+      <div id="caption"></div>
+    </div> 
   </body>
 </html>
+<script>
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the image and insert it inside the modal - use its "alt" text as a caption
+  var img184 = document.getElementById("v1_184");
+  var img185 = document.getElementById("v1_185");
+  var img186 = document.getElementById("v1_186");
+  var img187 = document.getElementById("v1_187");
+  var img188 = document.getElementById("v1_188");
+  var modalImg = document.getElementById("img01");
+  var captionText = document.getElementById("caption");
+  var onclicckk = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+  }
+
+  img184.onclick = onclicckk;
+  img185.onclick = onclicckk;
+  img186.onclick = onclicckk;
+  img187.onclick = onclicckk;
+  img188.onclick = onclicckk;
+  
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+  // Get the <span> element that closes the modal
+  var dl = document.getElementsByClassName("download")[0];
+  
+
+  // When the user clicks on <span> (x), close the modal
+  dl.onclick = function() {
+      const a = document.createElement("a");
+      a.href = "";
+      a.download = modalImg.src;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+  }
+
+</script>

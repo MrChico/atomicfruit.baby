@@ -2,6 +2,58 @@
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 700px) {
+
+    .about {
+	width: 90%;
+    }
+    .aboutpic {
+	left: 5%;
+    }
+    .pics {
+	height: 100%;
+	width: 90%;
+    }
+    .soundcloudiframe {
+	width: 90%;
+    }
+    .abouttext {
+	left: 30%;
+	line-height: 1em;
+    }
+
+     /* 
+      * This code will apply 
+      */
+}
+
+@media screen and (min-width: 701px) {
+    .about {
+	width: 67%;
+    }
+    .aboutpic {
+	left: 25%;
+    }
+
+    .pics {
+	height: 160%;
+	width: 67%;
+    }
+    .soundcloudiframe {
+	width: 67%;
+    }
+    .abouttext {
+	left: 50%;
+	line-height: 1.5em;
+    }
+
+	
+     /* 
+      * This code will not apply
+      */
+}
+
+
 html,body {
     font-size: 14px;
     height: 100%;
@@ -51,57 +103,48 @@ html,body {
 }
 
 .about {
-    height: 80%;
-    width: 70%;
+    min-height: 60%;
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    display: block;
+    display: inline-block;
     float: top;
     clear: both;
 }
 
 .aboutpic {
-  width: 70%;
-  height: 100%;
+  width: 75%;
+  height: 90%;
   background: url("../images/v1_173.jpeg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  float: left;
+  display: inline;
   opacity: 1;
   position: absolute;
   overflow: visible;
 }
 
 .abouttext {
-  width: 56%;
-  max-height: 100%;
+  width: 60%;
+  height: 100%;
   color: rgba(255,255,255,1);
   overflow-wrap: break-word;
-  line-height: 1.5;
   z-index: 9999;
-  left: 40%;
+  top: 50px;
   display: block;
-  bottom: 20px;
   margin-top: auto;
   font-family: Roboto;
-  position: absolute;
+  position: relative;
   font-weight: Regular;
   font-size: 20px;
   opacity: 1;
   text-align: left;
-  overflow: scroll;
+  overflow: visible;
 }
 .pics {
-  width: 65%;
   margin-left: auto;
   margin-right: auto;
-  height: 180%;
-  background: url("../images/v1_183.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
   opacity: 1;
   display: block;
   position: relative;
@@ -109,83 +152,87 @@ html,body {
 }
 .v1_184 {
   width: 55%;
-  height: 40%;
-  background: url("../images/v1_184.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  height: 30%;
   opacity: 1;
   position: absolute;
   top: 0px;
   left: 0px;
   overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+  object-fit: cover;
 }
 .v1_185 {
   width: 45%;
-  height: 50%;
-  background: url("../images/v1_185.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  height: 45%;
   opacity: 1;
   position: absolute;
   top: 0px;
   left: 56%;
   overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+  object-fit: cover;
 }
 .v1_186 {
-  height: 60%;
+  height: 50%;
   width: 55%;
-  background: url("../images/v1_186 copy.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 41%;
+  top: 31%;
   left: 0px;
   overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+  object-fit: cover;
 }
 .v1_187 {
-  height: 50%;
+  height: 35%;
   width: 45%;  
-  background: url("../images/v1_187.jpeg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 51%;
+  top: 46%;
   left: 56%;
   overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+  object-fit: cover;
 }
+
 .v1_188 {
-  width: 100%;
-  height: 20%;
-  background: url("../images/v1_188.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  opacity: 1;
-  position: absolute;
-  top: 300%
-  left: 0px;
-  overflow: hidden;
-}
-.v1_189 {
-  height: 40%;
-  width: 100%;
-  background: url("../images/v1_189.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  width: 101%;
+  height: 25%;
   opacity: 1;
   position: absolute;
   top: 82%;
+  left: 0px;
   overflow: hidden;
-} 
+  cursor: pointer;
+  transition: 0.3s;
+  object-fit: cover;
+}
+
+.v1_184:hover {opacity: 0.7;}
+.v1_185:hover {opacity: 0.7;}
+.v1_186:hover {opacity: 0.7;}
+.v1_187:hover {opacity: 0.7;}
+.v1_188:hover {opacity: 0.7;}
+
+/* .v1_189 { */
+/*   height: 40%; */
+/*   width: 100%; */
+/*   background: url("../images/v1_189.png"); */
+/*   background-repeat: no-repeat; */
+/*   background-position: center center; */
+/*   background-size: cover; */
+/*   opacity: 1; */
+/*   position: absolute; */
+/*   top: 82%; */
+/*   overflow: hidden; */
+/* } */
+
+
 .soundcloudiframe {
-    width: 65%;
     height: 166;
     display: block;
     margin-left: auto;
@@ -212,4 +259,102 @@ html,body {
 .fa-stack-1x,fa-stack-2x {
     width: 100px
     float: left;  
+}
+
+
+/* Style the Image Used to Trigger the Modal */
+#myImg {
+  height: 40%;
+  width: 40%;
+  cursor: pointer;
+  transition: 0.3s;
+  background: url("../images/v1_189.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 999; /* Sit on top */
+  padding-top: 5%; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  color: white;
+  height: 95%;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 30px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+.download {
+  position: absolute;
+  top: 22px;
+  right: 80px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #f1f1f1;
+  transition: 0.3s;
+}
+
+.download:hover,
+.download:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }
