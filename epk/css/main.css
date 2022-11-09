@@ -28,6 +28,12 @@
     .modal-content {
 	width: 95%;
     }
+    .close {
+	display: none;
+    }
+    .download {
+	display: none;
+    }
 
      /* 
       * This code will apply 

@@ -112,7 +112,10 @@
       modal.style.display = "none";
   }
 
-  tapme.addEventListener('touchend', closex);
+  tapme.addEventListener('touchend', function(evt) {
+      evt.preventDefault();
+      modal.style.display = "none";
+  });
   span.onclick = closex;
   // Get the <span> element that closes the modal
   var dl = document.getElementsByClassName("download")[0];
