@@ -7,6 +7,9 @@
     .about {
 	width: 90%;
     }
+    .hero {
+	background-image: url("../images/mobile.png");
+    }
     .aboutpic {
 	left: 5%;
     }
@@ -19,7 +22,8 @@
     }
     .abouttext {
 	left: 30%;
-	line-height: 1em;
+	width: 75%;
+	line-height: 1.25em;
     }
 
      /* 
@@ -28,6 +32,9 @@
 }
 
 @media screen and (min-width: 701px) {
+    .hero {
+	background-image: url("../images/logo wide.png");
+    }
     .about {
 	width: 67%;
     }
@@ -44,6 +51,7 @@
     }
     .abouttext {
 	left: 50%;
+	width: 60%;
 	line-height: 1.5em;
     }
 
@@ -66,7 +74,6 @@ html,body {
     margin-right: auto;
     top: 0px;
     left: 0px;
-    background-image: url("../images/logo wide.png");
     background-size: cover;
     position: relative;    
     background-repeat: no-repeat;
@@ -126,7 +133,6 @@ html,body {
 }
 
 .abouttext {
-  width: 60%;
   height: 100%;
   color: rgba(255,255,255,1);
   overflow-wrap: break-word;
