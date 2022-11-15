@@ -388,7 +388,7 @@ html,body {
 
 #magic {
   position: absolute;
-  opacity: 0;
+  opacity: 0.7;
   display: block;
   width: 100%;
   overflow: visible;
