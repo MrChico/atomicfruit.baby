@@ -8,7 +8,7 @@
 	width: 90%;
     }
     .hero {
-	background-image: url("../images/mobile copy.png");
+	background-image: url("../images/mobile copy.jpeg");
     }
     .aboutpic {
 	left: 5%;
@@ -46,7 +46,7 @@
 
 @media screen and (min-width: 701px) {
     .hero {
-	background-image: url("../images/without text.png");
+	background-image: url("../images/without text.jpeg");
     }
     .about {
 	width: 67%;
