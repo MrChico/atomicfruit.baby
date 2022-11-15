@@ -46,7 +46,8 @@
 
       var typo = null;
       const loader = new THREE.FontLoader( manager );
-      const font = loader.load('https://res.cloudinary.com/dydre7amr/raw/upload/v1612950355/font_zsd4dr.json', function ( font ) { typo = font; });
+      const font = loader.load('fashion_fetish.json', function ( font ) { typo = font; });
+//      const font = loader.load('https://res.cloudinary.com/dydre7amr/raw/upload/v1612950355/font_zsd4dr.json', function ( font ) { typo = font; });
       const particle = new THREE.TextureLoader( manager ).load( 'https://res.cloudinary.com/dfvtkoboz/image/upload/v1605013866/particle_a64uzf.png');
 
   }
@@ -136,11 +137,12 @@
 
 	  this.data = {
 
-	      text: 'ATOMIC\n         FRUIT',
+	      text: 'ATOMIC\n       FRUIT',
+//	      lineSpacing: 2em,
 	      amount: 1500,
-	      particleSize: 3,
-	      particleColor: 0xf0f0f0,
-	      textSize: 22,
+	      particleSize: 2,
+	      particleColor: 0x000000,
+	      textSize: 16,
 	      area: 250,
 	      ease: .1,
 	  }
@@ -154,7 +156,7 @@
       setup(){
 
 	  const geometry = new THREE.PlaneGeometry( this.visibleWidthAtZDepth( 100, this.camera ), this.visibleHeightAtZDepth( 100, this.camera ));
-	  const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, transparent: false } );
+	  const material = new THREE.MeshBasicMaterial( { color: 0x000000, transparent: false, blending: THREE.MultiplyBlending } );
 	  this.planeArea = new THREE.Mesh( geometry, material );
 	  this.planeArea.visible = false;
 	  this.createText();
@@ -170,9 +172,9 @@
       }
 
       onMouseDown(){
-	  
-	  this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	  this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	  this.container = document.querySelector( '#magic' );
+	  this.mouse.x = ( event.clientX / this.container.clientWidth ) * 2 - 1;
+	  this.mouse.y = - ( event.clientY / this.container.clientHeight ) * 2 + 1;
 
 	  const vector = new THREE.Vector3( this.mouse.x, this.mouse.y, 0.5);
 	  vector.unproject( this.camera );
@@ -193,9 +195,9 @@
       }
 
       onMouseMove( ) { 
-
-	  this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	  this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	  this.container = document.querySelector( '#magic' );
+	  this.mouse.x = ( event.clientX / this.container.clientWidth ) * 2 - 1;
+	  this.mouse.y = - ( event.clientY / this.container.clientHeight ) * 2 + 1;
 
       }
 
@@ -228,7 +230,7 @@
 		  let py = pos.getY(i);
 		  let pz = pos.getZ(i);
 
-		  this.colorChange.setHSL( .5, .1 , .1 )
+		  this.colorChange.setHSL( .5, .5 , .4 )
 		  coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 		  coulors.needsUpdate = true;
 
@@ -249,13 +251,15 @@
 		      px -= f * Math.cos( t );
 		      py -= f * Math.sin( t );
 
-		      this.colorChange.setHSL( .5 + zigzagTime, 1.0 , .5 )
+		      this.colorChange.setHSL( .5 + zigzagTime, 1.0 , .4 )
+//		      		  this.colorChange.setHSL( 1, 1 , 1 )
 		      coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 		      coulors.needsUpdate = true;
 
 		      if ((px > (initX + 70)) || ( px < (initX - 70)) || (py > (initY + 70) || ( py < (initY - 70)))){
 
-			  this.colorChange.setHSL( 1 , 1 , 1 )
+//			  this.colorChange.setHSL( 1 , 1 , 1 )
+			  this.colorChange.setHSL( .5, .1 , .1 )
 		    	  coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 		    	  coulors.needsUpdate = true;
 
@@ -271,7 +275,7 @@
 			      px -= .03 * Math.cos( t );
 			      py -= .03 * Math.sin( t );
 
-			      this.colorChange.setHSL( 1 , 1 , 1 )
+			      this.colorChange.setHSL( 0.5 , .5 , .1 )
 			      coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 			      coulors.needsUpdate = true;
 
@@ -292,8 +296,8 @@
 			  }
 
 			  if ((px > (initX + 10)) || ( px < (initX - 10)) || (py > (initY + 10) || ( py < (initY - 10)))){
-
-			      this.colorChange.setHSL( 1 , 1 , 1 )
+			      this.colorChange.setHSL( .5, .1 , 1 )
+//			      this.colorChange.setHSL( 1 , 1 , 1 )
 			      coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 			      coulors.needsUpdate = true;
 
@@ -319,7 +323,6 @@
       createText(){ 
 
 	  let thePoints = [];
-
 	  let shapes = this.font.generateShapes( this.data.text , this.data.textSize  );
 	  let geometry = new THREE.ShapeGeometry( shapes );
 	  geometry.computeBoundingBox();
@@ -377,7 +380,7 @@
 	  const material = new THREE.ShaderMaterial( {
 
 	      uniforms: {
-		  color: { value: new THREE.Color( 0xffffff ) },
+		  color: { value: new THREE.Color( 0xa0a0a0 ) },
 		  pointTexture: { value: this.particleImg }
 	      },
 	      vertexShader: document.getElementById( 'vertexshader' ).textContent,
@@ -468,7 +471,7 @@
 	  </a>
 	</li>
 	<li class="item">
-	  <a href="mailto:{{ contact@atomicfruit.baby }}" data-toggle="tooltip" target="_blank" title="Email">
+	  <a href="mailto:contact@atomicfruit.baby" data-toggle="tooltip" target="_blank" title="Email">
             <span class="fa-stack fa-lg">
               <i class="fa fa-circle fa-stack-2x"></i>
               <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>

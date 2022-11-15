@@ -8,7 +8,7 @@
 	width: 90%;
     }
     .hero {
-	background-image: url("../images/mobile.png");
+	background-image: url("../images/mobile copy.png");
     }
     .aboutpic {
 	left: 5%;
@@ -33,6 +33,10 @@
     }
     .download {
 	display: none;
+    }
+    #magic {
+	height: 40%;
+	top: 10%;
     }
 
      /* 
@@ -66,6 +70,11 @@
     .modal-content {
 	height: 95%;
     }
+    #magic {
+	height: 50%;
+	top: 0%;
+    }
+
 	
      /* 
       * This code will not apply
@@ -378,12 +387,10 @@ html,body {
 }
 
 #magic {
-
   position: absolute;
-  width: 100%;
-  height: 50%;
+  opacity: 0;
   display: block;
-  top: 0;
-  left: 0%;
+  width: 100%;
+  overflow: visible;
   z-index: 9999;
 }
