@@ -63,8 +63,8 @@
 	width: 67%;
     }
     .abouttext {
-	left: 50%;
-	width: 60%;
+	left: 67%;
+	width: 50%;
 	line-height: 1.5em;
     }
     .modal-content {
@@ -109,7 +109,8 @@ html,body {
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
-  padding: 50px;
+  padding-top: 140px;
+  padding-bottom: 50px;
   top: 0px;
   display: block;
   font-family: Rokkitt;
@@ -122,7 +123,7 @@ html,body {
 .bg-img {
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../images/v1_172.png");
     background-size: cover;
-    height: 100%;
+    width: 100%;
     display: inline;
     position: relative;
     background-position: center center;
@@ -141,7 +142,7 @@ html,body {
 
 .aboutpic {
   width: 75%;
-  height: 90%;
+  height: 500px;
   background: url("../images/v1_173.jpeg");
   background-repeat: no-repeat;
   background-position: center center;
@@ -162,7 +163,7 @@ html,body {
   margin-top: auto;
   font-family: Georgia;
   position: relative;
-  font-weight: Regular;
+  font-weight: light;
   font-size: 20px;
   opacity: 1;
   text-align: left;
@@ -260,6 +261,8 @@ html,body {
 
 .soundcloudiframe {
     height: 166;
+    padding: 10px;
+    border: none;
     display: block;
     margin-left: auto;
     margin-right: auto;
