@@ -165,13 +165,14 @@
 
       bindEvents() {
 
-	  document.addEventListener( 'mousedown', this.onMouseDown.bind( this ));
+	  document.addEventListener( 'touchstart mousedown', this.onMouseDown.bind( this ));
 	  document.addEventListener( 'mousemove', this.onMouseMove.bind( this ));
-	  document.addEventListener( 'mouseup', this.onMouseUp.bind( this ));
+	  document.addEventListener( 'touchstop mouseup', this.onMouseUp.bind( this ));
 	  
       }
 
       onMouseDown(){
+	  this.preventDefault();
 	  this.container = document.querySelector( '#magic' );
 	  this.mouse.x = ( event.clientX / this.container.clientWidth ) * 2 - 1;
 	  this.mouse.y = - ( event.clientY / this.container.clientHeight ) * 2 + 1;
@@ -189,7 +190,7 @@
       }
 
       onMouseUp(){
-
+	  this.preventDefault();
 	  this.buttom = false;
 	  this.data.ease = .05;
       }
