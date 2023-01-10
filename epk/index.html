@@ -4,6 +4,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet" /><link href="css/main.css" rel="stylesheet" />
+    <script src="../CCapture.min.js"></script>
     <script type="x-shader/x-vertex" id="vertexshader">
 
       attribute float size;
@@ -36,6 +37,7 @@
       }
     </script>
     <script type="module">
+      
   import * as THREE from "https://cdn.skypack.dev/three@0.132.2";
   const preload = () => {
 
@@ -83,9 +85,14 @@
       }
 
       render() {
-	  
+//	  let renderr = this.render;
+//	  requestAnimationFrame(	  this.createParticles.render);
 	  this.createParticles.render()
 	  this.renderer.render( this.scene, this.camera )
+	  var container = document.querySelector('#magic');
+//	  console.log(container.);
+	  capturer.capture(container.children[0]);
+//	  capturer.capture( this.container );
       }
 
       createCamera() {
@@ -137,7 +144,7 @@
 
 	  this.data = {
 
-	      text: 'ATOMIC\n       FRUIT',
+	      text: 'HIBERNATED\n       EMBRACE',
 //	      lineSpacing: 2em,
 	      amount: 1500,
 	      particleSize: 2,
@@ -160,7 +167,7 @@
 	  this.planeArea = new THREE.Mesh( geometry, material );
 	  this.planeArea.visible = false;
 	  this.createText();
-
+	  this.buttom.true;
       }
 
       bindEvents() {
@@ -190,8 +197,8 @@
       }
 
       onMouseUp(){
-	  this.buttom = false;
-	  this.data.ease = .05;
+//	  this.buttom = false;
+//	  this.data.ease = .05;
       }
 
       onMouseMove( ) { 
@@ -237,7 +244,8 @@
 		  let py = pos.getY(i);
 		  let pz = pos.getZ(i);
 
-		  this.colorChange.setHSL( .5, .5 , .4 )
+//		  this.colorChange.setHSL( .5, .5 , .4 )
+		  this.colorChange.setHSL( 1, 1 , 1 )
 		  coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 		  coulors.needsUpdate = true;
 
@@ -259,14 +267,14 @@
 		      py -= f * Math.sin( t );
 
 		      this.colorChange.setHSL( .5 + zigzagTime, 1.0 , .4 )
-//		      		  this.colorChange.setHSL( 1, 1 , 1 )
+		      		  this.colorChange.setHSL( 1, 1 , 1 )
 		      coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 		      coulors.needsUpdate = true;
 
 		      if ((px > (initX + 70)) || ( px < (initX - 70)) || (py > (initY + 70) || ( py < (initY - 70)))){
 
-//			  this.colorChange.setHSL( 1 , 1 , 1 )
 			  this.colorChange.setHSL( .5, .1 , .1 )
+			  this.colorChange.setHSL( 1 , 1 , 1 )
 		    	  coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 		    	  coulors.needsUpdate = true;
 
@@ -295,7 +303,7 @@
 			      px += f * Math.cos( t );
 			      py += f * Math.sin( t );
 
-			      pos.setXYZ( i, px, py, pz );
+//			      pos.setXYZ( i, px, py, pz );
 			      pos.needsUpdate = true;
 
 			      size.array[ i ]  = this.data.particleSize * 1.3 ;
@@ -304,7 +312,7 @@
 
 			  if ((px > (initX + 10)) || ( px < (initX - 10)) || (py > (initY + 10) || ( py < (initY - 10)))){
 			      this.colorChange.setHSL( .5, .1 , 1 )
-//			      this.colorChange.setHSL( 1 , 1 , 1 )
+			      this.colorChange.setHSL( 1 , 1 , 1 )
 			      coulors.setXYZ( i, this.colorChange.r, this.colorChange.g, this.colorChange.b )
 			      coulors.needsUpdate = true;
 
@@ -429,13 +437,39 @@
 	  return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
       }
   }
-</script>
+      // Create a capturer that exports JPEG images in a TAR file
+      var capturer = new CCapture( {
+	  framerate: 60,
+	  format: 'jpg',
+	  timeLimit: 12
+      } );
+      var recording = false;
 
+      function rec() {
+	  if (recording) {
+	      capturer.stop();
+	      capturer.save();
+	  } else {
+	      capturer.start();
+	  }
+      }
+
+      function timeout(ms) {
+	  return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      async function sleep() {
+	  await timeout(6000);
+	  return rec();
+      }
+      sleep();
+
+    </script>
     <title>ATOMIC FRUIT</title>
   </head>
   <body>
     <div class="hero"></div>
     <div id="magic"></div>
+    <button onclick="rec()">record</button> 
     <span class="divider">ABOUT</span>
     <div class="about">
       <div class="aboutpic"></div>
@@ -449,13 +483,13 @@
       </div>
       <iframe class="soundcloudiframe" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1370015404%3Fsecret_token%3Ds-VD1bvwbPFzf&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
       <iframe class="soundcloudiframe" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1348843945%3Fsecret_token%3Ds-RDFy4WkYuvH&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-      <iframe class="soundcloudiframe" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1370019772%3Fsecret_token%3Ds-57cyzQjQ8Qe&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+      <iframe class="soundcloudiframe" height="500" src="https://www.youtube.com/embed/KjPKwBcHr5o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       <div class="divider">IMAGES
       </div>
       <div class="pics">
 	<img id="v1_184" class="v1_184" src="./images/v1_184.png"></img>
 	<img id="v1_185" class="v1_185" src="./images/v1_185.png"></img>
-	<img id="v1_186" class="v1_186" src="./images/v1_186 copy.png"></img>
+	<img id="v1_186" class="v1_186" src="./images/fardismaller.jpg"></img>
 	<img id="v1_187" class="v1_187" src="./images/v1_187.jpeg"></img>
 	<img id="v1_188" class="v1_188" src="./images/v1_188.png"></img>
       </div>
