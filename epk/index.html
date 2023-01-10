@@ -4,7 +4,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Rokkitt&display=swap" rel="stylesheet" /><link href="css/main.css" rel="stylesheet" />
-    <script src="../CCapture.min.js"></script>
     <script type="x-shader/x-vertex" id="vertexshader">
 
       attribute float size;
@@ -91,7 +90,7 @@
 	  this.renderer.render( this.scene, this.camera )
 	  var container = document.querySelector('#magic');
 //	  console.log(container.);
-	  capturer.capture(container.children[0]);
+//	  capturer.capture(container.children[0]);
 //	  capturer.capture( this.container );
       }
 
@@ -144,7 +143,7 @@
 
 	  this.data = {
 
-	      text: 'HIBERNATED\n       EMBRACE',
+              text: 'ATOMIC\n       FRUIT',
 //	      lineSpacing: 2em,
 	      amount: 1500,
 	      particleSize: 2,
@@ -167,7 +166,7 @@
 	  this.planeArea = new THREE.Mesh( geometry, material );
 	  this.planeArea.visible = false;
 	  this.createText();
-	  this.buttom.true;
+//	  this.buttom.true;
       }
 
       bindEvents() {
@@ -197,8 +196,8 @@
       }
 
       onMouseUp(){
-//	  this.buttom = false;
-//	  this.data.ease = .05;
+	  this.buttom = false;
+	  this.data.ease = .05;
       }
 
       onMouseMove( ) { 
@@ -461,7 +460,7 @@
 	  await timeout(6000);
 	  return rec();
       }
-      sleep();
+//      sleep();
 
     </script>
     <title>ATOMIC FRUIT</title>
@@ -469,7 +468,6 @@
   <body>
     <div class="hero"></div>
     <div id="magic"></div>
-    <button onclick="rec()">record</button> 
     <span class="divider">ABOUT</span>
     <div class="about">
       <div class="aboutpic"></div>
