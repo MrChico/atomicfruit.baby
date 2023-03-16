@@ -140,6 +140,13 @@ html,body {
     clear: both;
 }
 
+.dates {
+    line-height: 2em;
+    margin-left: auto;
+    text-align: center;
+}
+
+
 .aboutpic {
   width: 75%;
   height: 500px;
