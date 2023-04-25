@@ -38,10 +38,9 @@
 	height: 40%;
 	top: 10%;
     }
-
-     /* 
-      * This code will apply 
-      */
+    .dates {
+	font-size: 20pt;
+    }
 }
 
 @media screen and (min-width: 701px) {
