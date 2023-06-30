@@ -12,6 +12,7 @@
     }
     .aboutpic {
 	left: 5%;
+	height: 500px;
     }
     .pics {
 	height: 100%;
@@ -41,6 +42,9 @@
     .dates {
 	font-size: 20pt;
     }
+    .pastdates {
+	font-size: 16pt;
+    }
 }
 
 @media screen and (min-width: 701px) {
@@ -52,6 +56,7 @@
     }
     .aboutpic {
 	left: 25%;
+	height: 800px;
     }
 
     .pics {
@@ -130,7 +135,7 @@ html,body {
 }
 
 .about {
-    min-height: 60%;
+    min-height: 80%;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -140,23 +145,25 @@ html,body {
 }
 
 .dates {
-    line-height: 2em;
     margin-left: auto;
-    text-align: center;
+    width: 64%;
+    display: block;
+    text-align: left;
 }
 
+.pastdates {
+    
+}
 
 .aboutpic {
-  width: 75%;
-  height: 500px;
-  background: url("../images/v1_173.jpeg");
+  width: 50%;
+  background: url("../images/fullband.jpg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   display: inline;
   opacity: 1;
   position: absolute;
-  overflow: visible;
 }
 
 .abouttext {
