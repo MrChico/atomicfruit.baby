@@ -379,12 +379,17 @@ html,body {
   transition: 0.3s;
 }
 
+.follow {
+    text-align: center;
+}
+
 .close:hover,
 .close:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
 }
+
 .download {
   position: absolute;
   top: 22px;
