@@ -2,14 +2,36 @@
   box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'vacer_sans_personalthin';
+    src: url('vacersansthinpersonal-webfont.woff2') format('woff2'),
+         url('vacersansthinpersonal-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'vacer_sans_bookpersonal';
+    src: url('vacersansbookpersonal-webfont.woff2') format('woff2'),
+         url('vacersansbookpersonal-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 @media screen and (max-width: 700px) {
 
     .about {
 	width: 90%;
     }
-    .hero {
-	background-image: url("../images/mobile copy.jpeg");
+    .EABanner {
+	width: 100%;	
+	height: 80%;
     }
+    /* .hero { */
+    /* 	background-image: url("../images/mobile copy.jpeg"); */
+    /* } */
     .aboutpic {
 	left: 5%;
 	height: 500px;
@@ -41,6 +63,7 @@
     }
     .dates {
 	font-size: 20pt;
+	width: 84%;
     }
     .pastdates {
 	font-size: 16pt;
@@ -48,8 +71,12 @@
 }
 
 @media screen and (min-width: 701px) {
-    .hero {
-	background-image: url("../images/without text.jpeg");
+    /* .hero { */
+    /* 	background-image: url("../images/without text.jpeg"); */
+    /* } */
+    .EABanner {
+	width: 100%;	
+	height: 100%;
     }
     .about {
 	width: 67%;
@@ -78,7 +105,13 @@
 	height: 60%;
 	top: 0%;
     }
-
+    .dates {
+	font-size: 28pt;
+	width: 64%;
+    }
+    .pastdates {
+	font-size: 25pt;
+    }
 	
      /* 
       * This code will not apply
@@ -106,6 +139,37 @@ html,body {
     opacity: 1;
     overflow: hidden;
 }
+.spotifyIF {
+    position: absolute;
+    top: 70%;
+    right: 30%;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.EABanner {
+    position: absolute;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0px;
+    left: 0px;
+    
+}
+
+.bannertext {
+    font-size: 40pt;
+    color: rgba(255,1,1,1);
+    font-family: 'CustomFont', vacer_sans_bookpersonal, sans-serif;
+    text-shadow: 2px 4px 4px rgba(46,91,173,0.6);
+    top: 30%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: absolute;
+}
+
 .divider {
   color: rgba(255,255,255,1);
   position: relative;
@@ -146,13 +210,8 @@ html,body {
 
 .dates {
     margin-left: auto;
-    width: 64%;
     display: block;
     text-align: left;
-}
-
-.pastdates {
-    
 }
 
 .aboutpic {
