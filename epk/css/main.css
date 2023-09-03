@@ -29,9 +29,9 @@
 	width: 100%;	
 	height: 80%;
     }
-    /* .hero { */
-    /* 	background-image: url("../images/mobile copy.jpeg"); */
-    /* } */
+    .hero {
+	background-image: url("../images/mobile copy.jpeg");
+    }
     .aboutpic {
 	left: 5%;
 	height: 500px;
@@ -71,9 +71,9 @@
 }
 
 @media screen and (min-width: 701px) {
-    /* .hero { */
-    /* 	background-image: url("../images/without text.jpeg"); */
-    /* } */
+    .hero {
+	background-image: url("../images/without text.jpeg");
+    }
     .EABanner {
 	width: 100%;	
 	height: 100%;
