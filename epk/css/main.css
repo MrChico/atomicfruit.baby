@@ -30,7 +30,14 @@
 	height: 80%;
     }
     .hero {
-	background-image: url("../images/mobile copy.jpeg");
+/* 	background-image: */
+/* 	    -webkit-linear-gradient(left,  */
+/* 						  rgba(0,0,0,0.9) 0%,  */
+/* 						  rgba(0,0,0,0) 20%, */
+/* 						  rgba(0,0,0,0) 80%, */
+/* 						  rgba(0,0,0,0.9) 100% */
+/* ), */
+/* 			  url("../images/mobile copy.jpeg"); */
     }
     .aboutpic {
 	left: 5%;
@@ -63,7 +70,8 @@
     }
     .dates {
 	font-size: 20pt;
-	width: 84%;
+	text-align: center;
+	width: 100%;
     }
     .pastdates {
 	font-size: 16pt;
@@ -72,7 +80,11 @@
 
 @media screen and (min-width: 701px) {
     .hero {
-	background-image: url("../images/without text.jpeg");
+background-image:		    -webkit-linear-gradient(left, 
+						  rgba(0,0,0,0.8) 0%, 
+						  rgba(0,0,0,0.8) 100%
+),
+		    url("../images/without text.jpeg");
     }
     .EABanner {
 	width: 100%;	
@@ -107,6 +119,7 @@
     }
     .dates {
 	font-size: 28pt;
+	text-align: center;
 	width: 64%;
     }
     .pastdates {
@@ -154,12 +167,18 @@ html,body {
     margin-right: auto;
     top: 0px;
     left: 0px;
-    
+
+}
+
+.EABanner::after {
+    background-image: -webkit-linear-gradient(left, 
+					      rgba(0,0,0,0.8) 0%, 
+					      rgba(0,0,0,0.8) 100%);
 }
 
 .bannertext {
-    font-size: 40pt;
-    color: rgba(255,1,1,1);
+    font-size: 70pt;
+    color: rgba(205,1,1,1);
     font-family: 'CustomFont', vacer_sans_bookpersonal, sans-serif;
     text-shadow: 2px 4px 4px rgba(46,91,173,0.6);
     top: 30%;
@@ -210,8 +229,8 @@ html,body {
 
 .dates {
     margin-left: auto;
+    margin-right: auto;
     display: block;
-    text-align: left;
 }
 
 .aboutpic {
