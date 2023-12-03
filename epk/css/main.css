@@ -26,6 +26,13 @@
 	width: 140%;
 	float: left;
     }
+    .spotifyIF {
+    top: 5%;
+    left: 10%;
+    width: 80%;
+    height: 90%;
+	
+    }
     .about {
 	width: 90%;
     }
@@ -94,7 +101,13 @@ background-image:		    -webkit-linear-gradient(left,
     .spotifyLink{
 	width: 100%;
     }
+    .spotifyIF {
+    top: 5%;
+    left: 24%;
+    width: 52%;
+    height: 90%;
 
+    }
     .EABanner {
 	width: 100%;	
 	height: 100%;
@@ -163,9 +176,6 @@ html,body {
 }
 .spotifyIF {
     position: absolute;
-    top: 70%;
-    right: 30%;
-    width: 40%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -243,7 +253,8 @@ html,body {
 }
 
 .aboutpic {
-  width: 50%;
+    width: 50%;
+    container: block;
   background: url("../images/fullband.jpg");
   background-repeat: no-repeat;
   background-position: center center;
