@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My first three.js app</title>
+    <style>
+      body { margin: 0; }
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: #ccc;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        user-select: none;
+      }
+
+      #leftArrow {
+        left: 10px;
+      }
+
+      #rightArrow {
+        right: 10px;
+      }
+    </style>
+  </head>	
+  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.161.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.161.0/examples/jsm/"
+         }
+      }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var models = ['./raf.glb', './marti.glb', './fede.glb', 'fardi.glb']; // Add paths to your models
+        var currentModelIndex = 0;
+        var model;
+
+        // Load initial model
+        loadModel(models[currentModelIndex]).then(() => {
+            // Add arrows
+            var leftArrow = createArrow('leftArrow', '←');
+            var rightArrow = createArrow('rightArrow', '→');
+
+            leftArrow.addEventListener('click', function() {
+                changeModel(-1);
+            });
+
+            rightArrow.addEventListener('click', function() {
+                changeModel(1);
+            });
+
+            document.body.appendChild(leftArrow);
+            document.body.appendChild(rightArrow);
+
+            // Add a directional light
+            var light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(1, 1, 1).normalize();
+            scene.add(light);
+
+            camera.position.z = 5;
+
+            var animate = function () {
+                requestAnimationFrame(animate);
+
+                // Add rotation or any other animation logic here
+                // Example: model.rotation.x += 1.01;
+                if (model) {
+                    model.rotation.y += 0.01;
+                }
+
+                renderer.render(scene, camera);
+            };
+
+            animate();
+        });
+
+        function loadModel(modelPath) {
+            return new Promise((resolve) => {
+                if (model) {
+                    // Dispose of the previous model and its resources
+                    model.traverse(child => {
+                        if (child.isMesh) {
+                            child.geometry.dispose();
+                            child.material.dispose();
+                        }
+                    });
+                    scene.remove(model);
+                }
+
+                var loader = new GLTFLoader();
+                loader.load(modelPath, function (gltf) {
+                    model = gltf.scene;
+                    scene.add(model);
+                    resolve();
+                });
+            });
+        }
+
+        function createArrow(id, text) {
+            var arrow = document.createElement('div');
+            arrow.id = id;
+            arrow.className = 'arrow';
+            arrow.textContent = text;
+            return arrow;
+        }
+
+        function changeModel(direction) {
+            currentModelIndex += direction;
+
+            if (currentModelIndex < 0) {
+                currentModelIndex = models.length - 1;
+            } else if (currentModelIndex >= models.length) {
+                currentModelIndex = 0;
+            }
+
+            // Load and add the new model to the scene
+            loadModel(models[currentModelIndex]);
+        }
+    </script>
+  </body>
+</html>
