@@ -4,33 +4,58 @@
     <meta charset="utf-8">
     <title>My first three.js app</title>
     <style>
-      body { margin: 0; }
-      .arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 50px;
-        height: 50px;
-        background-color: #ccc;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        font-weight: bold;
-        user-select: none;
-      }
+@font-face {
+  font-family: 'Matrix';
+  src: url('./LcdSolid-VPzB.ttf') format('truetype'),
+  /* Add additional font formats if needed */
+}
 
-      #leftArrow {
-        left: 10px;
-      }
+      
+  body { margin: 0; }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    outline: none;
+  }
 
-      #rightArrow {
-        right: 10px;
-      }
+  #leftArrow {
+    left: 5%;
+    transform: translateX(-50%);
+    background: url('left.png') no-repeat center center;
+    background-size: cover;
+    color: green;
+    width: 50px;
+    height: 50px;
+  }
+
+  #rightArrow {
+    right: 5%;
+    transform: translateX(50%);
+    background: url('right.png') no-repeat center center;
+    background-size: cover;
+    color: green;
+    width: 50px;
+    height: 50px;
+  }
+  .matrix-text {
+    position: absolute;
+    font-family: 'Matrix', sans-serif;
+    color: #00FF00; /* Green color */
+    font-size: 20px;
+  }
+
+  #textNearObject {
+    left: 20%; /* Adjust the left positioning as needed */
+    top: 20%; /* Adjust the top positioning as needed */
+  }
     </style>
   </head>	
   <body>
+    <div class="matrix-text" id="textNearObject">MATRIX</div>
     <script type="importmap">
       {
         "imports": {
@@ -40,101 +65,114 @@
       }
     </script>
     <script type="module">
-        import * as THREE from 'three';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        var renderer = new THREE.WebGLRenderer();
+      const bgcolor = new THREE.Color( 0x202020 );
+      var scene = new THREE.Scene();
+      scene.background = bgcolor;
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      var renderer = new THREE.WebGLRenderer();
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+      var descriptions = {
+        "raf_low_poly": "Very LOUD \n Special ability: Brain hemorrage",
+        "fede_low_poly": "Very FAST",
+        "marti_low_poly": "Mumbles a lot. What is he saying?",
+        "fardi_low_poly": "Oh yes its called the Microcosm"
+      }
 
-        var models = ['./raf.glb', './marti.glb', './fede.glb', 'fardi.glb']; // Add paths to your models
-        var currentModelIndex = 0;
-        var model;
+      var sizes = {
+          "raf_low_poly": 1,
+          "fede_low_poly": 1.6,
+          "marti_low_poly": 1.5,
+        "fardi_low_poly": 1.2
+      }
 
-        // Load initial model
-        loadModel(models[currentModelIndex]).then(() => {
-            // Add arrows
-            var leftArrow = createArrow('leftArrow', '←');
-            var rightArrow = createArrow('rightArrow', '→');
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      var models = ['./raf_low_poly.glb', './marti_low_poly.glb', './fede_low_poly.glb', 'fardi_low_poly.glb']; // Add paths to your models
+      var currentModelIndex = 0;
+      var model;
 
-            leftArrow.addEventListener('click', function() {
-                changeModel(-1);
-            });
+      // Load initial model
+      loadModel(models[currentModelIndex]).then(() => {
+        // Add arrows
+        var leftArrow = createArrow('leftArrow');
+        var rightArrow = createArrow('rightArrow');
 
-            rightArrow.addEventListener('click', function() {
-                changeModel(1);
-            });
-
-            document.body.appendChild(leftArrow);
-            document.body.appendChild(rightArrow);
-
-            // Add a directional light
-            var light = new THREE.DirectionalLight(0xffffff);
-            light.position.set(1, 1, 1).normalize();
-            scene.add(light);
-
-            camera.position.z = 5;
-
-            var animate = function () {
-                requestAnimationFrame(animate);
-
-                // Add rotation or any other animation logic here
-                // Example: model.rotation.x += 1.01;
-                if (model) {
-                    model.rotation.y += 0.01;
-                }
-
-                renderer.render(scene, camera);
-            };
-
-            animate();
+        leftArrow.addEventListener('click', function () {
+          changeModel(-1);
         });
 
-        function loadModel(modelPath) {
-            return new Promise((resolve) => {
-                if (model) {
-                    // Dispose of the previous model and its resources
-                    model.traverse(child => {
-                        if (child.isMesh) {
-                            child.geometry.dispose();
-                            child.material.dispose();
-                        }
-                    });
-                    scene.remove(model);
-                }
+        rightArrow.addEventListener('click', function () {
+          changeModel(1);
+        });
 
-                var loader = new GLTFLoader();
-                loader.load(modelPath, function (gltf) {
-                    model = gltf.scene;
-                    scene.add(model);
-                    resolve();
-                });
-            });
-        }
+        document.body.appendChild(leftArrow);
+        document.body.appendChild(rightArrow);
 
-        function createArrow(id, text) {
-            var arrow = document.createElement('div');
-            arrow.id = id;
-            arrow.className = 'arrow';
-            arrow.textContent = text;
-            return arrow;
-        }
+        // Add Matrix-style text
+        var textNearObject = createMatrixText('textNearObject');
+        document.body.appendChild(textNearObject);
 
-        function changeModel(direction) {
-            currentModelIndex += direction;
+        // Add a directional light
+        var light = new THREE.DirectionalLight(0xffffff);
+        light.position.set(1, 1, 1).normalize();
+        var alight = new THREE.AmbientLight(0xffa0ff);
+        scene.add(light);  
+        scene.add(alight);
 
-            if (currentModelIndex < 0) {
-                currentModelIndex = models.length - 1;
-            } else if (currentModelIndex >= models.length) {
-                currentModelIndex = 0;
-            }
+        camera.position.z = 5;
 
-            // Load and add the new model to the scene
-            loadModel(models[currentModelIndex]);
-        }
+        var animate = function () {
+          requestAnimationFrame(animate);
+
+          // Add rotation or any other animation logic here
+          // Example: model.rotation.x += 1.01;
+          if (model) {
+            model.rotation.y += 0.01;
+          }
+
+          renderer.render(scene, camera);
+        };
+
+        animate();
+      });
+
+      function loadModel(modelPath) {
+        return new Promise((resolve) => {
+	  scene.remove(model);
+          var loader = new GLTFLoader();
+          loader.load(modelPath, function (gltf) {
+            model = gltf.scene;
+	    var modelName = modelPath.split('/').pop().split('.')[0];
+            model.scale.set(sizes[modelName], sizes[modelName], sizes[modelName]);
+            scene.add(model);
+            document.getElementById('textNearObject').innerText = descriptions[modelName];
+            resolve();
+          });
+        });
+      }
+
+      function createArrow(id) {
+        var arrow = document.createElement('div');
+        arrow.id = id;
+        arrow.className = 'arrow';
+        return arrow;
+      }
+
+      function createMatrixText(id) {
+        var matrixText = document.createElement('div');
+        matrixText.id = id;
+        matrixText.className = 'matrix-text';
+        return matrixText;
+      }
+
+      function changeModel(direction) {
+        currentModelIndex = (currentModelIndex + direction) % models.length;
+        // Load and add the new model to the scene
+        loadModel(models[currentModelIndex]);
+	}
     </script>
   </body>
 </html>
