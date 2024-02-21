@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>My first three.js app</title>
+    <title>Atomic Fruit</title>
     <style>
 @font-face {
   font-family: 'Matrix';
@@ -11,7 +11,33 @@
 }
 
       
-  body { margin: 0; }
+   body {
+    margin: 0;
+     }
+
+      #menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333; /* Dark background color */
+        padding: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+
+      #menu a {
+        color: #fff; /* White text color */
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #menu a:hover {
+        text-decoration: underline;
+      }
+
   .arrow {
     position: absolute;
     top: 50%;
@@ -53,9 +79,18 @@
     top: 20%; /* Adjust the top positioning as needed */
   }
     </style>
-  </head>	
+  </head>
   <body>
-    <div class="matrix-text" id="textNearObject">MATRIX</div>
+    <!-- <div id="menu"> -->
+    <!--   <a href="#" onclick="">About</a> -->
+    <!--   <a href="#" onclick="">Live</a> -->
+    <!--   <a href="#" onclick="">Listen</a> -->
+    <!--   <a href="#" onclick="">Merch</a> -->
+    <!--   <a href="#" onclick="">Band</a> -->
+    <!--   <\!-- Add more menu items as needed -\-> -->
+    <!-- </div> -->
+
+    <div class="matrix-text" id="textNearObject"></div>
     <script type="importmap">
       {
         "imports": {
@@ -75,13 +110,13 @@
       var renderer = new THREE.WebGLRenderer();
 
       var descriptions = {
-        "raf_low_poly": "Very LOUD \n Special ability: Brain hemorrage",
-        "fede_low_poly": "Very FAST",
-        "marti_low_poly": "Mumbles a lot. What is he saying?",
-        "fardi_low_poly": "Oh yes its called the Microcosm"
+        "raf_low_poly": ["Player: Raf", "Weapon: Guitar", "Warning! VERY LOUD!", "Special ability: Brain hemorrage"],
+        "fede_low_poly": ["Player: Fede", "Weapon: Drums", "Very FAST"],
+        "marti_low_poly": ["Player: Martin", "Weapon: Synthesizer", "Mumbles a lot... What is he saying?"],
+        "fardi_low_poly": ["Player: Farhad", "Weapon: Microcosm", "Special ability: hang on, let me do the Johnny Greenwood thing"]
       }
 
-      var sizes = {
+     var sizes = {
           "raf_low_poly": 1,
           "fede_low_poly": 1.6,
           "marti_low_poly": 1.5,
@@ -148,10 +183,37 @@
 	    var modelName = modelPath.split('/').pop().split('.')[0];
             model.scale.set(sizes[modelName], sizes[modelName], sizes[modelName]);
             scene.add(model);
-            document.getElementById('textNearObject').innerText = descriptions[modelName];
+            document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
+            clearTimeout(timeoutId);
+            unveilText();
             resolve();
           });
         });
+      }
+
+      let timeoutId;
+
+      function unveilText() {
+	  const textElement = document.getElementById("textNearObject");
+	  const textContent = textElement.innerHTML;
+	  textElement.innerHTML = "";
+	  let index = 0;
+	  function appendNextCharacter() {
+	      if (textContent[index] == "^") {
+		  textElement.innerHTML += '<br><br>';
+	      } else {
+		  textElement.innerHTML += textContent[index];
+	      }
+	      
+	      index++;
+	      if (index < textContent.length) {
+		  timeoutId = setTimeout(appendNextCharacter, 50); // Adjust the delay (100 milliseconds in this example)
+	      } else {
+		  textElement.classList.remove("hidden");
+	      }
+	  }
+	  appendNextCharacter();
+	  
       }
 
       function createArrow(id) {
@@ -169,10 +231,10 @@
       }
 
       function changeModel(direction) {
-        currentModelIndex = (currentModelIndex + direction) % models.length;
+        currentModelIndex = (models.length + currentModelIndex + direction) % models.length;
         // Load and add the new model to the scene
         loadModel(models[currentModelIndex]);
-	}
+      }
     </script>
   </body>
 </html>
