@@ -131,7 +131,29 @@
   -moz-appearance: none;
   appearance: none;
 }
+    #rollDownButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      padding: 10px;
+      color: #333;
+      border: none;
+      border-radius: 5px;
+    }
 
+    #rollDownContent {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      padding: 10px;
+      color: #fff;
+      text-align: center;
+      background-color: #333;
+      border: 1px solid #bdc3c7;
+      border-radius: 5px;
+    }
     </style>
   </head>
   <body>
@@ -142,7 +164,13 @@
     <!--   <\!-- <a href="#" onclick="">Merch</a> -\-> -->
     <!--   <\!-- <a href="#" onclick="">Band</a> -\-> -->
     <!--   <\!-- Add more menu items as needed -\-> -->
-    <!-- </div> -->
+		<!-- </div> -->
+    <button id="rollDownButton">OBJECTIVES</button>
+    <div id="rollDownContent">
+      CONCERTS <br>
+      16.03.24 &mdash; TBA<br>
+      19.03.2024, 19:30 &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a>
+    </div>
     <div id="music-controls">
          <div class="music-controls">
            <button class="control-button" id="previous">|<</button>
@@ -430,6 +458,17 @@
     // Update renderer size
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
+      var visible = false;
+      function toggleRollDown() {
+	  if (!visible) {
+	      document.getElementById("rollDownContent").style.display = "block";
+	      visible = true;
+	  } else {
+	      document.getElementById("rollDownContent").style.display = "none";
+	      visible = false;
+	  }
+    }
+      document.getElementById("rollDownButton").addEventListener("click", toggleRollDown);
 
      </script>
   </body>
