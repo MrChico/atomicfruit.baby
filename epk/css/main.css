@@ -41,14 +41,14 @@
 	height: 80%;
     }
     .hero {
-/* 	background-image: */
-/* 	    -webkit-linear-gradient(left,  */
-/* 						  rgba(0,0,0,0.9) 0%,  */
-/* 						  rgba(0,0,0,0) 20%, */
-/* 						  rgba(0,0,0,0) 80%, */
-/* 						  rgba(0,0,0,0.9) 100% */
-/* ), */
-/* 			  url("../images/mobile copy.jpeg"); */
+	background-image:
+	    -webkit-linear-gradient(left,
+						  rgba(0,0,0,0) 0%,
+						  rgba(0,0,0,0) 20%,
+						  rgba(0,0,0,0) 80%,
+						  rgba(0,0,0,0) 100%
+),
+			  url("../images/mobile copy.jpeg");
     }
     .aboutpic {
 	left: 5%;
@@ -61,8 +61,8 @@
     .soundcloudiframe {
 	width: 90%;
     }
-    .abouttext {
-	left: 30%;
+    #container {
+	left: 12%;
 	width: 75%;
 	line-height: 1.25em;
     }
@@ -92,8 +92,8 @@
 @media screen and (min-width: 701px) {
     .hero {
 background-image:		    -webkit-linear-gradient(left, 
-						  rgba(0,0,0,0.8) 0%, 
-						  rgba(0,0,0,0.8) 100%
+						  rgba(0,0,0,0) 0%, 
+						  rgba(0,0,0,0) 100%
 ),
 		    url("../images/without text.jpeg");
     }
@@ -127,8 +127,8 @@ background-image:		    -webkit-linear-gradient(left,
     .soundcloudiframe {
 	width: 67%;
     }
-    .abouttext {
-	left: 67%;
+    #container {
+	left: 25%;
 	width: 50%;
 	line-height: 1.5em;
     }
@@ -175,9 +175,7 @@ html,body {
     overflow: hidden;
 }
 .spotifyIF {
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
 }
 .EABanner {
     position: absolute;
@@ -227,7 +225,7 @@ html,body {
 }
 
 .bg-img {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../images/v1_172.png");
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("../images/v1_172.png");
     background-size: cover;
     width: 100%;
     display: inline;
@@ -264,17 +262,14 @@ html,body {
   position: absolute;
 }
 
-.abouttext {
-  height: 100%;
+#container {
   color: rgba(255,255,255,1);
   overflow-wrap: break-word;
   z-index: 9999;
+  position: relative;
   top: 50px;
-  display: block;
   margin-top: auto;
   font-family: Georgia;
-  position: relative;
-  font-weight: light;
   font-size: 20px;
   opacity: 1;
   text-align: left;
