@@ -180,7 +180,7 @@
 
       var descriptions = {
         "raf_low_poly": ["Player: Raf", "Weapon: Guitar", "Warning! VERY LOUD!", "Special ability: Brain hemorrage"],
-        "fede_low_poly": ["Player: Fede", "Weapon: Drums", "Very FAST"],
+        "fede_low_poly": ["Player: Fede", "Weapon: Drums", "Very FAST", "Makes a very good risotto, miam miam miam"],
         "marti_low_poly": ["Player: Martin", "Weapon: Synthesizer", "Mumbles a lot... What is he saying?"],
         "fardi_low_poly": ["Player: Farhad", "Weapon: Microcosm", "Special ability: hang on, let me do the Johnny Greenwood thing"]
       }
@@ -376,8 +376,8 @@
       var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
       bloomPass.threshold = 0.4;
       bloomPass.strength = 2;
-      bloomPass.radius = 0.05;
-      composer.addPass(bloomPass);
+      bloomPass.radius = 0.03;
+      composer.addPass(bloomPass); 
 
       var animate = function () {
         requestAnimationFrame(animate);
