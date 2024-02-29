@@ -168,6 +168,10 @@
       import * as THREE from 'three';
       import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+      import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+      import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+      import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
       const bgcolor = new THREE.Color( 0x202020 );
       var scene = new THREE.Scene();
       scene.background = bgcolor;
@@ -232,8 +236,7 @@
           if (model) {
             model.rotation.y += 0.01;
           }
-
-          renderer.render(scene, camera);
+	  composer.render();
         };
 
         animate();
@@ -314,7 +317,8 @@
 
        // Create a particle system
       var particleGeometry = new THREE.BufferGeometry();
-      var particleMaterial = new THREE.PointsMaterial({ color: 0x00cc00, size: 0.03 });
+      var particleMaterial = new THREE.PointsMaterial({ color: 0x77cc77, size: 0.03 });
+      
 
       var particles = [];
       const radius = 2;
@@ -344,10 +348,9 @@
       }
       particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
       var particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-
-        muteButton.addEventListener('click', () => {
-            isMuted = !isMuted;
-            muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
+      var toggleMute = function() {
+          isMuted = !isMuted;
+          muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
 
 	    if (!isMuted) {
 		if (setup) {
@@ -358,7 +361,23 @@
             } else {
                 audioElement.pause();
             }
-        });
+      };
+	  
+      muteButton.addEventListener('click', () => {toggleMute()});
+
+      // Create a post-processing composer
+      var composer = new EffectComposer(renderer);
+
+      // Add a render pass
+      var renderPass = new RenderPass(scene, camera);
+      composer.addPass(renderPass);
+
+      // Add a bloom pass for the glow effect
+      var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+      bloomPass.threshold = 0.4;
+      bloomPass.strength = 2;
+      bloomPass.radius = 0.05;
+      composer.addPass(bloomPass);
 
       var animate = function () {
         requestAnimationFrame(animate);
@@ -374,10 +393,44 @@
           if (!isMuted) {
 	      particleGeometry.attributes.position.needsUpdate = true; // Update positions
 	  }
-        renderer.render(scene, camera);
+	  // Render the scene through the composer for post-processing
+	  composer.render();
       };
       
       animate();
-    </script>
+
+      // Hotkey event listener
+      window.addEventListener('keydown', function (event) {
+        switch (event.key) {
+	case 'ArrowLeft':
+            changeModel(-1);
+            // Call the function for button 1 action
+            break;
+        case 'ArrowRight':
+            changeModel(1);
+            // Call the function for button 2 action
+            break;
+            // Add more cases for additional hotkeys
+	case ' ':
+	    toggleMute();
+	    break;
+	case 'G':
+            console.log('G key pressed');
+            // Toggle the visibility of the bloom pass
+            bloomPass.enabled = !bloomPass.enabled;
+            break;	    
+        }
+      })
+        // Resize event listener
+  window.addEventListener('resize', function () {
+    // Update camera aspect ratio
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    // Update renderer size
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+     </script>
   </body>
 </html>
