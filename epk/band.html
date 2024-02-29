@@ -300,41 +300,6 @@
         // Load and add the new model to the scene
         loadModel(models[currentModelIndex]);
       }
-      // Create a particle system
-      var particleGeometry = new THREE.BufferGeometry();
-      var particleMaterial = new THREE.PointsMaterial({ color: 0x00cc00, size: 0.02 });
-
-      var particles = [];
-      const radius = 2;
-
-
-      for (let i = 0; i < 800; i++) {
-	  const r = (1 / Math.sqrt(Math.random())) * radius;
-	  const theta = Math.random() * 6.32;
-	  const z = Math.sin(theta) * r - 1;
-	  const x = Math.cos(theta) * r;
-	  const y = Math.random() * 0.1 - 2.3;
-          particles.push(x, y, z);
-      }
-
-      particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
-      var particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-      scene.add(particleSystem);
-
-      // var animate = function () {
-      //   requestAnimationFrame(animate);
-
-      //   // Move particles based on Perlin noise
-      //   const positions = particleGeometry.attributes.position.array;
-      //   for (let i = 0; i < positions.length; i += 3) {
-      //       positions[0] = positions[0] + (Math.random() - 0.5);
-      //   }
-      //   particleGeometry.attributes.position.needsUpdate = true; // Update positions
-      //   renderer.render(scene, camera);
-      // };
-      
-      // animate();
-
       // volume control stuff
       const audioElement = new Audio('./play_dough_smol.mp3');
 
@@ -344,17 +309,75 @@
 
       const muteButton = document.getElementById('mute');
       let isMuted = true;
+      
+      let setup = true;
+
+       // Create a particle system
+      var particleGeometry = new THREE.BufferGeometry();
+      var particleMaterial = new THREE.PointsMaterial({ color: 0x00cc00, size: 0.03 });
+
+      var particles = [];
+      const radius = 2;
+      var velocities = [];
+      const nParticles = 300;
+      var initialPositions = []
+      const zOffset = 0.7;
+      var g = 0.003;
+      var d = function(x, z) {
+	  return Math.sqrt(x * x + z * z);
+      }
+
+      for (let i = 0; i < nParticles; i++) {
+	  const r = (1 / Math.sqrt(Math.random())) * radius;
+	  const theta = Math.random() * 6.32;
+	  const z = Math.sin(theta) * r - zOffset;
+	  const x = Math.cos(theta) * r;
+	  const y = Math.random() * 0.1 - 2.3;
+	  const distance = d(x, z);
+          particles.push(x, y, z);
+	  initialPositions.push({x: x, y: y, z: z});
+	  velocities.push({
+              x: (g * (radius - distance) - x) * 0.01,
+              y: 0,
+              z: (g * (radius - distance) - z) * 0.01
+          });
+      }
+      particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
+      var particleSystem = new THREE.Points(particleGeometry, particleMaterial);
 
         muteButton.addEventListener('click', () => {
             isMuted = !isMuted;
             muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
 
 	    if (!isMuted) {
+		if (setup) {
+		    scene.add(particleSystem);
+		    setup = false;
+		}
                 audioElement.play();
             } else {
                 audioElement.pause();
             }
         });
+
+      var animate = function () {
+        requestAnimationFrame(animate);
+        const positions = particleGeometry.attributes.position.array;
+	for (let i = 0; i < positions.length; i += 3) {
+          positions[i]     = velocities[i / 3].x + positions[i];
+          positions[i + 2] = velocities[i / 3].z + positions[i + 2];
+          if (d(positions[i], positions[i + 2] + zOffset) < radius) {
+	      positions[i]     = initialPositions[i / 3].x;
+	      positions[i + 2] = initialPositions[i / 3].z;
+          }
+        }
+          if (!isMuted) {
+	      particleGeometry.attributes.position.needsUpdate = true; // Update positions
+	  }
+        renderer.render(scene, camera);
+      };
+      
+      animate();
     </script>
   </body>
 </html>
