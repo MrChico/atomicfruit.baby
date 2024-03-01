@@ -136,8 +136,9 @@
       top: 10px;
       right: 10px;
       cursor: pointer;
-      padding: 10px;
+      padding: 15px;
       color: #333;
+      background-color: #aaa;
       border: none;
       border-radius: 5px;
     }
@@ -147,13 +148,35 @@
       position: absolute;
       top: 50px;
       right: 10px;
-      padding: 10px;
+      padding: 15px;
       color: #fff;
       text-align: center;
       background-color: #333;
       border: 1px solid #bdc3c7;
       border-radius: 5px;
     }
+
+    /* Media query for smaller screens (adjust as needed) */
+    @media (max-width: 600px) {
+      #rollDownButton,
+      #rollDownContent {
+          padding: 20px; /* Adjust padding for smaller screens */
+	  font-size: 18px;
+      }
+
+      .matrix-text {
+	  font-size: 25px;
+      }
+
+      .volume-slider {
+	  display: none;
+      }
+      #textNearObject {
+	  left: 15%; /* Adjust the left positioning as needed */
+      }
+
+    }
+    
     </style>
   </head>
   <body>
