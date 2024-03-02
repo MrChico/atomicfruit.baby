@@ -160,6 +160,7 @@
       text-align: center;
       background-color: #333;
       border: 1px solid #bdc3c7;
+      transition: width 0.5s, height 0.5s;
       border-radius: 5px;
       z-index: 2; /* Set z-index to 2 */
     }
@@ -292,8 +293,8 @@
     let previousMouseY = 0;
     let inertiaX = 0;
     let inertiaY = 0;
-    let deltaX;
-    let deltaY;	  
+    let deltaX = 0;
+    let deltaY = 0;	  
 
    // Event listeners for mouse interaction
     document.addEventListener('mousedown', (event) => {
@@ -302,6 +303,8 @@
       previousMouseY = event.clientY;
       inertiaX = 0;
       inertiaY = 0;
+      deltaX = 0;
+      deltaY = 0;
     });
 
     document.addEventListener('mousemove', (event) => {
@@ -335,24 +338,13 @@
         model.rotation.x += inertiaY;
         inertiaX *= 0.99; // Adjust the inertia decay rate
         inertiaY *= 0.99;
+      } else if (!isMouseDown) {
+	  model.rotation.y += 0.01;
       }
-      model.rotation.y += 0.01;
-      renderer.render(scene, camera);
+	composer.render();
     };
 
     animate();
-        // var animate = function () {
-        //   requestAnimationFrame(animate);
-
-        //   // Add rotation or any other animation logic here
-        //   // Example: model.rotation.x += 1.01;
-        //   if (model) {
-        //     model.rotation.y += 0.01;
-        //   }
-	//   composer.render();
-        // };
-
-        // animate();
       });
 
       function loadModel(modelPath) {
@@ -417,7 +409,7 @@
         loadModel(models[currentModelIndex]);
       }
       // Audio tracks
-      const audioTracks = ['play_dough_smol.mp3', 'hibernated_embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
+      const audioTracks = ['play_dough_smol.mp3', 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
       let currentTrackIndex = 0;
       
       volumeSlider.addEventListener('input', () => {
@@ -564,47 +556,21 @@
   });
       var visible = false;
       function toggleRollDown() {
+	  const menuContainer = document.getElementById('rollDownContent');
+	  // Toggle the width and height to open/close the menu
 	  if (!visible) {
-	      document.getElementById("rollDownContent").style.display = "block";
+	      menuContainer.style.display = 'block';
+              menuContainer.style.width = '300px';
+              menuContainer.style.height = '200px';
 	      visible = true;
 	  } else {
-	      document.getElementById("rollDownContent").style.display = "none";
+              menuContainer.style.width = '0';
+              menuContainer.style.height = '0';
+	      menuContainer.style.display = 'none';
 	      visible = false;
 	  }
     }
       document.getElementById("rollDownButton").addEventListener("click", toggleRollDown);
-
-    // Rest of your Three.js code, including the changeModel function
-    //   // Variables for mouse interaction
-    // let isMouseDown = false;
-    // let previousMouseX = 0;
-    // let previousMouseY = 0;
-
-    // // Event listeners for mouse interaction
-    // document.addEventListener('mousedown', (event) => {
-    //   isMouseDown = true;
-    //   previousMouseX = event.clientX;
-    //   previousMouseY = event.clientY;
-    // });
-
-    // document.addEventListener('mousemove', (event) => {
-    //   if (isMouseDown) {
-    //       const deltaX = event.clientX - previousMouseX;
-    // 	  const deltaY = event.clientY - previousMouseY;
-
-    //     // Rotate the model based on mouse movement
-    //     model.rotation.y += deltaX * 0.01;
-    //     model.rotation.x += deltaY * 0.01;
-
-    //     previousMouseX = event.clientX;
-    //     previousMouseY = event.clientY;
-    //   }
-    // });
-
-    // document.addEventListener('mouseup', () => {
-    //   isMouseDown = false;
-    // });
-      
      </script>
   </body>
 </html>
