@@ -286,19 +286,73 @@
         scene.add(alight);
 
         camera.position.z = 5;
+    // Variables for mouse interaction and inertia
+    let isMouseDown = false;
+    let previousMouseX = 0;
+    let previousMouseY = 0;
+    let inertiaX = 0;
+    let inertiaY = 0;
+    let deltaX;
+    let deltaY;	  
 
-        var animate = function () {
-          requestAnimationFrame(animate);
+   // Event listeners for mouse interaction
+    document.addEventListener('mousedown', (event) => {
+      isMouseDown = true;
+      previousMouseX = event.clientX;
+      previousMouseY = event.clientY;
+      inertiaX = 0;
+      inertiaY = 0;
+    });
 
-          // Add rotation or any other animation logic here
-          // Example: model.rotation.x += 1.01;
-          if (model) {
-            model.rotation.y += 0.01;
-          }
-	  composer.render();
-        };
+    document.addEventListener('mousemove', (event) => {
+      if (isMouseDown) {
+        deltaX = event.clientX - previousMouseX;
+        deltaY = event.clientY - previousMouseY;
 
-        animate();
+        // Rotate the model based on mouse movement
+        model.rotation.y += deltaX * 0.01;
+        model.rotation.x += deltaY * 0.01;
+
+        previousMouseX = event.clientX;
+	previousMouseY = event.clientY;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isMouseDown = false;
+      // Add inertia to keep spinning after releasing the mouse
+      inertiaX = deltaX * 0.01;
+      inertiaY = deltaY * 0.01;
+    });
+
+    // Animation loop with inertia
+    const animate = function () {
+      requestAnimationFrame(animate);
+
+      // Update rotation with inertia
+      if (!isMouseDown && Math.abs(inertiaX + inertiaY) > 0.0001) {
+        model.rotation.y += inertiaX;
+        model.rotation.x += inertiaY;
+        inertiaX *= 0.99; // Adjust the inertia decay rate
+        inertiaY *= 0.99;
+      }
+      model.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    };
+
+    animate();
+        // var animate = function () {
+        //   requestAnimationFrame(animate);
+
+        //   // Add rotation or any other animation logic here
+        //   // Example: model.rotation.x += 1.01;
+        //   if (model) {
+        //     model.rotation.y += 0.01;
+        //   }
+	//   composer.render();
+        // };
+
+        // animate();
       });
 
       function loadModel(modelPath) {
@@ -519,6 +573,37 @@
 	  }
     }
       document.getElementById("rollDownButton").addEventListener("click", toggleRollDown);
+
+    // Rest of your Three.js code, including the changeModel function
+    //   // Variables for mouse interaction
+    // let isMouseDown = false;
+    // let previousMouseX = 0;
+    // let previousMouseY = 0;
+
+    // // Event listeners for mouse interaction
+    // document.addEventListener('mousedown', (event) => {
+    //   isMouseDown = true;
+    //   previousMouseX = event.clientX;
+    //   previousMouseY = event.clientY;
+    // });
+
+    // document.addEventListener('mousemove', (event) => {
+    //   if (isMouseDown) {
+    //       const deltaX = event.clientX - previousMouseX;
+    // 	  const deltaY = event.clientY - previousMouseY;
+
+    //     // Rotate the model based on mouse movement
+    //     model.rotation.y += deltaX * 0.01;
+    //     model.rotation.x += deltaY * 0.01;
+
+    //     previousMouseX = event.clientX;
+    //     previousMouseY = event.clientY;
+    //   }
+    // });
+
+    // document.addEventListener('mouseup', () => {
+    //   isMouseDown = false;
+    // });
       
      </script>
   </body>
