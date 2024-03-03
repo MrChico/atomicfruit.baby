@@ -298,8 +298,8 @@
 
   var startInteraction = function(event) {
       isMouseDown = true;
-      previousMouseX = event.clientX;
-      previousMouseY = event.clientY;
+      previousMouseX = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
+      previousMouseY = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
       inertiaX = 0;
       inertiaY = 0;
       deltaX = 0;
@@ -308,15 +308,18 @@
 
   var handleInteraction = function(event) {
       if (isMouseDown) {
-        deltaX = event.clientX - previousMouseX;
-        deltaY = event.clientY - previousMouseY;
+        var x = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
+        var y = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
+
+        deltaX = x - previousMouseX;
+        deltaY = y - previousMouseY;
 
         // Rotate the model based on mouse movement
         model.rotation.y += deltaX * 0.01;
         model.rotation.x += deltaY * 0.01;
 
-        previousMouseX = event.clientX;
-	previousMouseY = event.clientY;
+        previousMouseX = x;
+        previousMouseY = y;
       }
     }
 
