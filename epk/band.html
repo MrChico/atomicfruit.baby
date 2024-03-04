@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>Atomic Fruit</title>
@@ -12,7 +16,11 @@
 
       
    body {
-    margin: 0;
+       margin: 0;
+       display: flex;
+       align-items: center; /* Vertical centering */
+       justify-content: center; /* Horizontal centering */
+      height: 100vh; /* Full height of the viewport */
      }
 
       #menu {
@@ -97,6 +105,14 @@
     cursor: pointer;
 }
 
+.orbitron-normal {
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
 .volume-slider {
   --c: gray; /* active color */
   --g: 4px; /* the gap */
@@ -137,8 +153,13 @@
     #rollDownButton {
       position: absolute;
       top: 10px;
-      right: 10px;
+      width: 90px;
+      height: 20px;
       cursor: pointer;
+      text-align: center;
+      z-index: 2;
+      font-family: 'Orbitron', sans-serif;
+      transition: width 0.5s, height 0.5s, right 0.5s;
       padding: 15px;
       color: #333;
       background-color: #aaa;
@@ -146,9 +167,6 @@
       border-radius: 5px;
     }
 
-    #rollDownButton:active {
-	filter: brightness(1.5) blur(2px); /* Light up effect with blur on click */
-    }
 
     #rollDownContent {
       display: none;
@@ -160,7 +178,6 @@
       text-align: center;
       background-color: #333;
       border: 1px solid #bdc3c7;
-      transition: width 0.5s, height 0.5s;
       border-radius: 5px;
       z-index: 2; /* Set z-index to 2 */
     }
@@ -185,7 +202,7 @@
       }
 
     }
-    
+
     </style>
   </head>
   <body>
@@ -197,7 +214,7 @@
     <!--   <\!-- <a href="#" onclick="">Band</a> -\-> -->
     <!--   <\!-- Add more menu items as needed -\-> -->
 		<!-- </div> -->
-    <button id="rollDownButton">OBJECTIVES</button>
+    <div id="rollDownButton">LOADING...</div>
     <div id="rollDownContent">
       CONCERTS <br>
       16.03.24 &mdash; TBA<br>
@@ -235,6 +252,9 @@
       scene.background = bgcolor;
       var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       var renderer = new THREE.WebGLRenderer();
+
+      const rolldown = document.getElementById('rollDownButton');
+      rolldown.style.right = "10px";
 
       var descriptions = {
         "raf_low_poly": ["Player: Raf", "Weapon: Guitar", "Warning! VERY LOUD!", "Special ability: Brain hemorrage"],
@@ -523,7 +543,8 @@
 
       const muteButton = document.getElementById('mute');
       let isMuted = true;
-      
+      rolldown.innerHTML = "ABOUT";
+      rolldown.style.width = "70px";
       var toggleMute = function() {
           isMuted = !isMuted;
           muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
@@ -582,17 +603,34 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
       var visible = false;
-      function toggleRollDown() {
-	  const menuContainer = document.getElementById('rollDownContent');
-	  // Toggle the width and height to open/close the menu
-	  if (!visible) {
-	      menuContainer.style.display = 'block';
-	      visible = true;
-	  } else {
-	      menuContainer.style.display = 'none';
-	      visible = false;
-	  }
+    function toggleRollDown() {
+      // Toggle the width and height to open/close the menu
+      if (!visible) {
+          rolldown.innerHTML =
+	      `<p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p> <br>
+<br>
+<div id=dates>
+    	  March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a></div>`
+
+	  rolldown.style.width = "500px";
+	  rolldown.style.height = "600px";
+	  var ds = document.getElementById("dates");
+	  ds.style["font-family"] = "'Ariel', sans-serif";
+	  rolldown.style.right = null;
+	  rolldown.style.margin = "auto";
+	  rolldown.style["backdrop-filter"] = "blur(10px)";
+	  rolldown.style["background-color"] = "#fff7"
+	  visible = true;
+      } else {
+	  rolldown.innerHTML = "ABOUT"
+	  rolldown.style.width = "70px";
+	  rolldown.style.right = "10px";
+	  rolldown.style.height = "20px";
+	  rolldown.style["background-color"] = "#aaa"
+	  visible = false;
+      }
     }
+      
       document.getElementById("rollDownButton").addEventListener("click", toggleRollDown);
      </script>
   </body>
