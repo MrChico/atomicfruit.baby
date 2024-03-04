@@ -205,11 +205,9 @@
     </div>
     <div id="music-controls">
          <div class="music-controls">
-           <button class="control-button" id="previous">|<</button>
            <button class="control-button" id="mute">
 	     <img src="./whiteMute.svg" alt="Mute"  width="24" height="24">
 	   </button>						     
-           <button class="control-button" id="next">>|</button>
             <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1">
         </div>
   </div>
@@ -295,9 +293,104 @@
     let inertiaY = 0;
     let deltaX = 0;
     let deltaY = 0;	  
+    let setup = true;
+
+       // Create a particle system
+      var particleGeometry = new THREE.BufferGeometry();
+      var particleSize = 0.03;
+      // Adjust particle size based on screen width
+      if (window.innerWidth <= 600) {
+	  particleSize = 0.06; // Increase particle size for smaller screens
+      }
+	  var particleMaterial = new THREE.PointsMaterial({
+	      color: 0x77cc77,
+	      size: particleSize,
+	      transparent: true, // Enable transparency
+	      opacity: 0 // Initial opacity
+	  });
+      
+
+      var particles = [];
+      const radius = 2;
+      var velocities = [];
+      const nParticles = 300;
+      var initialPositions = []
+      const zOffset = 0.7;
+      var g = 0.003;
+      var d = function(x, z) {
+	  return Math.sqrt(x * x + z * z);
+      }
+
+      for (let i = 0; i < nParticles; i++) {
+	  const r = (1 / Math.sqrt(Math.random())) * radius;
+	  const theta = Math.random() * 6.32;
+	  const z = Math.sin(theta) * r - zOffset;
+	  const x = Math.cos(theta) * r;
+	  const y = Math.random() * 0.1 - 2.3;
+	  const distance = d(x, z);
+          particles.push(x, y, z);
+	  initialPositions.push({x: x, y: y, z: z});
+	  velocities.push({
+              x: (g * (radius - distance) - x) * 0.01,
+              y: 0,
+              z: (g * (radius - distance) - z) * 0.01
+          });
+      }
+      particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
+      var particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+      // Create a post-processing composer
+      var composer = new EffectComposer(renderer);
+
+      // Add a render pass
+      var renderPass = new RenderPass(scene, camera);
+      composer.addPass(renderPass);
+
+      // Add a bloom pass for the glow effect
+      var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+      bloomPass.threshold = 0.4;
+      bloomPass.strength = 2;
+      bloomPass.radius = 0.03;
+      composer.addPass(bloomPass); 
+
+      // Gradual fade-in animation
+      var fadeInDuration = 5000; // milliseconds
+      var startTimestamp = null;
+
+      var animateP = function (timestamp) {
+	  if (!startTimestamp) startTimestamp = timestamp;
+
+          // Calculate elapsed time
+          var elapsed = timestamp - startTimestamp;
+	  
+          // Update opacity based on elapsed time
+          particleMaterial.opacity = Math.min(1, elapsed / fadeInDuration);
+
+          requestAnimationFrame(animateP);
+        const positions = particleGeometry.attributes.position.array;
+      	for (let i = 0; i < positions.length; i += 3) {
+          positions[i]     = velocities[i / 3].x + positions[i];
+          positions[i + 2] = velocities[i / 3].z + positions[i + 2];
+          if (d(positions[i], positions[i + 2] + zOffset) < radius) {
+      	      positions[i]     = initialPositions[i / 3].x;
+      	      positions[i + 2] = initialPositions[i / 3].z;
+          }
+        }
+          if (isMouseDown) {
+      	      particleGeometry.attributes.position.needsUpdate = true; // Update positions
+      	  }
+      	  // Render the scene through the composer for post-processing
+      	  composer.render();
+      };
+      
+      animateP();
 
   var startInteraction = function(event) {
       isMouseDown = true;
+      if (setup) {
+	  toggleMute();
+	  setup = false;
+      }
+      scene.add(particleSystem);
       previousMouseX = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
       previousMouseY = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
       inertiaX = 0;
@@ -422,6 +515,7 @@
       // Audio tracks
       const audioTracks = ['play_dough_smol.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
       let currentTrackIndex = 0;
+      let audioElement = new Audio(audioTracks[currentTrackIndex]);
       
       volumeSlider.addEventListener('input', () => {
           audioElement.volume = volumeSlider.value;
@@ -430,55 +524,11 @@
       const muteButton = document.getElementById('mute');
       let isMuted = true;
       
-      let setup = true;
-
-       // Create a particle system
-      var particleGeometry = new THREE.BufferGeometry();
-      var particleSize = 0.03;
-      // Adjust particle size based on screen width
-      if (window.innerWidth <= 600) {
-	  particleSize = 0.06; // Increase particle size for smaller screens
-      }
-      var particleMaterial = new THREE.PointsMaterial({ color: 0x77cc77, size: particleSize });
-      
-
-      var particles = [];
-      const radius = 2;
-      var velocities = [];
-      const nParticles = 300;
-      var initialPositions = []
-      const zOffset = 0.7;
-      var g = 0.003;
-      var d = function(x, z) {
-	  return Math.sqrt(x * x + z * z);
-      }
-
-      for (let i = 0; i < nParticles; i++) {
-	  const r = (1 / Math.sqrt(Math.random())) * radius;
-	  const theta = Math.random() * 6.32;
-	  const z = Math.sin(theta) * r - zOffset;
-	  const x = Math.cos(theta) * r;
-	  const y = Math.random() * 0.1 - 2.3;
-	  const distance = d(x, z);
-          particles.push(x, y, z);
-	  initialPositions.push({x: x, y: y, z: z});
-	  velocities.push({
-              x: (g * (radius - distance) - x) * 0.01,
-              y: 0,
-              z: (g * (radius - distance) - z) * 0.01
-          });
-      }
-      particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
-      var particleSystem = new THREE.Points(particleGeometry, particleMaterial);
       var toggleMute = function() {
           isMuted = !isMuted;
           muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
 
 	    if (!isMuted) {
-		if (setup) {
-		    scene.add(particleSystem);
-		    setup = false;
-		}
                 audioElement.play();
             } else {
                 audioElement.pause();
@@ -486,40 +536,6 @@
       };
 	  
       muteButton.addEventListener('click', () => {toggleMute()});
-
-      // Create a post-processing composer
-      var composer = new EffectComposer(renderer);
-
-      // Add a render pass
-      var renderPass = new RenderPass(scene, camera);
-      composer.addPass(renderPass);
-
-      // Add a bloom pass for the glow effect
-      var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-      bloomPass.threshold = 0.4;
-      bloomPass.strength = 2;
-      bloomPass.radius = 0.03;
-      composer.addPass(bloomPass); 
-
-      var animate = function () {
-        requestAnimationFrame(animate);
-        const positions = particleGeometry.attributes.position.array;
-	for (let i = 0; i < positions.length; i += 3) {
-          positions[i]     = velocities[i / 3].x + positions[i];
-          positions[i + 2] = velocities[i / 3].z + positions[i + 2];
-          if (d(positions[i], positions[i + 2] + zOffset) < radius) {
-	      positions[i]     = initialPositions[i / 3].x;
-	      positions[i + 2] = initialPositions[i / 3].z;
-          }
-        }
-          if (!isMuted) {
-	      particleGeometry.attributes.position.needsUpdate = true; // Update positions
-	  }
-	  // Render the scene through the composer for post-processing
-	  composer.render();
-      };
-      
-      animate();
 
       // Hotkey event listener
       window.addEventListener('keydown', function (event) {
