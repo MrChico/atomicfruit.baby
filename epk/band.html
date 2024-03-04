@@ -168,24 +168,9 @@
     }
 
 
-    #rollDownContent {
-      display: none;
-      position: absolute;
-      top: 50px;
-      right: 10px;
-      padding: 15px;
-      color: #fff;
-      text-align: center;
-      background-color: #333;
-      border: 1px solid #bdc3c7;
-      border-radius: 5px;
-      z-index: 2; /* Set z-index to 2 */
-    }
-
     /* Media query for smaller screens (adjust as needed) */
     @media (max-width: 600px) {
-      #rollDownButton,
-      #rollDownContent {
+      #rollDownButton {
           padding: 20px; /* Adjust padding for smaller screens */
 	  font-size: 18px;
       }
@@ -206,20 +191,7 @@
     </style>
   </head>
   <body>
-    <!-- <div id="menu"> -->
-    <!--   <a href="../epk" onclick="">Back</a> -->
-    <!--   <\!-- <a href="#" onclick="">Live</a> -\-> -->
-    <!--   <\!-- <a href="#" onclick="">Listen</a> -\-> -->
-    <!--   <\!-- <a href="#" onclick="">Merch</a> -\-> -->
-    <!--   <\!-- <a href="#" onclick="">Band</a> -\-> -->
-    <!--   <\!-- Add more menu items as needed -\-> -->
-		<!-- </div> -->
     <div id="rollDownButton">LOADING...</div>
-    <div id="rollDownContent">
-      CONCERTS <br>
-      16.03.24 &mdash; TBA<br>
-      19.03.2024, 19:30 &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a>
-    </div>
     <div id="music-controls">
          <div class="music-controls">
            <button class="control-button" id="mute">
@@ -443,13 +415,13 @@
       inertiaY = deltaY * 0.01;
     }
      // Event listeners for mouse and touch interaction
-    document.addEventListener('mousedown', startInteraction);
-    document.addEventListener('mousemove', handleInteraction);
-    document.addEventListener('mouseup', endInteraction);
+    renderer.domElement.addEventListener('mousedown', startInteraction);
+    renderer.domElement.addEventListener('mousemove', handleInteraction);
+    renderer.domElement.addEventListener('mouseup', endInteraction);
 
-    document.addEventListener('touchstart', startInteraction);
-    document.addEventListener('touchmove', handleInteraction);
-    document.addEventListener('touchend', endInteraction);
+    renderer.domElement.addEventListener('touchstart', startInteraction);
+    renderer.domElement.addEventListener('touchmove', handleInteraction);
+    renderer.domElement.addEventListener('touchend', endInteraction);
    // Event listeners for mouse interaction
 
     // Animation loop with inertia
