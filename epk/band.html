@@ -262,7 +262,7 @@
 	  } 
       }
 
-      webglAvailable ? enterButton.setInnerHTML = "HI PATTI (browser does not support webgl rendering)" : {};
+      webglAvailable ? {} : enterButton.innerHTML = "HI PATTI (browser does not support webgl rendering)";
       let renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
