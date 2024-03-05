@@ -472,22 +472,25 @@
       composer.render();	
     };
       
-      function loadModel(modelPath) {
+      function loadModel(modelPath, add) {
         loading = true;
         return new Promise((resolve) => {
 	  scene.remove(model);
-          var loader = new GLTFLoader();
-          loader.load(modelPath, function (gltf) {
-            model = gltf.scene;
-	    var modelName = modelPath.split('/').pop().split('.')[0];
-            model.scale.set(sizes[modelName], sizes[modelName], sizes[modelName]);
-            scene.add(model);
-            document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
-            clearTimeout(timeoutId);
-            unveilText();
-            loading = false; 
-            resolve();
-          });
+            var loader = new GLTFLoader();
+	    document.getElementById('textNearObject').innerText = "Loading..."
+            loader.load(modelPath, function (gltf) {
+		model = gltf.scene;
+		if (add) {  
+		    var modelName = modelPath.split('/').pop().split('.')[0];
+		    model.scale.set(sizes[modelName], sizes[modelName], sizes[modelName]);  
+		    scene.add(model);
+		    document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
+		    clearTimeout(timeoutId);
+		    unveilText();
+		}
+		loading = false; 
+		resolve();
+            });
         });
       }
 
@@ -533,7 +536,7 @@
       function changeModel(direction) {
         currentModelIndex = (models.length + currentModelIndex + direction) % models.length;
         // Load and add the new model to the scene
-        loadModel(models[currentModelIndex]);
+          loadModel(models[currentModelIndex], true);
       }
       // Audio tracks
       const audioTracks = ['play_dough_smol.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
@@ -552,7 +555,6 @@
 	  muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
 	  if (setup) {
 	      audioElement.play();
-	      console.log("hi");
 	      isMuted = false;
 	  } else {
               isMuted = !isMuted;
@@ -593,13 +595,15 @@
   }
   startParticleAnimation();
 
-      
+      loadModel(models[currentModelIndex], false);
       const menu = document.getElementById('menu');
 
       const enterButton = document.getElementById('enter');
       enterButton.addEventListener('click', () => {
 	  // Load initial model
-	  loadModel(models[currentModelIndex]);
+	  loadModel(models[currentModelIndex], true);
+	  audioElement.play();
+	  isMuted = false;
 	  animateP();
 	  animate();
 	  main.style.display = "flex";
