@@ -659,12 +659,25 @@
     function toggleRollDown() {
       // Toggle the width and height to open/close the menu
       if (!visible) {
-          rolldown.innerHTML =
-	      `<p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p> <br>
-<br>
+          rolldown.innerHTML = `
+<p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p><br>
 <div id=dates>
-    	  March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a></div>`
-
+    	  March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a></div>
+<br>
+<br>
+<p style={font-family: 'Orbitron', sans-serif}>ABOUT</p> 
+<br>
+<div id=abouttext>
+Atomic Fruit is an international Berlin-based group with roots in Sweden, Pakistan, Italy and France and formed in late 2021 after meeting at an art punk concert.
+<br>
+The four members found a shared interest in effects pedals and unconventional compositions and quickly became a popular live act in the independent music scene of Berlin.
+<br><br>
+Their debut album “Play Dough” was released in October 2023 to a sold out crowd in Schokoladen and got featured in major editorial playlists as well as airplay on Berlin radio stations.
+<br>
+<br>
+Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.
+</div>
+`
 	  if (window.innerWidth <= 600) {
 	      rolldown.style.width = "300px";
 	      rolldown.style.height = "400px";
@@ -674,6 +687,8 @@
 	  }
 	  var ds = document.getElementById("dates");
 	  ds.style["font-family"] = "'Ariel', sans-serif";
+	  var ts = document.getElementById("abouttext");
+	  ts.style["font-family"] = "'Ariel', sans-serif";
 	  rolldown.style.right = null;
 	  rolldown.style.margin = "auto";
 	  rolldown.style["backdrop-filter"] = "blur(10px)";
