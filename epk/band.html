@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>Atomic Fruit</title>
@@ -11,6 +7,11 @@
 @font-face {
   font-family: 'Matrix';
   src: url('./LcdSolid-VPzB.ttf') format('truetype'),
+       /* Add additional font formats if needed */
+}
+@font-face {
+  font-family: 'Orbitron';
+  src: url('./Orbitron/Orbitron-VariableFont_wght.ttf') format('truetype'),
   /* Add additional font formats if needed */
 }
 
@@ -18,6 +19,7 @@
    body {
        margin: 0;
        display: flex;
+       background-color: #222;
        align-items: center; /* Vertical centering */
        justify-content: center; /* Horizontal centering */
        height: 100vh; /* Full height of the viewport */
@@ -48,6 +50,10 @@
 
       .menuitem:hover {
         text-decoration: underline;
+      }
+
+      #a {
+	  all: unset;
       }
 
   .arrow {
@@ -206,8 +212,7 @@
 <body>
   <div id="menu">
     <div class="menuitem" id="enter">NEW GAME</div>
-    <div class="menuitem" id="about">ABOUT</div>
-    <div class="menuitem" id="merch">MERCH</div>
+    <div class="menuitem" id"shop" onclick="location.href='https://atomicfruit.bandcamp.com/merch/';">SHOP</div>
   </div>
 
   <div id="MAIN">
@@ -466,7 +471,7 @@
       }
       composer.render();	
     };
-
+      
       function loadModel(modelPath) {
         loading = true;
         return new Promise((resolve) => {
@@ -577,7 +582,7 @@
           Math.random() * 10 - 5  // Z coordinate
         );
 
-        particlesA.add(new THREE.Points(new THREE.BufferGeometry().setFromPoints([particle]), particleMaterialA));
+          particlesA.add(new THREE.Points(new THREE.BufferGeometry().setFromPoints([particle]), particleMaterialA));
       }
 
 	requestAnimationFrame(animateParticles);
@@ -601,7 +606,7 @@
 	  menu.style.display = "none";
 	  main.appendChild(renderer.domElement);
       });
-      
+
       // Hotkey event listener
       window.addEventListener('keydown', function (event) {
         switch (event.key) {
