@@ -249,7 +249,21 @@
       var scene = new THREE.Scene();
       scene.background = bgcolor;
       var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      var renderer = new THREE.WebGLRenderer();
+      const enterButton = document.getElementById('enter');
+      function webglAvailable() {
+	  try {
+              var canvas = document.createElement("canvas");
+              return !!
+              window.WebGLRenderingContext && 
+		  (canvas.getContext("webgl") || 
+                   canvas.getContext("experimental-webgl"));
+	  } catch(e) { 
+              return false;
+	  } 
+      }
+
+      webglAvailable ? enterButton.setInnerHTML = "HI PATTI (browser does not support webgl rendering)" : {};
+      let renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
@@ -598,7 +612,6 @@
       loadModel(models[currentModelIndex], false);
       const menu = document.getElementById('menu');
 
-      const enterButton = document.getElementById('enter');
       enterButton.addEventListener('click', () => {
 	  // Load initial model
 	  loadModel(models[currentModelIndex], true);
