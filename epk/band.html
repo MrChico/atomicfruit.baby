@@ -20,29 +20,33 @@
        display: flex;
        align-items: center; /* Vertical centering */
        justify-content: center; /* Horizontal centering */
-      height: 100vh; /* Full height of the viewport */
+       height: 100vh; /* Full height of the viewport */
      }
 
       #menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #222; /* Dark background color */
-        padding: 10px;
+	  position: fixed;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  position: absolute;
+       font-family: 'Orbitron', sans-serif;
+       color: #aaa;
+       width: 100%;
+       height: 100%;
+       text-align: center;
+       padding: 20px;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+	font-size: 32px;
+        z-index: 1;
+	cursor: pointer;
       }
 
-      #menu a {
-        color: #fff; /* White text color */
-        text-decoration: none;
-        margin: 0 10px;
-        font-size: 16px;
-        cursor: pointer;
+      .menuitem {
+	  padding: 15px;
       }
 
-      #menu a:hover {
+      .menuitem:hover {
         text-decoration: underline;
       }
 
@@ -167,6 +171,15 @@
       border-radius: 5px;
     }
 
+    #MAIN {
+       display: none;
+       margin: 0;
+       align-items: center; /* Vertical centering */
+       justify-content: center; /* Horizontal centering */
+       height: 100vh; /* Full height of the viewport */
+
+    }
+
 
     /* Media query for smaller screens (adjust as needed) */
     @media (max-width: 600px) {
@@ -190,7 +203,15 @@
 
     </style>
   </head>
-  <body>
+<body>
+  <div id="menu">
+    <div class="menuitem" id="enter">NEW GAME</div>
+    <div class="menuitem" id="about">ABOUT</div>
+    <div class="menuitem" id="merch">MERCH</div>
+  </div>
+
+  <div id="MAIN">
+
     <div id="rollDownButton">LOADING...</div>
     <div id="music-controls">
          <div class="music-controls">
@@ -202,7 +223,7 @@
   </div>
 
     <div class="matrix-text" id="textNearObject"></div>
-
+</div>
     <script type="importmap">
       {
         "imports": {
@@ -224,6 +245,8 @@
       scene.background = bgcolor;
       var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
 
       const rolldown = document.getElementById('rollDownButton');
       rolldown.style.right = "10px";
@@ -235,6 +258,15 @@
         "fardi_low_poly": ["Player: Farhad", "Weapon: Microcosm", "Special ability: hang on, let me do the Johnny Greenwood thing"]
       }
 
+  // Particle system setup
+  const particlesA = new THREE.Group();
+  scene.add(particlesA);
+
+  // Particle material
+  const particleMaterialA = new THREE.PointsMaterial({ color: 0x00ff00, size: 0.01 });
+
+      
+    
      var sizes = {
         "raf_low_poly": 1,
         "fede_low_poly": 1.6,
@@ -242,17 +274,12 @@
         "fardi_low_poly": 1.2
       }
 
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
       var models = ['./raf_low_poly.glb', './marti_low_poly.glb', './fede_low_poly.glb', 'fardi_low_poly.glb']; // Add paths to your models
       var currentModelIndex = 0;
       var model;
-
-      // Load initial model
-      loadModel(models[currentModelIndex]).then(() => {
-        // Add arrows
-        var leftArrow = createArrow('leftArrow');
-        var rightArrow = createArrow('rightArrow');
+      let main = document.getElementById("MAIN");
+      var leftArrow = createArrow('leftArrow');
+      var rightArrow = createArrow('rightArrow')
 
         leftArrow.addEventListener('click', function () {
           changeModel(-1);
@@ -262,30 +289,54 @@
           changeModel(1);
         });
 
-        document.body.appendChild(leftArrow);
-        document.body.appendChild(rightArrow);
 
-        // Add Matrix-style text
-        var textNearObject = createMatrixText('textNearObject');
-        document.body.appendChild(textNearObject);
+        main.appendChild(leftArrow);
+        main.appendChild(rightArrow);
 
-        // Add a directional light
-        var light = new THREE.DirectionalLight(0xffffff);
-        light.position.set(1, 1, 1).normalize();
-        var alight = new THREE.AmbientLight(0xffa0ff);
-        scene.add(light);  
-        scene.add(alight);
+  var startInteraction = function(event) {
+      isMouseDown = true;
+      scene.add(particleSystem);
+      previousMouseX = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
+      previousMouseY = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
+      inertiaX = 0;
+      inertiaY = 0;
+      deltaX = 0;
+      deltaY = 0;
+    }
 
-        camera.position.z = 5;
-    // Variables for mouse interaction and inertia
-    let isMouseDown = false;
-    let previousMouseX = 0;
-    let previousMouseY = 0;
-    let inertiaX = 0;
-    let inertiaY = 0;
-    let deltaX = 0;
-    let deltaY = 0;	  
-    let setup = true;
+  var handleInteraction = function(event) {
+      if (isMouseDown) {
+        var x = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
+        var y = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
+
+        deltaX = x - previousMouseX;
+        deltaY = y - previousMouseY;
+
+        // Rotate the model based on mouse movement
+        model.rotation.y += deltaX * 0.01;
+        model.rotation.x += deltaY * 0.01;
+
+        previousMouseX = x;
+        previousMouseY = y;
+      }
+    }
+
+  var endInteraction = function() {
+      isMouseDown = false;
+      // Add inertia to keep spinning after releasing the mouse
+      inertiaX = deltaX * 0.01;
+      inertiaY = deltaY * 0.01;
+    }
+     // Event listeners for mouse and touch interaction
+    renderer.domElement.addEventListener('mousedown', startInteraction);
+    renderer.domElement.addEventListener('mousemove', handleInteraction);
+    renderer.domElement.addEventListener('mouseup', endInteraction);
+
+    renderer.domElement.addEventListener('touchstart', startInteraction);
+    renderer.domElement.addEventListener('touchmove', handleInteraction);
+    renderer.domElement.addEventListener('touchend', endInteraction);
+   // Event listeners for mouse interaction
+
 
        // Create a particle system
       var particleGeometry = new THREE.BufferGeometry();
@@ -301,6 +352,14 @@
 	      opacity: 0 // Initial opacity
 	  });
       
+    // Variables for mouse interaction and inertia
+    let isMouseDown = false;
+    let previousMouseX = 0;
+    let previousMouseY = 0;
+    let inertiaX = 0;
+    let inertiaY = 0;
+    let deltaX = 0;
+    let deltaY = 0;	  
 
       var particles = [];
       const radius = 2;
@@ -374,76 +433,42 @@
       	  composer.render();
       };
       
-      animateP();
 
-  var startInteraction = function(event) {
-      isMouseDown = true;
-      if (setup) {
-	  toggleMute();
-	  setup = false;
-      }
-      scene.add(particleSystem);
-      previousMouseX = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
-      previousMouseY = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
-      inertiaX = 0;
-      inertiaY = 0;
-      deltaX = 0;
-      deltaY = 0;
-    }
+        // Add arrows
 
-  var handleInteraction = function(event) {
-      if (isMouseDown) {
-        var x = (event.type.startsWith('touch')) ? event.touches[0].clientX : event.clientX;
-        var y = (event.type.startsWith('touch')) ? event.touches[0].clientY : event.clientY;
+        // Add Matrix-style text
+        var textNearObject = createMatrixText('textNearObject');
+        main.appendChild(textNearObject);
 
-        deltaX = x - previousMouseX;
-        deltaY = y - previousMouseY;
+        // Add a directional light
+        var light = new THREE.DirectionalLight(0xffffff);
+        light.position.set(1, 1, 1).normalize();
+        var alight = new THREE.AmbientLight(0xffa0ff);
+        scene.add(light);  
+        scene.add(alight);
 
-        // Rotate the model based on mouse movement
-        model.rotation.y += deltaX * 0.01;
-        model.rotation.x += deltaY * 0.01;
-
-        previousMouseX = x;
-        previousMouseY = y;
-      }
-    }
-
-  var endInteraction = function() {
-      isMouseDown = false;
-      // Add inertia to keep spinning after releasing the mouse
-      inertiaX = deltaX * 0.01;
-      inertiaY = deltaY * 0.01;
-    }
-     // Event listeners for mouse and touch interaction
-    renderer.domElement.addEventListener('mousedown', startInteraction);
-    renderer.domElement.addEventListener('mousemove', handleInteraction);
-    renderer.domElement.addEventListener('mouseup', endInteraction);
-
-    renderer.domElement.addEventListener('touchstart', startInteraction);
-    renderer.domElement.addEventListener('touchmove', handleInteraction);
-    renderer.domElement.addEventListener('touchend', endInteraction);
-   // Event listeners for mouse interaction
-
-    // Animation loop with inertia
+      camera.position.z = 5;
+      // Animation loop with inertia
+    var loading = true;
     const animate = function () {
       requestAnimationFrame(animate);
 
       // Update rotation with inertia
-      if (!isMouseDown && Math.abs(inertiaX + inertiaY) > 0.0001) {
-        model.rotation.y += inertiaX;
-        model.rotation.x += inertiaY;
-        inertiaX *= 0.99; // Adjust the inertia decay rate
-        inertiaY *= 0.99;
-      } else if (!isMouseDown) {
-	  model.rotation.y += 0.01;
+      if (!loading) {
+         if (!isMouseDown && Math.abs(inertiaX + inertiaY) > 0.0001) {
+           model.rotation.y += inertiaX;
+           model.rotation.x += inertiaY;
+           inertiaX *= 0.99; // Adjust the inertia decay rate
+           inertiaY *= 0.99;
+         } else if (!isMouseDown) {
+	     model.rotation.y += 0.01;
+	 }   
       }
-	composer.render();
+      composer.render();	
     };
 
-    animate();
-      });
-
       function loadModel(modelPath) {
+        loading = true;
         return new Promise((resolve) => {
 	  scene.remove(model);
           var loader = new GLTFLoader();
@@ -455,6 +480,7 @@
             document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
             clearTimeout(timeoutId);
             unveilText();
+            loading = false; 
             resolve();
           });
         });
@@ -517,19 +543,65 @@
       let isMuted = true;
       rolldown.innerHTML = "ABOUT";
       rolldown.style.width = "70px";
-      var toggleMute = function() {
-          isMuted = !isMuted;
-          muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
-
-	    if (!isMuted) {
-                audioElement.play();
-            } else {
-                audioElement.pause();
-            }
+      var toggleMute = function(setup) {
+	  muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
+	  if (setup) {
+	      audioElement.play();
+	      console.log("hi");
+	      isMuted = false;
+	  } else {
+              isMuted = !isMuted;
+	      if (!isMuted) {
+                  audioElement.play();
+              } else {
+                  audioElement.pause();
+              }
+	  }
       };
 	  
-      muteButton.addEventListener('click', () => {toggleMute()});
+      muteButton.addEventListener('click', () => {toggleMute(false)});
 
+  function startParticleAnimation() {
+    const duration = 5000; // Animation duration in milliseconds
+    const startTime = Date.now();
+
+    function animateParticles() {
+      const currentTime = Date.now();
+      const deltaTime = currentTime - startTime;
+
+      if (deltaTime < duration) {
+        // Create a particle at a random location
+        const particle = new THREE.Vector3(
+          Math.random() * 10 - 5, // X coordinate
+          Math.random() * 10 - 5, // Y coordinate
+          Math.random() * 10 - 5  // Z coordinate
+        );
+
+        particlesA.add(new THREE.Points(new THREE.BufferGeometry().setFromPoints([particle]), particleMaterialA));
+      }
+
+	requestAnimationFrame(animateParticles);
+	composer.render();
+    }
+
+    animateParticles();
+  }
+  startParticleAnimation();
+
+      
+      const menu = document.getElementById('menu');
+
+      const enterButton = document.getElementById('enter');
+      enterButton.addEventListener('click', () => {
+	  // Load initial model
+	  loadModel(models[currentModelIndex]);
+	  animateP();
+	  animate();
+	  main.style.display = "flex";
+	  menu.style.display = "none";
+	  main.appendChild(renderer.domElement);
+      });
+      
       // Hotkey event listener
       window.addEventListener('keydown', function (event) {
         switch (event.key) {
@@ -584,8 +656,13 @@
 <div id=dates>
     	  March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a></div>`
 
-	  rolldown.style.width = "500px";
-	  rolldown.style.height = "600px";
+	  if (window.innerWidth <= 600) {
+	      rolldown.style.width = "300px";
+	      rolldown.style.height = "400px";
+	  } else {
+	      rolldown.style.width = "500px";
+	      rolldown.style.height = "600px";
+	  }
 	  var ds = document.getElementById("dates");
 	  ds.style["font-family"] = "'Ariel', sans-serif";
 	  rolldown.style.right = null;
