@@ -251,15 +251,16 @@ function loadModel(modelPath, add) {
     loading = true;
     return new Promise((resolve) => {
 	scene.remove(model);
+	clearTimeout(timeoutId);
 	document.getElementById('textNearObject').innerText = "Loading..."
         loader.load(modelPath, function (gltf) {
 	    model = gltf.scene;
 	    if (add) {  
 		var modelName = modelPath.split('/').pop().split('.')[0];
-		model.scale.set(sizes[modelName], sizes[modelName], sizes[modelName]);  
+		var scaleFactor = window.innerWidth <= 600 ? 0.8 : 1;
+		model.scale.set(scaleFactor * sizes[modelName], scaleFactor * sizes[modelName], scaleFactor * sizes[modelName]);  
 		scene.add(model);
 		document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
-		clearTimeout(timeoutId);
 		unveilText();
 	    }
 	    loading = false; 
@@ -372,16 +373,22 @@ const menu = document.getElementById('menu');
 
 enterButton.addEventListener('click', () => {
     // Load initial model
+    main.style.display = "flex";
+    menu.style.display = "none";
+    main.appendChild(renderer.domElement);
     loadModel(models[currentModelIndex], true);
     audioElement.play();
     isMuted = false;
     animateP();
     animate();
-    main.style.display = "flex";
-    menu.style.display = "none";
-    main.appendChild(renderer.domElement);
 });
-
+document.getElementById("backButton").addEventListener("click", () => {
+    scene.remove(model);
+    main.style.display = "none";
+    menu.style.display = "flex";
+    document.body.appendChild(renderer.domElement);
+    isMuted = true;
+});
 // Hotkey event listener
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
@@ -427,34 +434,38 @@ window.addEventListener('resize', function () {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 var visible = false;
+
 function toggleRollDown() {
     // Toggle the width and height to open/close the menu
     if (!visible) {
         rolldown.innerHTML = `
 <p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p><br>
 <div id=dates>
-    	  March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a></div>
+March 16th &mdash; Scharni38, Berlin<br>
+March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a><br>
+June 21st &mdash; Fête de la Musique, Berlin<br>
+June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
+August 9th &mdash; TBA<br>
+</div>
 <br>
-<br>
-<p style={font-family: 'Orbitron', sans-serif}>ABOUT</p> 
-<br>
-<div id=abouttext>
-Atomic Fruit is an international Berlin-based group with roots in Sweden, Pakistan, Italy and France and formed in late 2021 after meeting at an art punk concert.
+<p style={font-family: 'Orbitron', sans-serif}>ABOUT</p>
+<p id=abouttext>
+Atomic Fruit is an Berlin-based group with roots in Sweden, Pakistan, Italy and France formed in late 2021 after meeting at an art punk concert.
 <br>
 The four members found a shared interest in effects pedals and unconventional compositions and quickly became a popular live act in the independent music scene of Berlin.
 <br><br>
-Their debut album “Play Dough” was released in October 2023 to a sold out crowd in Schokoladen and got featured in major editorial playlists as well as airplay on Berlin radio stations.
+Their debut album <i>Play Dough</i> was released in October 2023 to a sold out crowd in Schokoladen and got featured in major editorial playlists as well as airplay on Berlin radio stations.
 <br>
 <br>
 Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.
-</div>
+</p>
 `
 	if (window.innerWidth <= 600) {
 	    rolldown.style.width = "350px";
-	    rolldown.style.height = "700px";
+	    rolldown.style.height = null;
 	} else {
 	    rolldown.style.width = "500px";
-	    rolldown.style.height = "600px";
+	    rolldown.style.height = null;
 	}
 	var ds = document.getElementById("dates");
 	ds.style["font-family"] = "'Ariel', sans-serif";
@@ -462,6 +473,7 @@ Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="
 	ts.style["font-family"] = "'Ariel', sans-serif";
 	rolldown.style.right = null;
 	rolldown.style.margin = "auto";
+	rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
 	rolldown.style["backdrop-filter"] = "blur(10px)";
 	rolldown.style["background-color"] = "#fff7"
 	visible = true;
@@ -469,10 +481,18 @@ Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="
 	rolldown.innerHTML = "ABOUT"
 	rolldown.style.width = "70px";
 	rolldown.style.right = "10px";
-	rolldown.style.height = "20px";
 	rolldown.style["background-color"] = "#aaa"
 	visible = false;
     }
 }
 document.getElementById("rollDownButton").addEventListener("click", toggleRollDown);
 startParticleAnimation();
+document.addEventListener("visibilitychange", () => {
+    if (!isMuted) {
+	if (document.visibilityState === "visible") {
+	    audioElement.play();
+	} else {
+	    audioElement.pause();
+	}
+    }
+});
