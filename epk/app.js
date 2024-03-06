@@ -320,7 +320,7 @@ function changeModel(direction) {
     loadModel(models[currentModelIndex], true);
 }
 // Audio tracks
-const audioTracks = ['Hibernated_smol.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
+const audioTracks = ['play_dough_short.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
 let currentTrackIndex = 0;
 let audioElement = new Audio(audioTracks[currentTrackIndex]);
 
