@@ -203,7 +203,7 @@ var animateP = function (timestamp) {
       	    positions[i + 2] = initialPositions[i / 3].z;
         }
     }
-    if (isMouseDown) {
+    if (Math.abs(inertiaX) + Math.abs(inertiaY) > 0.01 || isMouseDown) {
       	particleGeometry.attributes.position.needsUpdate = true; // Update positions
     }
     // Render the scene through the composer for post-processing
@@ -232,7 +232,7 @@ const animate = function () {
 
     // Update rotation with inertia
     if (!loading) {
-        if (!isMouseDown && Math.abs(inertiaX + inertiaY) > 0.0001) {
+        if (!isMouseDown && Math.abs(inertiaX) + Math.abs(inertiaY) > 0.01) {
             model.rotation.y += inertiaX;
             model.rotation.x += inertiaY;
             inertiaX *= 0.99; // Adjust the inertia decay rate
@@ -443,8 +443,8 @@ function toggleRollDown() {
 <div id=dates>
 March 16th &mdash; Scharni38, Berlin<br>
 March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a><br>
-June 21st &mdash; Fête de la Musique, Berlin<br>
-June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
+ June 21st &mdash; Fête de la Musique, Berlin<br>
+ June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
 August 9th &mdash; TBA<br>
 </div>
 <br>
@@ -457,7 +457,9 @@ The four members found a shared interest in effects pedals and unconventional co
 Their debut album <i>Play Dough</i> was released in October 2023 to a sold out crowd in Schokoladen and got featured in major editorial playlists as well as airplay on Berlin radio stations.
 <br>
 <br>
-Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.
+Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.<br>
+<br>
+Contact us at <a href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby</a> or join  our <a href="https://forms.gle/kaVvsspXvZXRkoZx8">mailing list</a>
 </p>
 `
 	if (window.innerWidth <= 600) {
@@ -468,9 +470,9 @@ Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="
 	    rolldown.style.height = null;
 	}
 	var ds = document.getElementById("dates");
-	ds.style["font-family"] = "'Ariel', sans-serif";
+	ds.style["font-family"] = "monospace";
 	var ts = document.getElementById("abouttext");
-	ts.style["font-family"] = "'Ariel', sans-serif";
+	ts.style["font-family"] = "monospace";
 	rolldown.style.right = null;
 	rolldown.style.margin = "auto";
 	rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
