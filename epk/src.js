@@ -461,19 +461,21 @@ Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="
 Contact us at <a href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby</a> or join  our <a href="https://forms.gle/kaVvsspXvZXRkoZx8">mailing list</a>
 </div>
 `
+	var ds = document.getElementById("dates");
+	var ts = document.getElementById("abouttext");
 	if (window.innerWidth <= 600) {
 	    rolldown.style.width = "350px";
 	    rolldown.style.height = null;
+	    ds.style["font-size"] = "14px";
+	    ts.style["font-size"] = "14px";
 	} else {
 	    rolldown.style.width = "500px";
 	    rolldown.style.height = null;
+	    ds.style["font-size"] = "16px";
+	    ts.style["font-size"] = "16px";
 	}
-	var ds = document.getElementById("dates");
 	ds.style["font-family"] = "monospace";
-	ds.style["font-size"] = "16px";
-	var ts = document.getElementById("abouttext");
 	ts.style["font-family"] = "monospace";
-	ts.style["font-size"] = "16px";	
 	rolldown.style.right = null;
 	rolldown.style.margin = "auto";
 	rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
