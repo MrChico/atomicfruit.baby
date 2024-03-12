@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <meta charset="utf-8">
     <title>Atomic Fruit</title>
     <style>
@@ -17,13 +17,19 @@
 html, body {
     overflow-x: hidden;
     overflow-y: hidden;
-    height: 100vh;
+    height: 100%;
     margin: 0;
     padding: 0;   
 }
+
+canvas {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
       
    body {
-       position: relative;
+       position: absolute;
        display: flex;
        background-color: #222;
        align-items: center;
@@ -196,6 +202,7 @@ html, body {
 
     #MAIN {
        display: none;
+       height: 100%;
        position: absolute;
        margin: 0;
        align-items: center;
