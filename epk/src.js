@@ -439,7 +439,7 @@ function toggleRollDown() {
     // Toggle the width and height to open/close the menu
     if (!visible) {
         rolldown.innerHTML = `
-<p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p><br>
+<p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p>
 <div id=dates>
 March 16th &mdash; Scharni38, Berlin<br>
 March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a><br>
@@ -447,9 +447,8 @@ March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub
  June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
 August 9th &mdash; TBA<br>
 </div>
-<br>
 <p style={font-family: 'Orbitron', sans-serif}>ABOUT</p>
-<p id=abouttext>
+<div id=abouttext>
 Atomic Fruit is an Berlin-based group with roots in Sweden, Pakistan, Italy and France formed in late 2021 after meeting at an art punk concert.
 <br>
 The four members found a shared interest in effects pedals and unconventional compositions and quickly became a popular live act in the independent music scene of Berlin.
@@ -460,7 +459,7 @@ Their debut album <i>Play Dough</i> was released in October 2023 to a sold out c
 Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.<br>
 <br>
 Contact us at <a href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby</a> or join  our <a href="https://forms.gle/kaVvsspXvZXRkoZx8">mailing list</a>
-</p>
+</div>
 `
 	if (window.innerWidth <= 600) {
 	    rolldown.style.width = "350px";
@@ -471,8 +470,10 @@ Contact us at <a href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby
 	}
 	var ds = document.getElementById("dates");
 	ds.style["font-family"] = "monospace";
+	ds.style["font-size"] = "16px";
 	var ts = document.getElementById("abouttext");
 	ts.style["font-family"] = "monospace";
+	ts.style["font-size"] = "16px";	
 	rolldown.style.right = null;
 	rolldown.style.margin = "auto";
 	rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
