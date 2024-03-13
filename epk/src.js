@@ -327,7 +327,7 @@ let isMuted = true;
 rolldown.innerHTML = "ABOUT";
 rolldown.style.width = "70px";
 var toggleMute = function(setup) {
-    muteButton.innerHTML = isMuted ? '<img src="./whiteMute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteUnmute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
+    muteButton.innerHTML = isMuted ? '<img src="./whiteUnmute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteMute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
     if (setup) {
 	audioElement.play();
 	isMuted = false;
