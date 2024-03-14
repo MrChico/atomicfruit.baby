@@ -452,7 +452,7 @@ function openRollDown() {
 <div id=dates>
 March 16th &mdash; Scharni38, Berlin<br>
 March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/" target="_blank">Privatclub, Berlin (supporting Lyca)</a><br>
-March 22nd &mdash; <a href="https://www.ticketmaster.de/event/the-clockworks-exit-strategy-tour-2024-tickets/524807" target="_blank">Badehaus, Berlin (supporting The Clockworks)</a><br>
+March 22nd &mdash; TBA<br>
  June 21st &mdash; Fête de la Musique, Berlin<br>
  June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
 August 9th &mdash; TBA<br>
