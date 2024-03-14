@@ -190,7 +190,17 @@ html, body {
 	cursor: pointer;
 	left: 10px;
 	top: 10px;
-	color: #444;
+	color: #aaa;
+    }
+
+    #close {
+	position: fixed;
+	font-size: 14px;
+	z-index: 2;
+	border: none;
+	cursor: pointer;
+	right: 10px;
+	top: 7px;
     }
 
     #MAIN {
@@ -227,13 +237,13 @@ html, body {
   </head>
 <body>
   <div id="menu">
-    <div class="menuitem" id="enter">NEW GAME</div>
-    <div class="menuitem" id="shop" onclick="location.href='https://atomicfruit.bandcamp.com/merch/';">SHOP</div>
+    <div class="menuitem" id="enter">E N T E R</div>
+    <div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
+    <div class="menuitem" id="more"  onclick="window.open('https://linktr.ee/atomic_fruit')">M O R E</div>
   </div>
-
   <div id="MAIN">
-    <div id="backButton"><</div>
-    <div id="rollDownButton">LOADING...</div>
+    <div id="backButton"> <</div>
+    <div id="rollDownButton" className="rd">LOADING...</div>
     <div id="music-controls">
       <div class="music-controls">
            <button class="control-button" id="mute">

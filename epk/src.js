@@ -23,6 +23,7 @@ function webglAvailable() {
 
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor( 0x000000, 0 ); // the default
 document.body.appendChild(renderer.domElement);
 
 const rolldown = document.getElementById('rollDownButton');
@@ -314,7 +315,7 @@ function changeModel(direction) {
     loadModel(models[currentModelIndex], true);
 }
 // Audio tracks
-const audioTracks = ['play_dough_short.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
+const audioTracks = ['play_dough_smol.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
 let currentTrackIndex = 0;
 let audioElement = new Audio(audioTracks[currentTrackIndex]);
 
@@ -435,14 +436,23 @@ window.addEventListener('resize', function () {
 });
 var visible = false;
 
-function toggleRollDown() {
+function closeRolldown() {
+    rolldown.innerHTML = "ABOUT"
+    rolldown.style.width = "70px";
+    rolldown.style.right = "10px";
+    rolldown.style["background-color"] = "#aaa"
+    visible = false;
+}
+
+function openRollDown() {
     // Toggle the width and height to open/close the menu
-    if (!visible) {
-        rolldown.innerHTML = `
+    rolldown.innerHTML = `
+<div id="close">x</div>
 <p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p>
 <div id=dates>
 March 16th &mdash; Scharni38, Berlin<br>
-March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/">Privatclub, Berlin (supporting Lyca)</a><br>
+March 19th &mdash; <a href="https://privatclub-berlin.de/event/lyca/" target="_blank">Privatclub, Berlin (supporting Lyca)</a><br>
+March 22nd &mdash; <a href="https://www.ticketmaster.de/event/the-clockworks-exit-strategy-tour-2024-tickets/524807" target="_blank">Badehaus, Berlin (supporting The Clockworks)</a><br>
  June 21st &mdash; Fête de la Musique, Berlin<br>
  June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
 August 9th &mdash; TBA<br>
@@ -454,43 +464,57 @@ Atomic Fruit is an Berlin-based group with roots in Sweden, Pakistan, Italy and 
 The four members found a shared interest in effects pedals and unconventional compositions and quickly became a popular live act in the independent music scene of Berlin.
 <br><br>
 Their debut album <i>Play Dough</i> was released in October 2023 to a sold out crowd in Schokoladen and got featured in major editorial playlists as well as airplay on Berlin radio stations.
+<br><br>
+Listen to Atomic Fruit on <a href="https://atomicfruit.bandcamp.com/" target="_blank">Bandcamp</a> or <a target="_blank" href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.<br>
 <br>
-<br>
-Hear it on <a href="https://atomicfruit.bandcamp.com/">Bandcamp</a> or <a href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.<br>
-<br>
-Contact us at <a href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby</a> or join  our <a href="https://forms.gle/kaVvsspXvZXRkoZx8">mailing list</a>
+Contact us at <a target="_blank" href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby</a> or join our <a target="_blank" href="https://forms.gle/kaVvsspXvZXRkoZx8">mailing list</a>.
 </div>
 `
-	var ds = document.getElementById("dates");
-	var ts = document.getElementById("abouttext");
-	if (window.innerWidth <= 600) {
-	    rolldown.style.width = "350px";
-	    rolldown.style.height = null;
-	    ds.style["font-size"] = "14px";
-	    ts.style["font-size"] = "14px";
-	} else {
-	    rolldown.style.width = "500px";
-	    rolldown.style.height = null;
-	    ds.style["font-size"] = "16px";
-	    ts.style["font-size"] = "16px";
-	}
-	ds.style["font-family"] = "monospace";
-	ts.style["font-family"] = "monospace";
-	rolldown.style.right = null;
-	rolldown.style.margin = "auto";
-	rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
-	rolldown.style["backdrop-filter"] = "blur(10px)";
-	rolldown.style["background-color"] = "#fff7"
-	visible = true;
+    var ds = document.getElementById("dates");
+    var ts = document.getElementById("abouttext");
+    console.log('wtf')
+    if (window.innerWidth <= 600) {
+	rolldown.style.width = "350px";
+	rolldown.style.height = null;
+	ds.style["font-size"] = "14px";
+	ts.style["font-size"] = "14px";
     } else {
-	rolldown.innerHTML = "ABOUT"
-	rolldown.style.width = "70px";
-	rolldown.style.right = "10px";
-	rolldown.style["background-color"] = "#aaa"
-	visible = false;
+	rolldown.style.width = "500px";
+	rolldown.style.height = null;
+	ds.style["font-size"] = "16px";
+	ts.style["font-size"] = "16px";
+    }
+    ds.style["font-family"] = "monospace";
+    ts.style["font-family"] = "monospace";
+    rolldown.style.right = null;
+    rolldown.style.cursor = "auto";
+    rolldown.style.margin = "auto";
+    rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
+    rolldown.style["backdrop-filter"] = "blur(10px)";
+    rolldown.style["background-color"] = "#fff7"
+    visible = true;
+    document.getElementById("close").addEventListener("click", closeRolldown);
+}
+
+// Function to close menu if click occurs outside of it
+function closeMenuOutsideClick(event) {
+    if (!visible && event.target == rolldown) {
+	openRollDown();
+    } else if (visible && !rolldown.contains(event.target)) {
+	closeRolldown();
     }
 }
-document.getElementById("rollDownButton").addEventListener("click", toggleRollDown);
+
+// Event listener to close menu when click occurs outside of it
+document.addEventListener('click', closeMenuOutsideClick);
+document.getElementById("rollDownButton").addEventListener("click", () => {
+    if (visible) {
+	console.log("its open");
+    } else {
+	openRollDown();
+    }
+});
+
 startParticleAnimation();
 document.addEventListener("visibilitychange", () => {
     if (!isMuted) {
