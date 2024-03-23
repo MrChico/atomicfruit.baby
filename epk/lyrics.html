@@ -21,12 +21,47 @@ html, body {
     color: #E1A7A7;
     font-family: 'Sedan SC', sans-serif;
 }
+.container {
+    color: #E1A7A7;
+  max-width: 600px;
+  padding: 20px;
+}
+
+
+
+.contents-list {
+    color: #E1A7A7;
+  list-style-type: none;
+  padding: 0;
+}
+
+.expandable p {
+  cursor: pointer;
+}
+
+    .sublist {
+      display: none;
+      transition: max-height 0.8s ease-out; /* Animation duration and easing */
+      max-height: 0; /* Start with no height */
+      overflow: hidden; /* Hide overflowing content */
+    }
+    
+    /* Animation when sublist is expanded */
+    .expandable.expanded .sublist {
+	display: block;
+      max-height: 800px; /* Adjust the maximum height as needed */
+    }
+    .targetElement {
+	position: absolute;
+    }
 </style>
 <body style="background-color: #222;">
-<p id="title">
-HIBERNATED EMBRACE 
-</p>
-<p id="text">
+    <div class="container">
+    <ul class="contents-list">
+      <li class="expandable">
+        <p id="title">HIBERNATED EMBRACE</p>
+        <ul class="sublist">
+          <p id="title">
 A game of pinball to teach humility <br>
 as I hit the bumper car, I laugh in disbelief <br>
 back at the Chichen Itza playing unreal tournaments <br>
@@ -43,10 +78,13 @@ The empty space for us to confer in  <br>
 Mosaics in playful tessellation <br>
  The figment of our incantations <br>
  <br>
-</p>
-<p id="title">
-  ETERNAL AFTERNOON
-</p>
+
+	  </p>
+        </ul>
+      </li>
+      <li class="expandable">
+        <p id="title">ETERNAL AFTERNOON</p>
+        <ul class="sublist">
 <p id="text">
  Caught myself daydreaming I could float <br>
 as a sun kissed particle of dust <br>
@@ -71,9 +109,15 @@ Where we found our way<br>
 Where we found our way<br>
 Where we found our way<br>
 <br>
+</p>
+	</ul>
+      </li>
+    <li class="expandable">
 <p id='title'>
   IDIOSYNCRASIES
 </p>
+<ul class="sublist">
+
 <p id="text">
  Underneath the surface of your fingertips<br>
 the carbonated skin leaves you bare<br>
@@ -101,14 +145,20 @@ Violins hidden deep inside the walls<br>
 come to serenade your demise<br>
 <br>
 </p>
+	</ul>
+      </li>
+    <li class="expandable">
 <p id='title'>
-INSIDE MY HEAD 
+  INSIDE MY HEAD
 </p>
+<ul class="sublist">
 <p id='text'>
 You’re watering it down with comedy<br>
 Built yourself a wall from within<br>
 You try to understand but you’re faltering<br>
-Don’t pry inside my head Don’t pry inside my head Don’t pry inside my head<br>
+Don’t pry inside my head <br>
+Don’t pry inside my head <br>
+Don’t pry inside my head<br>
 <br>
 You can’t back out now, you’re in too deep<br>
 Locked yourself in a box and swallowed the key<br>
@@ -129,9 +179,13 @@ Leave me be<br>
 Leave me be<br>
 <br>
 </p>
+</ul>
+    </li>
+    <li class="expandable">
 <p id='title'>
 SERENDIPITY
 </p>
+<ul class="sublist">
 <p id='text'>
 I’m chasing trees, trying to get lost<br>
 and I’m starting to believe I<br>
@@ -155,9 +209,13 @@ A breath explodes in mine<br>
 a mist surrounding serendipity<br>
 <br>
 </p>
+</ul>
+</li>
+<li class="expandable">
 <p id='title'>
 WE CONTROL  
 </p>
+<ul class="sublist">
 <p id='text'>
 We control everything you know<br>
 we’re your…<br>
@@ -180,9 +238,13 @@ we know everything about you<br>
 we know everything about you<br>
 <br>
 </p>
+</ul>
+</li>
+<li class="expandable">
 <p id='title'>
 FINE PRINT 
 </p>
+<ul class="sublist">
 <p id='text'>
 Routine procedure<br>
 These are most favorable terms<br>
@@ -221,9 +283,13 @@ Don’t fuck it up this time<br>
 Don’t fuck it up this time<br>
 <br>
 </p>
+</ul>
+</li>
+<li class="expandable">
 <p id="title">
   VOLCANOLOGY 
 </p>
+<ul class="sublist">
 <p id="text">
 The divine and the earth<br>
 Reunite before your nose<br>
@@ -259,9 +325,13 @@ Come into the inferno<br>
 Come into the inferno<br>
 <br>
 </p>
+</ul>
+</li>
+<li class="expandable">
 <p id="title">
 PLAY DOUGH
 </p>
+<ul class="sublist">
 <p id="text">
 Bend us to your goals<br>
 We’re made to serve your word<br>
@@ -299,6 +369,14 @@ Feels like I’m going nocturnal again<br>
 Feels like I’m going nocturnal again<br>
 <br>
 </p>
+</ul>
+</li>
+    </div>
+    <div id="targetElement">
+      <!-- Your Three.js canvas will be positioned relative to this element -->
+  </div>
+
+
 </body>
 <script src="./dist/lyric/main.js"></script>
 </html>

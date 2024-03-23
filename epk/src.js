@@ -283,11 +283,11 @@ function unveilText() {
 	} else {
 	    textElement.innerHTML += textContent[index];
 	}
-	
 	index++;
 	if (index < textContent.length) {
 	    timeoutId = setTimeout(appendNextCharacter, 50); // Adjust the delay (100 milliseconds in this example)
 	} else {
+	    textElement.innerHTML = textElement.innerHTML.replace("What is he saying?", "<a href='./lyrics.html'>What is he saying?</a>");
 	    textElement.classList.remove("hidden");
 	}
     }
