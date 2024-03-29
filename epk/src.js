@@ -20,14 +20,27 @@ function webglAvailable() {
         return false;
     } 
 }
+var sizes = {
+    "raf_opt": 1,
+    "fede_opt": 1.6,
+    "marti_opt": 1.5,
+    "fardi_opt": 1.2
+}
+
+var models = ['./raf_opt.glb', './marti_opt.glb', './fede_opt.glb', 'fardi_opt.glb']; // Add paths to your models
+var currentModelIndex = 0;
+var model;
+let main = document.getElementById("MAIN");
+var leftArrow = createArrow('leftArrow');
+var rightArrow = createArrow('rightArrow')
+
 
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor( 0x000000, 0 ); // the default
-document.body.appendChild(renderer.domElement);
+main.appendChild(renderer.domElement);
 
 const rolldown = document.getElementById('rollDownButton');
-rolldown.style.right = "10px";
 
 var descriptions = {
     "raf_opt": ["Player: Raf", "Weapon: Guitar", "Warning! VERY LOUD!", "Special ability: Brain hemorrage"],
@@ -44,20 +57,6 @@ scene.add(particlesA);
 const particleMaterialA = new THREE.PointsMaterial({ color: 0x00ff00, size: 0.01 });
 
 
-
-var sizes = {
-    "raf_opt": 1,
-    "fede_opt": 1.6,
-    "marti_opt": 1.5,
-    "fardi_opt": 1.2
-}
-
-var models = ['./raf_opt.glb', './marti_opt.glb', './fede_opt.glb', 'fardi_opt.glb']; // Add paths to your models
-var currentModelIndex = 0;
-var model;
-let main = document.getElementById("MAIN");
-var leftArrow = createArrow('leftArrow');
-var rightArrow = createArrow('rightArrow')
 
 leftArrow.addEventListener('click', function () {
     changeModel(-1);
@@ -319,30 +318,26 @@ const audioTracks = ['play_dough_smol.mp3'] //, 'Hibernated_Embrace_smol.mp3', '
 let currentTrackIndex = 0;
 let audioElement = new Audio(audioTracks[currentTrackIndex]);
 
-volumeSlider.addEventListener('input', () => {
-    audioElement.volume = volumeSlider.value;
-});
-
-const muteButton = document.getElementById('mute');
+//const muteButton = document.getElementById('mute');
 let isMuted = true;
-rolldown.innerHTML = "ABOUT";
+rolldown.innerHTML = "MENU";
 rolldown.style.width = "70px";
-var toggleMute = function(setup) {
-    muteButton.innerHTML = isMuted ? '<img src="./whiteUnmute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteMute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
-    if (setup) {
-	audioElement.play();
-	isMuted = false;
-    } else {
-        isMuted = !isMuted;
-	if (!isMuted) {
-            audioElement.play();
-        } else {
-            audioElement.pause();
-        }
-    }
-};
+// var toggleMute = function(setup) {
+//     muteButton.innerHTML = isMuted ? '<img src="./whiteUnmute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteMute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
+//     if (setup) {
+// 	audioElement.play();
+// 	isMuted = false;
+//     } else {
+//         isMuted = !isMuted;
+// 	if (!isMuted) {
+//             audioElement.play();
+//         } else {
+//             audioElement.pause();
+//         }
+//     }
+// };
 
-muteButton.addEventListener('click', () => {toggleMute(false)});
+// muteButton.addEventListener('click', () => {toggleMute(false)});
 
 function startParticleAnimation() {
     const duration = 5000; // Animation duration in milliseconds
@@ -376,14 +371,13 @@ enterButton.addEventListener('click', () => {
     // Load initial model
     main.style.display = "flex";
     menu.style.display = "none";
-    main.appendChild(renderer.domElement);
     loadModel(models[currentModelIndex], true);
-    audioElement.play();
     isMuted = false;
     animateP();
     animate();
 });
-document.getElementById("backButton").addEventListener("click", () => {
+
+rolldown.addEventListener("click", () => {
     scene.remove(model);
     main.style.display = "none";
     menu.style.display = "flex";
@@ -451,7 +445,7 @@ function openRollDown() {
 <p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p>
 <div id=dates>
  June 21st &mdash; Fête de la Musique, Berlin<br>
- June 29th &mdash; 48 Stunden Neukölln, Berlin<br>
+ June 28th &mdash; 48 Stunden Neukölln, Berlin<br>
 August 9th &mdash; TBA<br>
 </div>
 <p style={font-family: 'Orbitron', sans-serif}>ABOUT</p>
@@ -502,15 +496,15 @@ function closeMenuOutsideClick(event) {
     }
 }
 
-// Event listener to close menu when click occurs outside of it
-document.addEventListener('click', closeMenuOutsideClick);
-document.getElementById("rollDownButton").addEventListener("click", () => {
-    if (visible) {
-	console.log("its open");
-    } else {
-	openRollDown();
-    }
-});
+// // Event listener to close menu when click occurs outside of it
+// document.addEventListener('click', closeMenuOutsideClick);
+// document.getElementById("rollDownButton").addEventListener("click", () => {
+//     if (visible) {
+// 	console.log("its open");
+//     } else {
+// 	openRollDown();
+//     }
+// });
 
 startParticleAnimation();
 document.addEventListener("visibilitychange", () => {
@@ -522,3 +516,9 @@ document.addEventListener("visibilitychange", () => {
 	}
     }
 });
+
+
+loadModel(models[currentModelIndex], true);
+animateP()
+animate();
+

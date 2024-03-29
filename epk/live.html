@@ -25,10 +25,11 @@ html, body {
       
    body {
        position: absolute;
-       display: flex;
        background-color: #222;
+       display: grid;
        align-items: center;
-       justify-content: center;
+       justify-items: center;
+       width: 100%;
      }
 
    #menu {
@@ -245,33 +246,28 @@ html, body {
 
     }
 
+    #dates {
+	font-size: 20px;
+	font-family: monospace;
+	color: white;
+    }
+
+    #headr {
+	font-family: 'Orbitron', sans-serif;
+	color: white;
+	font-size: 30px;
+	   }
+
     </style>
   </head>
-<body>
-  <div id="menu">
-    <div class="menuitem" id="live">L I V E</div>
-    <div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
-    <div class="menuitem" id="more"  onclick="window.open('https://linktr.ee/atomic_fruit')">M O R E</div>
-    <div class="menuitem" id="enter">B A C K</div>
-  </div>
-  <div id="MAIN">
-			    <div id="rollDownButton" className="rd">LOADING...</div>
-			    <iframe id="bcembed" style="border: 0; width: 200px; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=2115725966/size=small/bgcol=333333/linkcol=e99708/transparent=true/" seamless><a href="https://atomicfruit.bandcamp.com/album/play-dough">Play Dough by Atomic Fruit</a></iframe>
-  <!--   <div id="music-controls"> -->
-  <!--     <div class="music-controls"> -->
-  <!--          <button class="control-button" id="mute"> -->
-  <!-- 	     <img src="./whiteUnmute.svg" alt="Mute"  width="24" height="24"> -->
-  <!-- 	   </button>						      -->
-  <!--           <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1"> -->
-  <!--       </div> -->
-  <!-- </div> -->
-
-    <div class="matrix-text" id="textNearObject"></div>
-  </div>
-  <div class="menu">
+  <body>
+    
+<p id="headr">UPCOMING</p>
+<div id=dates>
+ June 21st &mdash; Fête de la Musique, Berlin<br><br>
+ June 28th &mdash; 48 Stunden Neukölln, Berlin<br><br>
+August 9th &mdash; TBA<br>
 </div>
 
-    <script type="module" src="./dist/main.js">
-     </script>
   </body>
 </html>
