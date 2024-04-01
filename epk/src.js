@@ -371,6 +371,7 @@ enterButton.addEventListener('click', () => {
     // Load initial model
     main.style.display = "flex";
     menu.style.display = "none";
+    rolldown.innerHTML = "MENU"
     loadModel(models[currentModelIndex], true);
     isMuted = false;
     animateP();
@@ -378,10 +379,14 @@ enterButton.addEventListener('click', () => {
 });
 
 rolldown.addEventListener("click", () => {
-    scene.remove(model);
-    main.style.display = "none";
+//    scene.remove(model);
+    //    main.style.display = "none";
+    rolldown.innerHTML = ""
     menu.style.display = "flex";
-    document.body.appendChild(renderer.domElement);
+    menu.style["-webkit-backdrop-filter"] = "blur(10px)";
+    menu.style["backdrop-filter"] = "blur(10px)";
+    menu.style["background-color"] = "#0001"
+//    document.body.appendChild(renderer.domElement);
     isMuted = true;
 });
 // Hotkey event listener
@@ -507,18 +512,21 @@ function closeMenuOutsideClick(event) {
 // });
 
 startParticleAnimation();
-document.addEventListener("visibilitychange", () => {
-    if (!isMuted) {
-	if (document.visibilityState === "visible") {
-	    audioElement.play();
-	} else {
-	    audioElement.pause();
-	}
-    }
-});
+// document.addEventListener("visibilitychange", () => {
+//     if (!isMuted) {
+// 	if (document.visibilityState === "visible") {
+// 	    audioElement.play();
+// 	} else {
+// 	    audioElement.pause();
+// 	}
+//     }
+// });
 
 
 loadModel(models[currentModelIndex], true);
 animateP()
 animate();
 
+document.getElementById("live").addEventListener('click', function() {
+    document.getElementById("livelist").classList.toggle('expanded');
+});

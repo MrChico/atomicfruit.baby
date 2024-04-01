@@ -33,6 +33,7 @@ html, body {
 
    #menu {
        position: absolute;
+       list-style: none;
        display: none;
        flex-direction: column;
        align-items: center;
@@ -185,7 +186,7 @@ html, body {
     #backButton {
 	position: fixed;
 	font-size: 32px;
-	z-index: 2;
+	z-index: 1;
 	width: 40px;
 	border: none;
 	cursor: pointer;
@@ -245,11 +246,45 @@ html, body {
 
     }
 
+  padding: 0;
+}
+
+ #live{
+     list-style-type: none;
+     }
+
+
+    .sublist {
+      display: none;
+      transition: max-height 0.8s ease-out; /* Animation duration and easing */
+      list-style-type: none;
+      max-height: 0; /* Start with no height */
+      overflow: hidden; /* Hide overflowing content */
+    }
+    
+    /* Animation when sublist is expanded */
+    .expandable.expanded .sublist {
+	display: block;
+	font-size: 16px;
+	list-style-type: none;
+	font-family: monospace;
+	padding: 0px;
+      max-height: 900px; /* Adjust the maximum height as needed */
+    }
+
     </style>
   </head>
 <body>
   <div id="menu">
-    <div class="menuitem" id="live">L I V E</div>
+      <li class="expandable" id="livelist"><div class="menuitem" id="live">L I V E</div>
+            <ul class="sublist">
+	      <p>
+ June 21st &mdash; Fête de la Musique, Berlin<br><br>
+ June 28th &mdash; 48 Stunden Neukölln, Berlin<br><br>
+ August 9th &mdash; TBA<br><br>
+ </p>
+	</ul>
+      	  </li>
     <div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
     <div class="menuitem" id="more"  onclick="window.open('https://linktr.ee/atomic_fruit')">M O R E</div>
     <div class="menuitem" id="enter">B A C K</div>
