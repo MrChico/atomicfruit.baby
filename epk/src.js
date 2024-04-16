@@ -528,9 +528,15 @@ animateP()
 animate();
 
 document.getElementById("live").addEventListener('click', function() {
-    document.getElementById("livelist").classList.toggle('expanded');
+    document.getElementById("livelist").classList.toggle('show');
 });
 
 document.getElementById("music").addEventListener('click', function() {
-    document.getElementById("musiclist").classList.toggle('expanded');
+    document.getElementById("musiclist").classList.toggle('show');
 });
+
+document.getElementById("past").addEventListener('click', function() {
+    document.getElementById("pastlist").classList.toggle('show');
+});
+
+

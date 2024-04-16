@@ -242,7 +242,7 @@ html, body {
     }
     
     /* Animation when sublist is expanded */
-    .expandable.expanded .sublist {
+    .sublist.show {
 	display: block;
 	font-size: 16px;
 	list-style-type: none;
@@ -275,25 +275,27 @@ html, body {
       }
 
     }
-
-
     </style>
   </head>
 <body>
   <div id="menu">
-      <li class="expandable" id="livelist"><div class="menuitem" id="live">L I V E</div>
-            <ul class="sublist">
-	      <p>
+    <div class="menuitem" id="live">L I V E</div>
+      <div class="sublist" id="livelist">
+	<p><div id="past" class="clickable">PAST</div>
+		<p class="sublist" id="pastlist">
+		  2022 - KAOS, Berlin<br>
+		  2023 - Katapult, Berlin<br>
+		  2023 - Schokoladen, Berlin<br>
+		  </p><br>
  June 21st &mdash; Fête de la Musique, Berlin<br><br>
  June 28th &mdash; 48 Stunden Neukölln, Berlin<br><br>
  August 9th &mdash; TBA<br><br>
- August 23rd &mdash; TBA<br><br>
+ August 23rd &mdash; TBA<br>
  </p>
-	</ul>
-      	  </li>
-      <li class="expandable" id="musiclist"><div class="menuitem" id="music">M U S I C</div>
-            <ul class="sublist">
-		<p class="clickable" onclick="window.open('https://atomicfruit.bandcamp.com/')">Bandcamp</p>
+	</div>
+     <div class="menuitem" id="music">M U S I C</div>
+            <ul class="sublist" id="musiclist">
+		<p class="clickable" onclick="window.open('https://atomicfruit.bandcamp.com/')">Bandcamp</p><br>
 	      <p class="clickable" onclick="window.open('https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=Eiuqt2NHRR6wNGjDrnpa1w')">Spotify</p>
 	</ul>
       	  </li>
