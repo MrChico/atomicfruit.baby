@@ -530,3 +530,7 @@ animate();
 document.getElementById("live").addEventListener('click', function() {
     document.getElementById("livelist").classList.toggle('expanded');
 });
+
+document.getElementById("music").addEventListener('click', function() {
+    document.getElementById("musiclist").classList.toggle('expanded');
+});

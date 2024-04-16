@@ -57,6 +57,10 @@ html, body {
    .menuitem:hover {
        text-decoration: underline;
    }
+
+   .clickable:hover {
+       text-decoration: underline;
+   }
    
    #a {
        all: unset;
@@ -224,31 +228,6 @@ html, body {
     display: flex;
     }
 
-    
-
-    @media (max-width: 600px) {
-      #rightArrow {
-          right: 7%;
-      }
-      #leftArrow {
-          left: 7%;
-      }
-      .matrix-text {
-	  font-size: 25px;
-      }
-
-      .volume-slider {
-	  display: none;
-      }
-      #textNearObject {
-	  left: 15%;
-      }
-
-    }
-
-  padding: 0;
-}
-
  #live{
      list-style-type: none;
      }
@@ -272,6 +251,32 @@ html, body {
       max-height: 900px; /* Adjust the maximum height as needed */
     }
 
+    
+
+    @media (max-width: 600px) {
+      #rightArrow {
+          right: 7%;
+      }
+      #leftArrow {
+          left: 7%;
+      }
+      .matrix-text {
+	  font-size: 25px;
+      }
+
+      .volume-slider {
+	  display: none;
+      }
+      #textNearObject {
+	  left: 15%;
+      }
+      .expandable.expanded .sublist {
+	font-size: 14px;
+      }
+
+    }
+
+
     </style>
   </head>
 <body>
@@ -280,9 +285,16 @@ html, body {
             <ul class="sublist">
 	      <p>
  June 21st &mdash; Fête de la Musique, Berlin<br><br>
- June 28th &mdash; 48 Stunden Neukölln, Berlin<br><br>
+ June 29th &mdash; 48 Stunden Neukölln, Berlin<br><br>
  August 9th &mdash; TBA<br><br>
+ August 23rd &mdash; TBA<br><br>
  </p>
+	</ul>
+      	  </li>
+      <li class="expandable" id="musiclist"><div class="menuitem" id="music">M U S I C</div>
+            <ul class="sublist">
+		<p class="clickable" onclick="window.open('https://atomicfruit.bandcamp.com/')">Bandcamp</p>
+	      <p class="clickable" onclick="window.open('https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=Eiuqt2NHRR6wNGjDrnpa1w')">Spotify</p>
 	</ul>
       	  </li>
     <div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
