@@ -535,6 +535,10 @@ document.getElementById("music").addEventListener('click', function() {
     document.getElementById("musiclist").classList.toggle('show');
 });
 
+document.getElementById("contact").addEventListener('click', function() {
+    document.getElementById("contactlist").classList.toggle('show');
+});
+
 document.getElementById("past").addEventListener('click', function() {
     document.getElementById("pastlist").classList.toggle('show');
 });
