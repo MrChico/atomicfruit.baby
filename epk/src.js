@@ -501,26 +501,7 @@ function closeMenuOutsideClick(event) {
     }
 }
 
-// // Event listener to close menu when click occurs outside of it
-// document.addEventListener('click', closeMenuOutsideClick);
-// document.getElementById("rollDownButton").addEventListener("click", () => {
-//     if (visible) {
-// 	console.log("its open");
-//     } else {
-// 	openRollDown();
-//     }
-// });
-
 startParticleAnimation();
-// document.addEventListener("visibilitychange", () => {
-//     if (!isMuted) {
-// 	if (document.visibilityState === "visible") {
-// 	    audioElement.play();
-// 	} else {
-// 	    audioElement.pause();
-// 	}
-//     }
-// });
 
 
 loadModel(models[currentModelIndex], true);
@@ -541,6 +522,32 @@ document.getElementById("contact").addEventListener('click', function() {
 
 document.getElementById("past").addEventListener('click', function() {
     document.getElementById("pastlist").classList.toggle('show');
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const closePopupButton = document.getElementById('closePopup');
+    const popup = document.getElementById('popup');
+
+    closePopupButton.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+    // Optional: close popup when clicking outside of it
+    window.addEventListener('click', (event) => {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+        }
+    });
+
+    setTimeout(() => {
+	console.log("opening the popup");
+	popup.style.display = 'block';
+        setTimeout(() => {
+            popup.classList.add('show');
+        }, 10); // 
+    }, "2000");
+
 });
 
 

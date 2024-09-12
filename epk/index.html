@@ -251,7 +251,51 @@ html, body {
       max-height: 900px; /* Adjust the maximum height as needed */
     }
 
-    
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    opacity: 0%;
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in; /* Smooth transition */
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9);;
+    background-image: url("./sure_cover.png");
+    width: 300px;
+    height: 300px;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    box-shadow: 0 0 100px rgba(255, 255, 255, 0.5);
+    z-index: 1000; /* Makes sure it's on top */
+}
+
+.popup.show {
+    opacity: 1; /* Fully visible */
+    transform: translate(-50%, -50%) scale(1); /* Scale up to normal size */
+}
+
+.popup-content {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    color: #C00A;
+    width: 300px;
+}
+
+#closePopup {
+display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 6px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
+button {
+    margin: 20px;
+}    
 
     @media (max-width: 600px) {
       #rightArrow {
@@ -275,6 +319,8 @@ html, body {
       }
 
     }
+
+    
     </style>
   </head>
 <body>
@@ -348,6 +394,13 @@ html, body {
     <div class="matrix-text" id="textNearObject"></div>
   </div>
   <div class="menu">
+    <div id="popup" class="popup">
+      <div id="closePopup">&times;</div>
+        <div class="popup-content">
+            <h2 id="popuptext">SURE out Sept 20!<br>
+	    <a href="https://link.aurale.agency/atomic_fruit/" style="color: #A00A;">PRESAVE</a></h2>
+        </div>
+    </div>
 </div>
 
     <script type="module" src="./dist/main.js">
