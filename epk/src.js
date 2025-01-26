@@ -4,7 +4,7 @@ import { EffectComposer }  from 'three/examples/jsm/postprocessing/EffectCompose
 import { RenderPass }      from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-const bgcolor = new THREE.Color( 0x202020 );
+const bgcolor = new THREE.Color( 0x101010 );
 var scene = new THREE.Scene();
 scene.background = bgcolor;
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -540,13 +540,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    setTimeout(() => {
-	console.log("opening the popup");
-	popup.style.display = 'block';
-        setTimeout(() => {
-            popup.classList.add('show');
-        }, 10); // 
-    }, "2000");
+    // setTimeout(() => {
+    // 	console.log("opening the popup");
+    // 	popup.style.display = 'block';
+    //     setTimeout(() => {
+    //         popup.classList.add('show');
+    //     }, 10); // 
+    // }, "2000");
 
 });
 
