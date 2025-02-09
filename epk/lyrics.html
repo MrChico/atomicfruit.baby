@@ -6,6 +6,25 @@
   <title>Atomic Fruit lyrics</title>
 </head>
 <link href="https://fonts.cdnfonts.com/css/sedan-sc" rel="stylesheet">
+      <script>
+  function toggleMenu(element, id) {
+    let parent = element.parentElement;
+    let sublist = parent.querySelector('.sublist');
+
+    // Toggle expansion
+    parent.classList.toggle('expanded');
+    
+    if (parent.classList.contains('expanded')) {
+      sublist.style.display = 'block';
+      history.replaceState(null, '', `#${id}`); // Change URL hash
+    } else {
+      sublist.style.display = 'none';
+      history.replaceState(null, '', ' '); // Remove hash
+    }
+  }
+</script>
+
+
 <style>
 @import url('https://fonts.cdnfonts.com/css/sedan-sc');
 font-family: 'Sedan SC', sans-serif;
@@ -59,7 +78,7 @@ html, body {
     <div class="container">
       <ul class="contents-list">
 	      <li class="expandable">
-        <p id="title">SURE</p>
+        <p id="title" onclick="toggleMenu(this, 'sure')">SURE</p>
         <ul class="sublist">
           <p id="title">
 Moments ago you were but a child <br>
@@ -93,9 +112,71 @@ Sure how can you be so <br>
 Sure how can you be so <br>
 	  </p>
         </ul>
+	      </li>
+	      <li class="expandable">
+        <p id="title" onclick="toggleMenu(this, 'once')">ONCE</p>
+        <ul class="sublist">
+          <p id="title">
+Once I caught him messing with the turnips in my yard<br>
+Always got this smirk on and he’s gleeful like a dog<br>
+<br>
+Once I saw him lurking round the playground after dark<br>
+Once I caught him sniffing the exhaust pipe of my car<br>
+<br>
+Don’t you let him out of sight<br>
+know what’s coming as soon as you let your guard down<br>
+<br>
+Once I could have sworn I heard him softly breathing neath my floor<br>
+Once I caught the glimmer of a mirror neath the door<br>
+<br>
+Don’t you let him out of sight<br>
+know what’s coming as soon as you let your guard down<br>
+<br>
+Don’t you let him out of sight<br>
+know what’s coming as soon as you let your guard down<br>
+	  </p>
+        </ul>
+	      </li>
+	      <li class="expandable">
+        <p id="title" onclick="toggleMenu(this, 'tongue-tied')">TONGUE TIED</p>
+        <ul class="sublist">
+          <p id="title">
+You could be someone else<br>
+if you got off those train tracks in your head<br>
+you got somewhere you gotta be<br>
+or would you make up an excuse and come with me?<br>
+<br>
+Sippin’ a tea on your balcony still shivering from the ecstasy<br>
+I think I owe someone an apology I got uncomfortable and I had to give in<br>
+<br>
+If you got money left to spare<br>
+you could buy yourself some clothes you’ll never wear<br>
+You’re no younger than you were<br>
+but at least it doesn’t hurt nowhere<br>
+<br>
+but you feel a little tongue tied<br>
+caught behind the turnstile<br>
+and you don’t know what they're talking about<br>
+back inside your hive mind<br>
+<br>
+You got summer on your mind<br>
+and your kitchen full of fruit flies<br>
+<br>
+taking the time to reflect on your crime you got a false belief in your own set of thieves<br>
+you gotta make up a dream you could never achieve and put your thoughts at ease in the white noise machine<br>
+<br>
+you gotta feel a little tongue tied<br>
+caught beneath the turnstile<br>
+and you don’t know what they're on about <br>
+back inside your hive mind<br>
+<br>
+how everything would come about<br>
+while you’re left on the sidelines<br>
+	  </p>
+        </ul>
       </li>
       <li class="expandable">
-        <p id="title">SKETCHES OF THE MOON</p>
+        <p id="title" onclick="toggleMenu(this, 'sketches-of-the-moon')">SKETCHES OF THE MOON</p>
         <ul class="sublist">
           <p id="title">
 All your sketches of the moon<br>
@@ -116,7 +197,110 @@ What an awful way to break the spell<br>
         </ul>
       </li>
       <li class="expandable">
-	<p id="title">IGNORING IT</p>
+        <p id="title" onclick="toggleMenu(this, 'spinning')">SPINNING</p>
+        <ul class="sublist">
+          <p id="title">
+Daylight pried up every lazy eye<br>
+and leaves a vacant one to stare<br>
+<br>
+Worn too long you let your tongue grow sour<br>
+And speak in ransom notes again<br>
+<br>
+Found yourself inside a goldmine<br>
+You keep diggin<br>
+<br>
+Made your slumber through these longish hours<br>
+as they keep on tugging on your leash<br>
+<br>
+Spoiled and sick of all your pills and powders<br>
+but you keep your regimen<br>
+<br>
+Threw yourself into a notepad<br>
+you keep scribbling<br>
+<br>
+Keep pretending that your old lies are worth spinning <br>
+<br>
+One day everything will be undone<br>
+the veil is torn off of your face<br>
+<br>
+Decomposing in your fleeting arms<br>
+As it meets its final fate<br>
+<br>
+Get your head out of the flowers<br>
+Quit your sniffling<br>
+<br>
+Keep pretending that your old lies are worth spinning <br>
+<br>
+Neighbors keep complaining that your mornings are their night<br>
+papers all in order and your baby’s in the trunk<br>
+	  </p>
+        </ul>
+      </li>
+           <li class="expandable">
+        <p id="title" onclick="toggleMenu(this, 'blackout')">BLACKOUT</p>
+        <ul class="sublist">
+          <p id="title">
+
+Enveloped by the ocean<br>
+Swallowed by the waves you feel at home<br>
+Your body sinks like a diamond<br>
+As you feel the kelp wrap around your bones<br>
+<br>
+And you can hear them calling for you<br>
+And you see in the shimmering light<br>
+that they’ll take you and bring you on along<br>
+<br>
+Soon your lungs fill with water<br>
+Just like they did before you were born<br>
+Your body sinks like a diamond<br>
+As all the kelp wrap around your bones<br>
+<br>
+And you can hear them calling for you<br>
+And you see in their shimmering eyes<br>
+That they’ll take you and bring you to their home<br>
+<br>
+Without warning<br>
+	  </p>
+        </ul>
+      </li>
+            <li class="expandable">
+        <p id="title" onclick="toggleMenu(this, 'groundhog-heart')">GROUNDHOG HEART</p>
+	      <ul class="sublist">
+          <p id="title">
+Started off just like in the pictures with your starry eyes<br>
+widening with anticipation sparks and butterflies<br>
+<br>
+Spring flew by and the golden shimmer softened to expose<br>
+the human being hidden in the fissures of the marble stone<br>
+<br>
+She won’t soothe<br>
+There is something that still lingers<br>
+Let me try a different view<br>
+You don’t notice how it creeps in<br>
+<br>
+Every day there’s another issue argued til you’re numb<br>
+swore you’d never be those people everyone becomes<br>
+<br>
+She won’t soothe<br>
+There is something that still lingers<br>
+Let me try a different view<br>
+Cause You don’t know how it creeps in<br>
+<br>
+Don’t waste your time<br>
+Just waiting around<br>
+For the times gone by<br>
+Still chasing an old dream<br>
+less sleep in another future forms another start<br>
+Winter weather sets the rhythm<br>
+Of your groundhog heart<br>
+<br>
+Still got time if you learn from it<br>
+Still got time to learn from it<br>
+	  </p>
+        </ul>
+      </li>
+      <li class="expandable">
+        <p id="title" onclick="toggleMenu(this, 'ignoring-it')">IGNORING IT</p>
         <ul class="sublist">
           <p id="title">
 	    You keep ignoring it<br>
@@ -152,7 +336,7 @@ What an awful way to break the spell<br>
         </ul>
       </li>
       <li class="expandable">
-	<p id="title">GET ALONG</p>
+        <p id="title" onclick="toggleMenu(this, 'get-along')">GET ALONG</p>
         <ul class="sublist">
           <p id="title">
 	    Got myself a new style<br>
@@ -198,7 +382,7 @@ What an awful way to break the spell<br>
         </ul>
       </li>
       <li class="expandable">
-        <p id="title">HIBERNATED EMBRACE</p>
+        <p id="title" onclick="toggleMenu(this, 'hibernated-embrace')">HIBERNATED EMBRACE</p>
         <ul class="sublist">
           <p id="title">
 A game of pinball to teach humility <br>
@@ -222,7 +406,7 @@ Mosaics in playful tessellation <br>
         </ul>
       </li>
       <li class="expandable">
-        <p id="title">ETERNAL AFTERNOON</p>
+        <p id="title" onclick="toggleMenu(this, 'eternal-afternoon')">ETERNAL AFTERNOON</p>
         <ul class="sublist">
 <p id="text">
 Caught myself daydreaming I could float <br>
@@ -252,9 +436,7 @@ Where we found our way<br>
 	</ul>
       </li>
     <li class="expandable">
-<p id='title'>
-  IDIOSYNCRASIES
-</p>
+        <p id="title" onclick="toggleMenu(this, 'idiosyncracies')">IDIOSYNCRACIES</p>
 <ul class="sublist">
 
 <p id="text">
@@ -287,10 +469,8 @@ come to serenade your demise<br>
 	</ul>
       </li>
     <li class="expandable">
-<p id='title'>
-  INSIDE MY HEAD
-</p>
-<ul class="sublist">
+      <p id="title" onclick="toggleMenu(this, 'inside-my-head')">INSIDE MY HEAD</p>
+      <ul class="sublist">
 <p id='text'>
 You’re watering it down with comedy<br>
 Built yourself a wall from within<br>
@@ -321,10 +501,8 @@ Leave me be<br>
 </ul>
     </li>
     <li class="expandable">
-<p id='title'>
-SERENDIPITY
-</p>
-<ul class="sublist">
+      <p id="title" onclick="toggleMenu(this, 'serendipity')">SERENDIPITY</p>
+      <ul class="sublist">
 <p id='text'>
 I’m chasing trees, trying to get lost<br>
 and I’m starting to believe I<br>
@@ -351,9 +529,7 @@ a mist surrounding serendipity<br>
 </ul>
 </li>
 <li class="expandable">
-<p id='title'>
-WE CONTROL  
-</p>
+      <p id="title" onclick="toggleMenu(this, 'we-control')">WE CONTROL</p>
 <ul class="sublist">
 <p id='text'>
 We control everything you know<br>
@@ -380,10 +556,8 @@ we know everything about you<br>
 </ul>
 </li>
 <li class="expandable">
-<p id='title'>
-FINE PRINT 
-</p>
-<ul class="sublist">
+  <p id="title" onclick="toggleMenu(this, 'fine-print')">FINE PRINT</p>
+  <ul class="sublist">
 <p id='text'>
 Routine procedure<br>
 These are most favorable terms<br>
@@ -426,10 +600,8 @@ Don’t fuck it up this time<br>
 </ul>
 </li>
 <li class="expandable">
-<p id="title">
-  VOLCANOLOGY 
-</p>
-<ul class="sublist">
+  <p id="title" onclick="toggleMenu(this, 'volcanology')">VOLCANOLOGY</p>
+  <ul class="sublist">
 <p id="text">
 The divine and the earth<br>
 Reunite before your nose<br>
@@ -468,10 +640,8 @@ Come into the inferno<br>
 </ul>
 </li>
 <li class="expandable">
-<p id="title">
-PLAY DOUGH
-</p>
-<ul class="sublist">
+  <p id="title" onclick="toggleMenu(this, 'play-dough')">PLAY DOUGH</p>
+  <ul class="sublist">
 <p id="text">
 Bend us to your goals<br>
 We’re made to serve your word<br>
@@ -515,10 +685,9 @@ Feels like I’m going nocturnal again<br>
     <div id="targetElement">
       <!-- Your Three.js canvas will be positioned relative to this element -->
   </div>
-
 <!-- 100% privacy-first analytics -->
-<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>    
+    <script src="./dist/lyric/main.js"></script>
 <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </body>
-<script src="./dist/lyric/main.js"></script>
 </html>
