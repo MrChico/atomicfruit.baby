@@ -512,6 +512,10 @@ document.getElementById("live").addEventListener('click', function() {
     document.getElementById("livelist").classList.toggle('show');
 });
 
+document.getElementById("news").addEventListener('click', function() {
+    document.getElementById("newslist").classList.toggle('show');
+});
+
 document.getElementById("music").addEventListener('click', function() {
     document.getElementById("musiclist").classList.toggle('show');
 });
