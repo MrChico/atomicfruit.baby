@@ -37,6 +37,17 @@ html, body {
        justify-content: center;
      }
 
+   #menucontainer {
+       position: absolute;
+       list-style: none;
+       justify-content: center;
+       align-items: center;
+       display: none;
+       width: 100%;
+       height: 100%;
+       z-index: 1;
+   }
+   
    #menu {
        position: absolute;
        list-style: none;
@@ -46,7 +57,6 @@ html, body {
        justify-content: center;
        font-family: 'Orbitron', sans-serif;
        color: #aaa;
-       width: 100%;
        height: 100%;
        text-align: center;
        padding: 20px;
@@ -334,7 +344,8 @@ button {
     
     </style>
   </head>
-<body>
+  <body>
+  <div id="menucontainer">
   <div id="menu">
     <div class="menuitem" id="live">L I V E</div>
       <div class="sublist" id="livelist">
@@ -374,10 +385,11 @@ button {
 <br>07.03.25 Noch Besser Leben, Leipzig
 <br>15.03.25 Chateu Langenberg, Wissembourg
 <br>07.06.25 Kulturlounge, Leipzig
+<br>18.07.25 Treibgut Festival, Berlin
+<br>07.09.25 Monarch, Berlin
 	</p><br>
 	UPCOMING
 	<br>
-	<br>07.09.25 Monarch, Berlin</br>
 	<br>16.10.25 <a href="https://www.kampushybernska.cz/en/program/hyb4-hudba-atomic-fruit-de-digital-carbs-de" target="blank">Kampus Hybernska, Prague feat. Digital Carbs</a>
 	<br>17.10.25 <a href="https://www.ticketladen.at/events/digital-carbs-atomic-fruit" target="blank">Kramladen, Wien feat. Digital Carbs</a>
 	<br>18.10.25 <a href="https://bringticket.com/event/atomic-fruit-digital-carbs-9a4a08e3" target="blank"> Music House, Graz feat. Digital Carbs</a>
@@ -388,13 +400,38 @@ button {
 	<br>14.11.25 <a href="https://mobilat.club/event/atomic-fruit-digital-carbs-100-safe-for-human-consumption-tour/" target="blank">Mobilat, Heilbronn feat. Digital Carbs</a>
 	<br>28.11.25 <a href="https://pretix.eu/cafetrauma/WarmduschenVII/" target="blank">Trauma, Marburg feat. Digital Carbs</a>
 	<br>29.11.25 <a href="https://rausgegangen.de/en/events/digital-carbs-atomic-fruit-indie-artrock-psychedelicmunichbe-0/" target="blank">Subway, Köln feat. Digital Carbs</a>
-	</div>
+      </div>
+      <div class="menuitem" id="about">A B O U T</div>
+      <ul class="sublist" id="aboutlist">
+	<p>
+	  <i>100% safe for human consumption</i> <br>
+	  <br>
+	  Berlin-based Atomic Fruit combines dreamy, psychedelic <br>
+	  rock with electronic beats and immersive soundscapes. <br>
+	  With members from Sweden, France and Italy, the group <br>
+	  formed in 2021 after a serendipitous meeting at a SUUNS <br>
+	  concert and their energetic live shows quickly became a <br>
+	  frequent spectacle in the Berlin underground scene.
+	  </p>
+      </ul>
      <div class="menuitem" id="music">M U S I C</div>
             <ul class="sublist" id="musiclist">
-		<p class="clickable" onclick="window.open('https://atomicfruit.bandcamp.com/')">Bandcamp</p><br>
-	      <p class="clickable" onclick="window.open('https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=Eiuqt2NHRR6wNGjDrnpa1w')">Spotify</p>
+		<p class="clickable" onclick="window.open('https://atomicfruit.bandcamp.com/')">Bandcamp</p>
+		<p class="clickable" onclick="window.open('https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=Eiuqt2NHRR6wNGjDrnpa1w')">Spotify</p>
+		<p class="clickable" onclick="window.open('https://music.apple.com/us/artist/atomic-fruit/1704142936')">Apple Music</p>
+		<p class="clickable" onclick="window.open('https://music.youtube.com/channel/UCUwvBfKqd0QvoACMWLcfYtw')">Youtube Music</p>
 	</ul>
-<div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
+
+	         <div class="menuitem" id="video">V I D E O S</div>
+		 <ul class="sublist" id="videolist">
+		   <iframe width="448" height="252" src="https://www.youtube.com/embed/aY3swW4wtF8?si=ix6x0X_ePuvFInT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+		   <iframe width="448" height="252" src="https://www.youtube.com/embed/tkNWv5Q4P6o?si=EVgblhrXVed2DJ4_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+		   		   <iframe width="448" height="252" src="https://www.youtube.com/embed/9rTrR52CYsM?si=KwdSsgZdSp10QX3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+
+		   
+	</ul>
+
+	    <div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
 <div class="menuitem" id="news">N E W S</div>
 <ul class="sublist" id="newslist">
 <div id="mc_embed_shell">
@@ -425,25 +462,16 @@ button {
 </ul>
      <div class="menuitem" id="contact">C O N T A C T</div>
      <ul class="sublist" id="contactlist">
-	      <p class="clickable" onclick="window.open('mailto:management@atomicfruit.baby')">management@atomicfruit.baby</p><br>
+	      <p class="clickable" onclick="window.open('mailto:management@atomicfruit.baby')">management@atomicfruit.baby</p>
 	      <p class="clickable" onclick="window.open('https://atomicfruit.baby/EPK_AF.pdf')">EPK</p>
+	      <p class="clickable" onclick="window.open('https://instagram.com/atomic_fruit')">Instagram</p>
+	      <p class="clickable" onclick="window.open('https://linktr.ee/atomic_fruit')">Linktree</p>
 	</ul>
-
-    <div class="menuitem" id="more"  onclick="window.open('https://linktr.ee/atomic_fruit')">M O R E</div>
-    <div class="menuitem" id="enter">B A C K</div>
+  </div>
   </div>
   <div id="MAIN">
     <div id="rollDownButton" className="rd">LOADING...</div>
 			    <iframe id="bcembed" style="border: 0; width: 200px; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3482540859/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="https://atomicfruit.bandcamp.com/album/sketches-of-the-moon">Sketches of the Moon by Atomic Fruit</a></iframe>
-  <!--   <div id="music-controls"> -->
-  <!--     <div class="music-controls"> -->
-  <!--          <button class="control-button" id="mute"> -->
-  <!-- 	     <img src="./whiteUnmute.svg" alt="Mute"  width="24" height="24"> -->
-  <!-- 	   </button>						      -->
-  <!--           <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="1"> -->
-  <!--       </div> -->
-  <!-- </div> -->
-
     <div class="matrix-text" id="textNearObject"></div>
   </div>
   <div class="menu">
@@ -454,8 +482,7 @@ button {
 	    <a href="https://ffm.to/sketchesofthemoon" style="color: #A00A;">Listen here</a></h2>
         </div>
     </div>
-</div>
-
+  </div>
     <script type="module" src="./dist/main.js">
     </script>
     <!-- mailchimp stuff -->

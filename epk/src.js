@@ -3,6 +3,9 @@ import { GLTFLoader }      from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { EffectComposer }  from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass }      from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { GlitchPass }      from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { FontLoader }      from 'three/examples/jsm/loaders/FontLoader.js';
+import { TextGeometry }    from 'three/examples/jsm/geometries/TextGeometry.js';
 
 const bgcolor = new THREE.Color( 0x101010 );
 var scene = new THREE.Scene();
@@ -46,7 +49,7 @@ var descriptions = {
     "raf_opt": ["Player: Raf", "Weapon: Guitar", "Warning! VERY LOUD!", "Special ability: Brain hemorrage"],
     "fede_opt": ["Player: Fede", "Weapon: Drums", "Very FAST", "Makes a very good risotto, miam miam miam"],
     "marti_opt": ["Player: Martin", "Weapon: Synthesizer", "Mumbles a lot... What is he saying?"],
-    "fardi_opt": ["Player: Farhad", "Weapon: Microcosm", "Special ability: hang on, let me do the Johnny Greenwood thing"]
+    "fardi_opt": ["Unknown Player", "Traces scattered", "across the Microcosm"]
 }
 
 // Particle system setup
@@ -180,6 +183,12 @@ bloomPass.strength = 2;
 bloomPass.radius = 0.03;
 composer.addPass(bloomPass); 
 
+// Add glitch pass
+const glitchPass = new GlitchPass();
+glitchPass.enabled = false; // Start disabled
+composer.addPass(glitchPass);
+
+
 // Gradual fade-in animation
 var fadeInDuration = 5000; // milliseconds
 var startTimestamp = null;
@@ -241,8 +250,39 @@ const animate = function () {
 	    model.rotation.y += 0.01;
 	}   
     }
+
+  // Occasionally enable glitch effect
+  if (Math.random() < 0.02 && currentModelIndex == 3) {  // ~1% chance each frame
+    glitchPass.enabled = true;
+
+    // Disable after a short time
+    setTimeout(() => {
+      glitchPass.enabled = false;
+    }, 200); // glitch lasts 200 ms
+  }
     composer.render();	
 }
+
+// Load a font (Three.js uses JSON font files)
+const floader = new FontLoader();
+let textMesh;
+floader.load('./helvetiker_bold.typeface.json', function (font) {
+    
+    const textGeometry = new TextGeometry('?', {
+	font: font,
+	size: 1,         // size of the text
+	height: 0.2,     // thickness
+	curveSegments: 12,
+	bevelEnabled: false
+    });
+    
+    const textMaterial = new THREE.MeshBasicMaterial({ color: 0x5f5f5f });
+    textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    
+    // Position the text above your model
+    textMesh.position.set(0, 0, 0);  // adjust based on your model size
+})
+
 var loader = new GLTFLoader();
 //const dracoLoader = new DRACOLoader();
 //loader.setDRACOLoader( dracoLoader );
@@ -251,6 +291,7 @@ function loadModel(modelPath, add) {
     loading = true;
     return new Promise((resolve) => {
 	scene.remove(model);
+	scene.remove(textMesh);
 	clearTimeout(timeoutId);
 	document.getElementById('textNearObject').innerText = "Loading..."
         loader.load(modelPath, function (gltf) {
@@ -258,7 +299,18 @@ function loadModel(modelPath, add) {
 	    if (add) {  
 		var modelName = modelPath.split('/').pop().split('.')[0];
 		var scaleFactor = window.innerWidth <= 600 ? 0.8 : 1;
-		model.scale.set(scaleFactor * sizes[modelName], scaleFactor * sizes[modelName], scaleFactor * sizes[modelName]);  
+		model.scale.set(scaleFactor * sizes[modelName], scaleFactor * sizes[modelName], scaleFactor * sizes[modelName]);
+
+		if (modelName == "fardi_opt") {
+		    // Replace all materials with solid black
+		    model.traverse((child) => {
+			if (child.isMesh) {
+			    child.material = new THREE.MeshBasicMaterial({ color: 0x000000 });
+			}
+		    });
+pp		    scene.add(textMesh);
+	}
+		
 		scene.add(model);
 		document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
 		unveilText();
@@ -313,31 +365,9 @@ function changeModel(direction) {
     // Load and add the new model to the scene
     loadModel(models[currentModelIndex], true);
 }
-// Audio tracks
-const audioTracks = ['play_dough_smol.mp3'] //, 'Hibernated_Embrace_smol.mp3', 'eternal_afternoon_smol.mp3'];
-let currentTrackIndex = 0;
-let audioElement = new Audio(audioTracks[currentTrackIndex]);
 
-//const muteButton = document.getElementById('mute');
-let isMuted = true;
 rolldown.innerHTML = "MENU";
 rolldown.style.width = "70px";
-// var toggleMute = function(setup) {
-//     muteButton.innerHTML = isMuted ? '<img src="./whiteUnmute.svg" alt="Mute"  width="24" height="24">' : '<img src="./whiteMute.svg" alt="Unmute"  width="24" height="24">'; // Change image paths accordingly
-//     if (setup) {
-// 	audioElement.play();
-// 	isMuted = false;
-//     } else {
-//         isMuted = !isMuted;
-// 	if (!isMuted) {
-//             audioElement.play();
-//         } else {
-//             audioElement.pause();
-//         }
-//     }
-// };
-
-// muteButton.addEventListener('click', () => {toggleMute(false)});
 
 function startParticleAnimation() {
     const duration = 5000; // Animation duration in milliseconds
@@ -366,29 +396,22 @@ function startParticleAnimation() {
 }
 
 const menu = document.getElementById('menu');
+const menucontainer = document.getElementById('menucontainer');
 
-enterButton.addEventListener('click', () => {
-    // Load initial model
-    main.style.display = "flex";
-    menu.style.display = "none";
-    rolldown.innerHTML = "MENU"
-    loadModel(models[currentModelIndex], true);
-    isMuted = false;
-    animateP();
-    animate();
-});
-
-rolldown.addEventListener("click", () => {
-//    scene.remove(model);
-    //    main.style.display = "none";
+function openMenu() {
+    window.location.assign("#menu");
     rolldown.innerHTML = ""
     menu.style.display = "flex";
-    menu.style["-webkit-backdrop-filter"] = "blur(10px)";
-    menu.style["backdrop-filter"] = "blur(10px)";
-    menu.style["background-color"] = "#0001"
-//    document.body.appendChild(renderer.domElement);
-    isMuted = true;
+    menucontainer.style.display = "flex";
+    menucontainer.style["-webkit-backdrop-filter"] = "blur(10px)";
+    menucontainer.style["backdrop-filter"] = "blur(10px)";
+    menucontainer.style["background-color"] = "#0001"
+}
+
+rolldown.addEventListener("click", () => {
+    openMenu();
 });
+
 // Hotkey event listener
 window.addEventListener('keydown', function (event) {
     switch (event.key) {
@@ -435,72 +458,6 @@ window.addEventListener('resize', function () {
 });
 var visible = false;
 
-function closeRolldown() {
-    rolldown.innerHTML = "ABOUT"
-    rolldown.style.width = "70px";
-    rolldown.style.right = "10px";
-    rolldown.style["background-color"] = "#aaa"
-    visible = false;
-}
-
-function openRollDown() {
-    // Toggle the width and height to open/close the menu
-    rolldown.innerHTML = `
-<div id="close">x</div>
-<p style={font-family: 'Orbitron', sans-serif}>UPCOMING</p>
-<div id=dates>
- June 21st &mdash; Fête de la Musique, Berlin<br>
- June 28th &mdash; 48 Stunden Neukölln, Berlin<br>
-August 9th &mdash; TBA<br>
-</div>
-<p style={font-family: 'Orbitron', sans-serif}>ABOUT</p>
-<div id=abouttext>
-Atomic Fruit is an Berlin-based group with roots in Sweden, Pakistan, Italy and France formed in late 2021 after meeting at an art punk concert.
-<br>
-The four members found a shared interest in effects pedals and unconventional compositions and quickly became a popular live act in the independent music scene of Berlin.
-<br><br>
-Their debut album <i>Play Dough</i> was released in October 2023 to a sold out crowd in Schokoladen and got featured in major editorial playlists as well as airplay on Berlin radio stations.
-<br><br>
-Listen to Atomic Fruit on <a href="https://atomicfruit.bandcamp.com/" target="_blank">Bandcamp</a> or <a target="_blank" href="https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=C1mBWZGMSui7cLj8EalO1Q">Spotify</a>.<br>
-<br>
-Contact us at <a target="_blank" href='mailto:contact@atomicfruit.baby'>contact@atomicfruit.baby</a> or join our <a target="_blank" href="https://forms.gle/kaVvsspXvZXRkoZx8">mailing list</a>.
-</div>
-`
-    var ds = document.getElementById("dates");
-    var ts = document.getElementById("abouttext");
-    console.log('wtf')
-    if (window.innerWidth <= 600) {
-	rolldown.style.width = "350px";
-	rolldown.style.height = null;
-	ds.style["font-size"] = "14px";
-	ts.style["font-size"] = "14px";
-    } else {
-	rolldown.style.width = "500px";
-	rolldown.style.height = null;
-	ds.style["font-size"] = "16px";
-	ts.style["font-size"] = "16px";
-    }
-    ds.style["font-family"] = "monospace";
-    ts.style["font-family"] = "monospace";
-    rolldown.style.right = null;
-    rolldown.style.cursor = "auto";
-    rolldown.style.margin = "auto";
-    rolldown.style["-webkit-backdrop-filter"] = "blur(10px)";
-    rolldown.style["backdrop-filter"] = "blur(10px)";
-    rolldown.style["background-color"] = "#fff7"
-    visible = true;
-    document.getElementById("close").addEventListener("click", closeRolldown);
-}
-
-// Function to close menu if click occurs outside of it
-function closeMenuOutsideClick(event) {
-    if (!visible && event.target == rolldown) {
-	openRollDown();
-    } else if (visible && !rolldown.contains(event.target)) {
-	closeRolldown();
-    }
-}
-
 startParticleAnimation();
 
 
@@ -508,8 +465,30 @@ loadModel(models[currentModelIndex], true);
 animateP()
 animate();
 
-document.getElementById("live").addEventListener('click', function() {
+let liveOpen = false;
+let aboutOpen = false;
+function openLive() {
+    liveOpen = !liveOpen
+    if (liveOpen) {
+	window.location.replace("#live")
+    } else {
+	window.location.replace("#menu");
+    }	   
     document.getElementById("livelist").classList.toggle('show');
+}
+
+function openAbout() {
+    aboutOpen = !aboutOpen
+    if (aboutOpen) {
+	window.location.replace("#about")
+    } else {
+	window.location.replace("#menu");
+    }
+    document.getElementById("aboutlist").classList.toggle('show');
+}
+
+document.getElementById("live").addEventListener('click', function() {
+    openLive();
 });
 
 document.getElementById("news").addEventListener('click', function() {
@@ -520,8 +499,16 @@ document.getElementById("music").addEventListener('click', function() {
     document.getElementById("musiclist").classList.toggle('show');
 });
 
+document.getElementById("video").addEventListener('click', function() {
+    document.getElementById("videolist").classList.toggle('show');
+});
+
 document.getElementById("contact").addEventListener('click', function() {
     document.getElementById("contactlist").classList.toggle('show');
+});
+
+document.getElementById("about").addEventListener('click', function() {
+    openAbout();
 });
 
 document.getElementById("past").addEventListener('click', function() {
@@ -554,4 +541,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+function closemenu() {
+    menu.style.display = "none";
+    menucontainer.style.display = "none";
+    rolldown.innerHTML = "MENU"
+}
 
+
+// Close menu if clicking outside
+document.addEventListener("click", e => {
+    if (menu.style.display === "flex" && !menu.contains(e.target) && e.target !== rolldown) {
+	window.location.replace("#main");
+	closemenu();
+    }
+})
+			  
+// navigate to the right place based on the hash in the url:
+let loc = window.location.hash;
+console.log('loc' + loc);
+if (loc == "#menu") {
+    openMenu();
+} else if (loc == "#live") {
+    openMenu();
+    openLive();
+} else if (loc == "#about") {
+    openMenu();
+    openAbout();
+} else if (loc == "") {
+    window.location.replace("#main");
+}
+
+// Show the correct section on hash change (back/forward)
+window.addEventListener('hashchange', () => {
+    // should be the only possible option?
+    if (window.location.hash == "#main") {
+	closemenu();
+    }
+});
