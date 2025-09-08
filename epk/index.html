@@ -188,6 +188,7 @@ html, body {
       transition: max-height 0.8s ease-out; /* Animation duration and easing */
       list-style-type: none;
       max-height: 0; /* Start with no height */
+      max-width: 600px;
     }
     
     /* Animation when sublist is expanded */
@@ -245,7 +246,11 @@ display: block;
 
 button {
     margin: 20px;
-}    
+}
+
+iframe {
+    width: 448px;
+}
 
     @media (max-width: 600px) {
       #rightArrow {
@@ -270,6 +275,12 @@ button {
       }
       .expandable.expanded .sublist {
 	font-size: 14px;
+      }
+      iframe {
+	  width: 300px;
+      }
+      .sublist {
+	  max-width: 300px;
       }
 
     }
@@ -339,11 +350,13 @@ button {
 	<p>
 	  <i>100% safe for human consumption</i> <br>
 	  <br>
-	  Berlin-based Atomic Fruit combines dreamy, psychedelic <br>
-	  rock with electronic beats and immersive soundscapes. <br>
-	  With members from Sweden, France and Italy, the group <br>
-	  formed in 2021 after a serendipitous meeting at a SUUNS <br>
-	  concert and their energetic live shows quickly became a <br>
+	  <p>
+	  Berlin-based Atomic Fruit combines dreamy, psychedelic
+	  rock with electronic beats and immersive soundscapes.
+	  <br>
+	  With members from Sweden, France and Italy, the group
+	  formed in 2021 after a serendipitous meeting at a SUUNS
+	  concert and their energetic live shows quickly became a
 	  frequent spectacle in the Berlin underground scene.
 	  </p>
       </ul>
@@ -357,9 +370,9 @@ button {
 
 	         <div class="menuitem" id="video">V I D E O S</div>
 		 <ul class="sublist" id="videolist">
-		   <iframe width="448" height="252" src="https://www.youtube.com/embed/aY3swW4wtF8?si=ix6x0X_ePuvFInT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
-		   <iframe width="448" height="252" src="https://www.youtube.com/embed/tkNWv5Q4P6o?si=EVgblhrXVed2DJ4_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
-		   		   <iframe width="448" height="252" src="https://www.youtube.com/embed/9rTrR52CYsM?si=KwdSsgZdSp10QX3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+		   <iframe src="https://www.youtube.com/embed/aY3swW4wtF8?si=ix6x0X_ePuvFInT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+		   <iframe src="https://www.youtube.com/embed/tkNWv5Q4P6o?si=EVgblhrXVed2DJ4_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+		   		   <iframe src="https://www.youtube.com/embed/9rTrR52CYsM?si=KwdSsgZdSp10QX3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
 
 		   
 	</ul>
