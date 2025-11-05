@@ -9,6 +9,7 @@ import { TextGeometry }    from 'three/examples/jsm/geometries/TextGeometry.js';
 
 const bgcolor = new THREE.Color( 0x101010 );
 var scene = new THREE.Scene();
+const clock = new THREE.Clock();
 scene.background = bgcolor;
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const enterButton = document.getElementById('enter');
@@ -59,7 +60,8 @@ scene.add(particlesA);
 // Particle material
 const particleMaterialA = new THREE.PointsMaterial({ color: 0x00ff00, size: 0.01 });
 
-
+// score system
+let score = 0;
 
 leftArrow.addEventListener('click', function () {
     changeModel(-1);
@@ -100,12 +102,71 @@ var handleInteraction = function(event) {
         previousMouseY = y;
     }
 }
-
+let currentTimestamp = 0;
+let lastTimeSpun = 0;
+let multiplier = 1;
+let timeoutid = 0;
 var endInteraction = function() {
     isMouseDown = false;
     // Add inertia to keep spinning after releasing the mouse
     inertiaX = deltaX * 0.01;
     inertiaY = deltaY * 0.01;
+    let velocity = Math.sqrt(inertiaX * inertiaX + inertiaY * inertiaY);
+    if (velocity > 0) {
+	let multText = "";
+	if (currentTimestamp - lastTimeSpun > 1000) {
+	    multiplier = 1;
+	} else {
+	    multiplier = multiplier + 1;
+	    multText = multiplier.toString() + "X COMBO!\n"
+	}
+	lastTimeSpun = currentTimestamp;
+	let spinScore = Math.round(multiplier * velocity * 100)
+	score = score + spinScore;
+	let scoreDiv = document.getElementById('scoreText');
+	scoreDiv.style.opacity = 1;
+	scoreDiv.style.top = (Math.round(Math.random() * 50) + 20).toString() + "%";
+	scoreDiv.style.left = (Math.round(Math.random() * 20) + 50).toString() + "%";
+	if (multiplier < 5) {
+	    scoreDiv.style.color = "#00FFFF";
+	    scoreDiv.style["font-size"] = "16px";
+	} else {
+	    if (multiplier < 10) {
+		scoreDiv.style.color = "#FFFF00";
+		scoreDiv.style["font-size"] = "18px";
+	    } else {
+		scoreDiv.style.color = "#FF0000";
+		scoreDiv.style["font-size"] = (10 + multiplier).toString() + "px";
+	    }
+	}
+	scoreDiv.innerHTML = multText + "<p style='color:#00FFFF;'>" + "+ " + spinScore.toString() + "</p>";
+	// Stay visible 2s, then fade out
+	clearTimeout(timeoutid);
+	timeoutid = setTimeout(() => {
+	    scoreDiv.style.opacity = 0;
+	}, 1500); // 1s fade-in + 2s visible
+	let highscoreDiv = document.getElementById('highscoreText');
+	highscoreDiv.style.opacity = 1;
+	let oldScore = score - spinScore;
+	let priceText = ""
+	if (score > 50000) {
+	    priceText = "<a href='#' id='openPopup' style='color: blue; cursor: pointer;'>DISCOUNT UNLOCKED!</a><br>";
+	}
+	highscoreDiv.innerHTML = priceText + "SCORE: " + oldScore.toString() + " + " + spinScore.toString();
+	setTimeout(() => {
+	    highscoreDiv.innerHTML = priceText + "SCORE: " + score.toString();
+	    let link = document.getElementById('openPopup');
+	    let popup = document.getElementById('popup');
+	    if (link !== null) {
+		link.addEventListener('click', (e) => {
+		    e.preventDefault(); // prevents page jump / reload
+		    popup.style.display = 'block';
+		    popup.style.opacity = '100%';
+		});
+	    }
+	}, 1500);
+	
+    }
 }
 // Event listeners for mouse and touch interaction
 renderer.domElement.addEventListener('mousedown', startInteraction);
@@ -187,21 +248,56 @@ composer.addPass(bloomPass);
 const glitchPass = new GlitchPass();
 glitchPass.enabled = false; // Start disabled
 composer.addPass(glitchPass);
+/*
+// Load a font (Three.js uses JSON font files)
+const floader = new FontLoader();
+let textMesh;
+let scoreTextMesh;
+let scoreTextMesh2;
+floader.load('./helvetiker_bold.typeface.json', function (font) {
+    
+    const textGeometry = new TextGeometry('?', {
+	font: font,
+	size: 1,         // size of the text
+	height: 0.2,     // thickness
+	curveSegments: 12,
+	bevelEnabled: false
+    });
+    
+    const textMaterial = new THREE.MeshBasicMaterial({ color: 0x5f5f5f });
+    textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
+        
+    scoreTextMesh = new THREE.Mesh(textGeometry, textMaterial);
+    scoreTextMesh2 = new THREE.Mesh(textGeometry, textMaterial);
+    // Position the text above your model
+    textMesh.position.set(0, 0, 0);  // adjust based on your model size
+
+    // Position the text on top of the model
+    scoreTextMesh.position.set(0.5, 0.2, 0);
+
+    scoreTextMesh.material.transparent = true;
+    scoreTextMesh.material.opacity = 1;
+    // Position the text in the upper right corner
+    scoreTextMesh2.position.set(2, 0, 0);  // adjust based on your model size
+})
+*/
 
 // Gradual fade-in animation
 var fadeInDuration = 5000; // milliseconds
+var fadeOutDuration = 2000; // milliseconds
 var startTimestamp = null;
 
 var animateP = function (timestamp) {
     if (!startTimestamp) startTimestamp = timestamp;
+    currentTimestamp = timestamp;
 
     // Calculate elapsed time
     var elapsed = timestamp - startTimestamp;
     
     // Update opacity based on elapsed time
     particleMaterial.opacity = Math.min(1, elapsed / fadeInDuration);
-
+    
     requestAnimationFrame(animateP);
     const positions = particleGeometry.attributes.position.array;
     for (let i = 0; i < positions.length; i += 3) {
@@ -220,11 +316,30 @@ var animateP = function (timestamp) {
 };
 
 
-// Add arrows
+// Add score text
+var scoreTextObject = createMatrixText('scoreText');
+main.appendChild(scoreTextObject);
+
+// Add score text
+var highscoreTextObject = createMatrixText('highscoreText');
+main.appendChild(highscoreTextObject);
+
+// Add nudging text
+var encourageTextObject = createMatrixText('encourageText');
+main.appendChild(encourageTextObject);
 
 // Add Matrix-style text
 var textNearObject = createMatrixText('textNearObject');
 main.appendChild(textNearObject);
+
+// Add spin to win if no score after 5s
+setTimeout(() => {
+    if (score < 1) {
+	encourageTextObject.innerHTML =
+	    "<span id='marqueeText'style='display: inline-block;padding-left: 100%;animation: marquee 4s linear infinite;'>SPIN TO WIN</span>";
+    }
+}, 10000);
+
 
 // Add a directional light
 var light = new THREE.DirectionalLight(0xffffff);
@@ -263,26 +378,6 @@ const animate = function () {
     composer.render();	
 }
 
-// Load a font (Three.js uses JSON font files)
-const floader = new FontLoader();
-let textMesh;
-floader.load('./helvetiker_bold.typeface.json', function (font) {
-    
-    const textGeometry = new TextGeometry('?', {
-	font: font,
-	size: 1,         // size of the text
-	height: 0.2,     // thickness
-	curveSegments: 12,
-	bevelEnabled: false
-    });
-    
-    const textMaterial = new THREE.MeshBasicMaterial({ color: 0x5f5f5f });
-    textMesh = new THREE.Mesh(textGeometry, textMaterial);
-    
-    // Position the text above your model
-    textMesh.position.set(0, 0, 0);  // adjust based on your model size
-})
-
 var loader = new GLTFLoader();
 //const dracoLoader = new DRACOLoader();
 //loader.setDRACOLoader( dracoLoader );
@@ -291,7 +386,7 @@ function loadModel(modelPath, add) {
     loading = true;
     return new Promise((resolve) => {
 	scene.remove(model);
-	scene.remove(textMesh);
+//	scene.remove(textMesh);
 	clearTimeout(timeoutId);
 	document.getElementById('textNearObject').innerText = "Loading..."
         loader.load(modelPath, function (gltf) {
@@ -308,7 +403,7 @@ function loadModel(modelPath, add) {
 			    child.material = new THREE.MeshBasicMaterial({ color: 0x000000 });
 			}
 		    });
-pp		    scene.add(textMesh);
+//		    scene.add(textMesh);
 	}
 		
 		scene.add(model);
@@ -429,7 +524,6 @@ window.addEventListener('keydown', function (event) {
         break;
         // Add more cases for additional hotkeys
     case ' ':
-	toggleMute();
 	break;
     }
 })
@@ -531,13 +625,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // setTimeout(() => {
-    // 	console.log("opening the popup");
-    // 	popup.style.display = 'block';
-    //     setTimeout(() => {
-    //         popup.classList.add('show');
-    //     }, 10); // 
-    // }, "2000");
 
 });
 
@@ -578,3 +665,11 @@ window.addEventListener('hashchange', () => {
 	closemenu();
     }
 });
+
+//avoid resizing the window on mobile
+function setVh() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('resize', setVh);
+setVh();

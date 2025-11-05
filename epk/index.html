@@ -127,6 +127,40 @@ html, body {
     top: 20%;
   }
 
+   #scoreText {
+    left: 50%;
+    top: 20%;
+    color: #00FFFF;
+    font-family: 'Orbitron', sans-serif;
+    transition: opacity 1s ease;
+    font-size: 16px;
+  }
+
+   #highscoreText {
+    left: 5%;
+	top: 95%;
+	color: #00FFFF;
+	font-family: 'Orbitron', sans-serif;
+    transition: opacity 1s ease;
+    font-size: 18px;
+  }
+
+	#encourageText {
+	left: 50%;
+	top: 95%;
+	color: #00FF00;
+	font-family: 'Matrix', sans-serif;
+	font-size: 16px;
+	width: 140px;
+	overflow: hidden;
+	white-space: nowrap;
+	}
+
+	@keyframes marquee {
+	from { transform: translateX(0); }
+	to { transform: translateX(-100%); }
+	}
+
 .orbitron-normal {
     font-family: "Orbitron", sans-serif;
     font-optical-sizing: auto;
@@ -205,11 +239,10 @@ html, body {
     display: none;
     position: fixed;
     left: 50%;
-    opacity: 0%;
+    opacity: 100%;
     transition: opacity 2s ease-in, transform 0.3s ease-in; /* Smooth transition */
     top: 50%;
     transform: translate(-50%, -50%) scale(0.9);;
-    background-image: url("./sketches_cover_small.png");
     background-size: 300px;
     width: 300px;
     height: 300px;
@@ -348,7 +381,7 @@ iframe {
 	<br>11.12.25 Orso Bianco, San Piero In Bagno
 	<br>12.12.25 Imbarchino, Torino
 	<br>13.12.25 Arci Orchidea, Santa Margherita Ligure
-	<br>05.02.26 Pitcher, Düsseldorf feat. Digital Carbs
+	<br>05.02.26 <a href="https://t.rausgegangen.de/tickets/digital-carbs-atomic-fruit-2">Pitcher, Düsseldorf feat. Digital Carbs</a>
 	<br>07.02.26 <a href="https://rausgegangen.de/en/events/digital-carbs-6/">Ponyhof, Frankfurt am Mainz feat. Digital Carbs</a>
 	<br>02.21.26 TBA, Berlin
 	<br>02.03.26 <a href="https://rausgegangen.de/en/events/digital-carbs-atomic-fruits-heimat-regensburg-0/">Heimat, Regensburg feat. Digital Carbs</a>
@@ -424,15 +457,16 @@ iframe {
   </div>
   <div id="MAIN">
     <div id="rollDownButton" className="rd">LOADING...</div>
-			    <iframe id="bcembed" style="border: 0; width: 200px; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3482540859/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="https://atomicfruit.bandcamp.com/album/sketches-of-the-moon">Sketches of the Moon by Atomic Fruit</a></iframe>
+			    <iframe id="bcembed" style="border: 0; width: 250px; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3482540859/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="https://atomicfruit.bandcamp.com/album/sketches-of-the-moon">Sketches of the Moon by Atomic Fruit</a></iframe>
     <div class="matrix-text" id="textNearObject"></div>
   </div>
   <div class="menu">
     <div id="popup" class="popup">
       <div id="closePopup">&times;</div>
         <div class="popup-content">
-            <h2 id="popuptext">SKETCHES is out!<br>
-	    <a href="https://ffm.to/sketchesofthemoon" style="color: #A00A;">Listen here</a></h2>
+          <h2 id="popuptext">SPECTACULAR SPINNING! <br>
+	    <p>Use this code for 10% off: superspinner3000</p>
+	    <a href="https://atomicfruit.bandcamp.com" style="color: #A00A;">Bandcamp shop</a></h2>
         </div>
     </div>
   </div>
