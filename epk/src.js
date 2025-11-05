@@ -113,6 +113,7 @@ var endInteraction = function() {
     inertiaY = deltaY * 0.01;
     let velocity = Math.sqrt(inertiaX * inertiaX + inertiaY * inertiaY);
     if (velocity > 0) {
+	document.getElementById('textNearObject').innerText = ""
 	let multText = "";
 	if (currentTimestamp - lastTimeSpun > 1000) {
 	    multiplier = 1;
@@ -126,7 +127,7 @@ var endInteraction = function() {
 	let scoreDiv = document.getElementById('scoreText');
 	scoreDiv.style.opacity = 1;
 	scoreDiv.style.top = (Math.round(Math.random() * 50) + 20).toString() + "%";
-	scoreDiv.style.left = (Math.round(Math.random() * 20) + 50).toString() + "%";
+	scoreDiv.style.left = (Math.round(Math.random() * 20) + 30).toString() + "%";
 	if (multiplier < 5) {
 	    scoreDiv.style.color = "#00FFFF";
 	    scoreDiv.style["font-size"] = "16px";
@@ -139,12 +140,36 @@ var endInteraction = function() {
 		scoreDiv.style["font-size"] = (10 + multiplier).toString() + "px";
 	    }
 	}
-	scoreDiv.innerHTML = multText + "<p style='color:#00FFFF;'>" + "+ " + spinScore.toString() + "</p>";
-	// Stay visible 2s, then fade out
 	clearTimeout(timeoutid);
-	timeoutid = setTimeout(() => {
-	    scoreDiv.style.opacity = 0;
-	}, 1500); // 1s fade-in + 2s visible
+	let value = 0;
+	const target = spinScore
+	const step = 1;   // how much to add each tick
+	const delay = 10;   // ms per update
+	
+	const el = scoreDiv;
+	
+	const interval = setInterval(() => {
+	    value += step;
+	    el.innerHTML = multText + "<p style='color:#00FFFF;'>" + "+ " + value.toString() + "</p>";
+	    
+	    if (value >= target) {
+		clearInterval(interval);
+		el.innerHTML = multText + "<p style='color:#00FFFF;'>" + "+ " + spinScore.toString() + "</p>";
+		// When done, trigger pop animation
+		el.style.transform = 'scale(1.3)';
+		setTimeout(() => {
+		    el.style.transform = 'scale(1.1)';
+		}, 150);
+		// Stay visible 2s, then fade out
+		timeoutid = setTimeout(() => {
+		    scoreDiv.style.opacity = 0;
+		}, 1500); // 1s fade-in + 2s visible
+		
+	    }
+	}, delay);
+	
+//	scoreDiv.innerHTML = multText 
+
 	let highscoreDiv = document.getElementById('highscoreText');
 	highscoreDiv.style.opacity = 1;
 	let oldScore = score - spinScore;
@@ -248,40 +273,6 @@ composer.addPass(bloomPass);
 const glitchPass = new GlitchPass();
 glitchPass.enabled = false; // Start disabled
 composer.addPass(glitchPass);
-/*
-// Load a font (Three.js uses JSON font files)
-const floader = new FontLoader();
-let textMesh;
-let scoreTextMesh;
-let scoreTextMesh2;
-floader.load('./helvetiker_bold.typeface.json', function (font) {
-    
-    const textGeometry = new TextGeometry('?', {
-	font: font,
-	size: 1,         // size of the text
-	height: 0.2,     // thickness
-	curveSegments: 12,
-	bevelEnabled: false
-    });
-    
-    const textMaterial = new THREE.MeshBasicMaterial({ color: 0x5f5f5f });
-    textMesh = new THREE.Mesh(textGeometry, textMaterial);
-
-        
-    scoreTextMesh = new THREE.Mesh(textGeometry, textMaterial);
-    scoreTextMesh2 = new THREE.Mesh(textGeometry, textMaterial);
-    // Position the text above your model
-    textMesh.position.set(0, 0, 0);  // adjust based on your model size
-
-    // Position the text on top of the model
-    scoreTextMesh.position.set(0.5, 0.2, 0);
-
-    scoreTextMesh.material.transparent = true;
-    scoreTextMesh.material.opacity = 1;
-    // Position the text in the upper right corner
-    scoreTextMesh2.position.set(2, 0, 0);  // adjust based on your model size
-})
-*/
 
 // Gradual fade-in animation
 var fadeInDuration = 5000; // milliseconds
@@ -332,7 +323,7 @@ main.appendChild(encourageTextObject);
 var textNearObject = createMatrixText('textNearObject');
 main.appendChild(textNearObject);
 
-// Add spin to win if no score after 5s
+// Add spin to win if no score after 10s
 setTimeout(() => {
     if (score < 1) {
 	encourageTextObject.innerHTML =
@@ -403,8 +394,7 @@ function loadModel(modelPath, add) {
 			    child.material = new THREE.MeshBasicMaterial({ color: 0x000000 });
 			}
 		    });
-//		    scene.add(textMesh);
-	}
+		}
 		
 		scene.add(model);
 		document.getElementById('textNearObject').innerText = descriptions[modelName].join('^');
