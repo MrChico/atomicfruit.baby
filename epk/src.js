@@ -571,6 +571,26 @@ function openAbout() {
     document.getElementById("aboutlist").classList.toggle('show');
 }
 
+document.querySelectorAll('.menuitem').forEach(function(item) {
+    item.addEventListener('click', function() {
+        // Get the associated sublist
+        let sublist = item.nextElementSibling;
+        
+        // Check if it's an actual sublist
+        if (sublist && sublist.classList.contains('sublist')) {
+            // Close all sublists
+            document.querySelectorAll('.sublist').forEach(function(sub) {
+		if (sub != sublist) {
+                    sub.classList.remove('show');
+		}
+            });
+            // Toggle the current sublist's visibility
+            sublist.classList.toggle('show');
+        }
+    });
+});
+
+/*
 document.getElementById("live").addEventListener('click', function() {
     openLive();
 });
@@ -594,11 +614,10 @@ document.getElementById("contact").addEventListener('click', function() {
 document.getElementById("about").addEventListener('click', function() {
     openAbout();
 });
-
+*/
 document.getElementById("past").addEventListener('click', function() {
     document.getElementById("pastlist").classList.toggle('show');
 });
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const closePopupButton = document.getElementById('closePopup');
