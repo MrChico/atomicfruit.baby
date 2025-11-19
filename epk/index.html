@@ -317,9 +317,12 @@ iframe {
 	  max-width: 300px;
       }
 
-    }
+	}
 
-    
+	#gbform {
+	transform: translateX(-10%);
+	  width: 120%;
+	}
     </style>
   </head>
   <body>
@@ -421,8 +424,6 @@ iframe {
 
 		   
 	</ul>
-
-	    <div class="menuitem" id="shop"  onclick="window.open('https://atomicfruit.bandcamp.com/merch')">S H O P</div>
 <div class="menuitem" id="news">N E W S</div>
 <ul class="sublist" id="newslist">
     <form action="https://gmail.us14.list-manage.com/subscribe/post?u=fa60c500a961e80b268cc2047&amp;id=10e61fad77&amp;f_id=00548be0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
@@ -447,6 +448,44 @@ iframe {
     </div>
 </form>
 </ul>
+      <div class="menuitem" id="live">G U E S T B O O K</div>
+      <div class="sublist" id="guestlist">
+	<div id="messages"></div>
+<!-- CSV parser -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<script>
+async function loadMessages() {
+  Papa.parse("messages.csv", {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      const container = document.getElementById("messages");
+
+      results.data.forEach(row => {
+        const div = document.createElement("div");
+        div.style.marginBottom = "10px";
+
+        div.innerHTML = `
+          <strong>${row.Timestamp.slice(0,10)}</strong><br>
+          ${row.Message}<br>
+	  <em>- ${row.Name}</em> 
+        `;
+
+        container.appendChild(div);
+      });
+    }
+  });
+}
+
+loadMessages();
+</script>
+<div id="gbform" data-customgform="cmi618y1c00l9wnijxyzqggfw"></div>
+
+<script async src="https://cdn.customgform.com/cgf.js"></script>
+      </div>
+
      <div class="menuitem" id="contact">C O N T A C T</div>
      <ul class="sublist" id="contactlist">
 	      <p class="clickable" onclick="window.open('mailto:management@atomicfruit.baby')">management@atomicfruit.baby</p>
@@ -481,3 +520,17 @@ iframe {
     <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </body>
 </html>
+<style>
+  
+	.cgf-theme-base {
+	 padding: 0em;
+	}
+
+	.cgf__container {
+	 padding: 0em;
+	}
+
+	
+
+    
+</style>
