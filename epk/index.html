@@ -220,9 +220,8 @@ html, body {
     .sublist {
       display: none;
       transition: max-height 0.8s ease-out; /* Animation duration and easing */
-      list-style-type: none;
-      max-height: 0; /* Start with no height */
-      max-width: 600px;
+      overflow: scroll;
+      max-height: 450px;	
     }
     
     /* Animation when sublist is expanded */
@@ -232,7 +231,6 @@ html, body {
 	list-style-type: none;
 	font-family: monospace;
 	padding: 0px;
-      max-height: 900px; /* Adjust the maximum height as needed */
     }
 
 .popup {
@@ -412,7 +410,10 @@ iframe {
 		<p class="clickable" onclick="window.open('https://atomicfruit.bandcamp.com/')">Bandcamp</p>
 		<p class="clickable" onclick="window.open('https://open.spotify.com/artist/3uuRFQ0o6Iqa8mXe0gNjeB?si=Eiuqt2NHRR6wNGjDrnpa1w')">Spotify</p>
 		<p class="clickable" onclick="window.open('https://music.apple.com/us/artist/atomic-fruit/1704142936')">Apple Music</p>
+		<p class="clickable" onclick="window.open('https://tidal.com/artist/42146316')">Tidal</p>
+		<p class="clickable" onclick="window.open('https://tidal.com/artist/41555924')">Tidal 2</p>
 		<p class="clickable" onclick="window.open('https://music.youtube.com/channel/UCUwvBfKqd0QvoACMWLcfYtw')">Youtube Music</p>
+		<p class="clickable" onclick="window.open('https://www.deezer.com/us/artist/226975145')">Deezer</p>
 	</ul>
 
 	         <div class="menuitem" id="video">V I D E O S</div>
