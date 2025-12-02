@@ -175,7 +175,7 @@ var endInteraction = function() {
 	let oldScore = score - spinScore;
 	let priceText = ""
 	if (score > 50000) {
-	    priceText = "<a href='#' id='openPopup' style='color: blue; cursor: pointer;'>DISCOUNT UNLOCKED!</a><br>";
+	    priceText = "<a href='#' id='openPopup' style='color: yellow; cursor: pointer;'>DISCOUNT UNLOCKED!</a><br>";
 	}
 	highscoreDiv.innerHTML = priceText + "SCORE: " + oldScore.toString() + " + " + spinScore.toString();
 	setTimeout(() => {
