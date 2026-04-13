@@ -379,10 +379,10 @@ iframe {
 	<br>21.02.26 <a href="https://schokoladen.tickettoaster.de/produkte/91321-tickets-atomic-lobster-grunge-alternative-schokoladen-berlin-am-21-02-2026">Schokoladen, Berlin feat. Atomic Lobster</a>
 	<br>02.03.26 <a href="https://rausgegangen.de/en/events/digital-carbs-atomic-fruits-heimat-regensburg-0/">Heimat, Regensburg feat. Digital Carbs</a>
 	<br>03.03.26 <a href="https://www.tixforgigs.com/Event/68572">Ostpol, Dresden feat. Digital Carbs</a>
-	
+	<br>04.04.26 <a href="https://billetto.se/e/atomic-fruit-biljetter-1875539">Gamla Enskede Bryggeri, Stockholm</a>	
 	</p><br>
 	UPCOMING
-	<br>04.04.26 <a href="https://billetto.se/e/atomic-fruit-biljetter-1875539">Gamla Enskede Bryggeri, Stockholm</a>
+	<br>10.05.26 TBA, Berlin
       </div>
       <div class="menuitem" id="about">A B O U T</div>
       <ul class="sublist" id="aboutlist">
@@ -412,35 +412,26 @@ iframe {
 
 	         <div class="menuitem" id="video">V I D E O S</div>
 		 <ul class="sublist" id="videolist">
+ 
 		   <iframe src="https://www.youtube.com/embed/sILENFuAdcg?si=SE43UyeTjzjmbs3e" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
-		   <iframe src="https://www.youtube.com/embed/aY3swW4wtF8?si=ix6x0X_ePuvFInT6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
-		   		   <iframe src="https://www.youtube.com/embed/9rTrR52CYsM?si=KwdSsgZdSp10QX3A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+		   <iframe src="https://www.youtube.com/embed/5ieiIYQKDfY?si=lujbyAYCZY9KJq9n" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+   		   <iframe src="https://www.youtube.com/embed/qrYx2bgbcFE?si=TG9En-bCjQka6-84" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
 
 		   
 	</ul>
 <div class="menuitem" id="news">N E W S</div>
 <ul class="sublist" id="newslist">
-    <form action="https://gmail.us14.list-manage.com/subscribe/post?u=fa60c500a961e80b268cc2047&amp;id=10e61fad77&amp;f_id=00548be0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-        <div id="mc_embed_signup_scroll"><h3>Atomic Fruit Newsletter</h3>
-            <div class="indicates-required"><span class="asterisk"></span>Email Address</div>
-            <div class="mc-field-group"><label for="mce-EMAIL"></label><input type="email" name="EMAIL" class=" email" id="mce-EMAIL" value=""></div>
-        <div id="mce-responses" class="clear foot">
-            <div class="response" id="mce-error-response" style="display: none;"></div>
-            <div class="response" id="mce-success-response" style="display: none;"></div>
-        </div>
-    <div style="position: absolute; left: -5000px;" aria-hidden="true">
-        /* real people should not fill this in and expect good things - do not remove this or risk form bot signups */
-        <input type="text" name="b_fa60c500a961e80b268cc2047_10e61fad77" tabindex="-1" value="">
-    </div>
-        <div class="optionalParent">
-            <div class="clear foot">
-                <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
-                <p style="margin: 0px auto;"><a href="http://eepurl.com/iZEQzg" title="Mailchimp - email marketing made easy and fun"><span style="display: inline-block; background-color: transparent; border-radius: 4px;">
-		      </span></a></p>
-            </div>
-        </div>
-    </div>
-</form>
+
+<div id="mailchimp"></div>
+
+<script>
+fetch("mailchimp.html")
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("mailchimp").innerHTML = data;
+  });
+</script>
+  
 </ul>
       <div class="menuitem" id="live">G U E S T B O O K</div>
       <div class="sublist" id="guestlist">
